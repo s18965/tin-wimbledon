@@ -1,0 +1,81 @@
+<%- include('../../fragments/header.ejs') %>
+    <main>
+        <h2>Lista meczy</h2>
+	<table id="mecze" class="table-list">
+    		<thead>
+    		<tr>
+			<th>Id</th>
+        		<th>Zawodnik</th>
+        		<th>Rywal</th>
+        		<th>Data</th>
+        		<th>Wynik</th>
+			<th>Akcje</th>
+    		</tr>
+		</thead>
+		<tbody>
+    <tr>
+	<td>1</td>    
+        <td>Iga Swiatek</td>
+        <td>Naomi Osaka</td>
+        <td>20.10.2020</td>
+	<td>6:2 3:6 6:1</td>
+
+        <td>
+            <ul class="list-actions" >
+                <li>
+       		    <a href="mecz-szczegoly.html">
+			<img border="0" alt="details" src="../images/details.png" width="20" height="20">
+			</a>               
+		</li>
+		 <li>
+       		    <a href="mecz-szczegoly-edit.html">
+			<img border="0" alt="details" src="../images/edit.png" width="20" height="20">
+			</a>               
+		</li>
+
+		 <li>
+       		    <a href="mecz-szczegoly-delete.html">
+			<img border="0" alt="details" src="../images/delete.png" width="20" height="20">
+			</a>               
+		</li>
+            </ul>
+        </td>
+    </tr>
+     <tr>
+	<td>1</td>    
+        <td>Iga Swiatek</td>
+        <td>Serena Williams</td>
+        <td>31.10.2020</td>
+	<td>1:4 6:3 6:1</td>
+
+        <td>
+            <ul class="list-actions" >
+                 <li>
+       		    <a href="mecz-szczegoly.html">
+			<img border="0" alt="details" src="../images/details.png" width="20" height="20">
+			</a>               
+		</li>
+		 <li>
+       		    <a href="mecz-szczegoly-edit.html">
+			<img border="0" alt="details" src="../images/edit.png" width="20" height="20">
+			</a>               
+		</li>
+
+		 <li>
+       		    <a href="mecz-szczegoly-delete.html">
+			<img border="0" alt="details" src="../images/delete.png" width="20" height="20">
+			</a>               
+		</li>
+            </ul>
+        </td>
+    </tr>
+
+    <!-- Tu wstaw dodatkowe wiersze -->
+</tbody>
+	</table>
+<p><a class="button-add" href="mecz-nowy.html">Dodaj nowy mecz</a></p>
+    </main>
+    <%- include('../../fragments/footer.ejs') %>
+
+
+

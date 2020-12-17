@@ -1,0 +1,91 @@
+<%- include('../../fragments/header.ejs') %>
+    <main>
+        <h2>Mecz - szczegóły</h2>
+	<form class="form">
+<label for="zawodnik1">Zawodnik:<abbr title="required" aria-label="required">*</abbr></label>
+	<input type="text" name="zawodnik1" value="Iga Swiatek" id="zawodnik1" disabled />
+	<span></span>
+
+	<label for="zawodnik2">Rywal:<abbr title="required" aria-label="required">*</abbr></label>
+	<input type="text" name="zawodnik2" value="Naomi Osaka" id="zawodnik2" disabled />
+	<span></span>
+
+	<label for="date">Data:<abbr title="required" aria-label="required">*</abbr></label>
+	<input type="text" name="date" value="2020-05-31" id="date" disabled />
+	<span></span>
+
+	<label for="kort">Kort:<abbr title="required" aria-label="required">*</abbr></label>
+	<input type="text" name="kort" value="Kort nr 4 im. Stana Smitha" id="kort" disabled />
+	<span></span>
+
+	<label for="wynik">Wynik:</label>
+	<input type="text" name="wynik" value="1:6 2:6" id="wynik" disabled />
+	<span></span>
+
+	<label for="runda">Nr rundy:<abbr title="required" aria-label="required">*</abbr></label>
+	<input type="text" name="runda" value="4" id="runda" disabled />
+	<span></span>
+
+	<label for="winner">Zwycięzca:</label>
+	<input type="text" name="winner" value="Naomi Osaka" id="winner" disabled />
+	<span></span>
+
+	</form>
+	<p> <a class="button-add" href="mecz-szczegoly-edit.html">Edytuj</a> </p>
+	  <h2>Lista zawodników</h2>
+	<table id="zawodnicy" class="table-list">
+    		<thead>
+    		<tr>
+        		<th>Imię</th>
+        		<th>Nazwisko</th>
+           		<th>Kraj pochodzenia</th>
+        		<th>Akcje</th>
+    		</tr>
+		</thead>
+		<tbody>
+    <tr>
+        <td>Iga</td>
+        <td>Świątek</td>
+	<td>Polska</td>
+        <td>
+            <ul class="list-actions" >
+                <li>
+                    <a class="list-actions-button-details" href="zawodnik-szczegoly.html">Szczegóły</a>
+                </li>
+                <li>
+                    <a class="list-actions-button-edit" href="zawodnik-szczegoly-edit.html">Edytuj</a>
+                </li>
+                <li>
+                    <a class="list-actions-button-delete" href="">Usuń</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+     <tr>
+        <td>Naomi</td>
+        <td>Osaka</td>
+   	<td>Polska</td>
+        <td>
+            <ul class="list-actions" >
+                <li>
+                    <a class="list-actions-button-details" href="zawodnik-szczegoly.html">Szczegóły</a>
+                </li>
+                <li>
+                    <a class="list-actions-button-edit" href="zawodnik-szczegoly-edit.html">Edytuj</a>
+                </li>
+                <li>
+                    <a class="list-actions-button-delete" href="">Usuń</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+
+    </tbody>
+	</table>
+	<p><a class="button-add" href="mecze.html">Powrót</a> </p>
+    </main>
+    <%- include('../../fragments/footer.ejs') %>
+
+
+
+

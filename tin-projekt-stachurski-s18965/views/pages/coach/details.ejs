@@ -1,0 +1,61 @@
+<%- include('../../fragments/header.ejs') %>
+    <main>
+        <h2>Trener - szczegóły</h2>
+	<form class="form">
+<label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
+	<input type="text" name="firstName" value="Jan" id="firstName" disabled />
+	<span></span>
+
+<label for="secondName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
+	<input type="text" name="secondName" value="Kowalski" id="secondName" disabled />
+	<span></span>
+	
+<label for="birthDate">Data urodzenia:<abbr title="required" aria-label="required">*</abbr></label>
+	<input type="text" name="birthDate" value="1991-05-31" placeholder="yyyy-mm-dd" id="birthDate" disabled />
+	<span></span>
+
+<label for="country">Kraj:</label>
+	<input type="text" name="country" value="Polska" id="country" disabled />
+</form>
+
+<p><a class="button-add"  href="trener-szczegoly-edit.html">Edytuj</a></p> 
+
+ <h2>Trenowany zawodnik</h2>
+	<table id="zawodnicy" class="table-list">
+    		<thead>
+    		<tr>
+        		<th>Imię</th>
+        		<th>Nazwisko</th>
+               		<th>Kraj pochodzenia</th>
+        		<th>Akcje</th>
+    		</tr>
+		</thead>
+		<tbody>
+    <tr>
+        <td>Iga</td>
+        <td>Świątek</td>
+	<td>Polska</td>
+        <td>
+            <ul class="list-actions" >
+                <li>
+                    <a class="list-actions-button-details" href="zawodnik-szczegoly.html">Szczegóły</a>
+                </li>
+                <li>
+                    <a class="list-actions-button-edit" href="zawodnik-szczegoly-edit.html">Edytuj</a>
+                </li>
+                <li>
+                    <a class="list-actions-button-delete" href="">Usuń</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <!-- Tu wstaw dodatkowe wiersze -->
+</tbody>
+	</table>
+
+	<p> <a class="button-add" href="trenerzy.html">Powrót</a> </p>
+    </main>
+    <%- include('../../fragments/footer.ejs') %>
+
+
+

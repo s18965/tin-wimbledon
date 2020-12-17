@@ -1,0 +1,38 @@
+<%- include('../../fragments/header.ejs') %>
+    <main>
+        <h2>Nowy zawodnik</h2>
+	<form class="form" novalidate onsubmit="return validateForm();">
+
+        <label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="firstName" id="firstName" placeholder="2-60 znaków">
+        <span id="errorFirstName" class="errors-text"></span>
+
+        <label for="secondName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="secondName" id="lastName" placeholder="2-60 znaków">
+        <span id="errorLastName" class="errors-text"></span>
+
+        <label for="date">Data urodzenia:<abbr title="required" aria-label="required">*</abbr></label></label>
+        <input type="text" name="birthDate" placeholder="yyyy-mm-dd" id="date">
+        <span id="errorDate" class="errors-text"></span>
+
+        <label for="country">Kraj:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="country" id="country" placeholder="2-60 znaków">
+        <span id="errorCountry" class="errors-text"></span>
+
+<label for="coach" >Trener:</label>
+	<select name="coach" multiple>
+		<option>Harry Karry</option>
+		<option>Barry Johnson</option>
+		<option>Hunter jones</option>
+		<option>Larry Crowdell</option>
+		<option>Brak</option>
+	</select>
+        <span></span>
+
+<div class="form-buttons">
+    <p id="errorsSummary" class="errors-text"></p>
+    <input class="form-button-submit"  type="submit" value="Dodaj" />
+    <a class="form-button-cancel" href="zawodnicy.html">Anuluj</a>  
+</div>  
+<%- include('../../fragments/footer.ejs') %>
+

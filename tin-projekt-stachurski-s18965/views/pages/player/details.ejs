@@ -1,0 +1,118 @@
+<%- include('../../fragments/header.ejs') %>
+    <main>
+        <h2>Zawodnik - szczegóły</h2>
+	<form class="form">
+
+<label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
+	<input type="text" name="firstName" value="Iga" id="firstName" disabled />
+	<span></span>
+
+<label for="secondName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
+	<input type="text" name="secondName" value="Swiatek" id="secondName" disabled />
+	<span></span>
+
+<label for="birthDate">Data urodzenia:<abbr title="required" aria-label="required">*</abbr></label>
+	<input type="text" name="birthDate" value="31.05.2001" id="birthDate" disabled/>
+	<span></span>
+
+<label for="country">Kraj:<abbr title="required" aria-label="required">*</abbr></label>
+	<input type="text" name="country" value="Polska" id="country" disabled />
+	<span></span>
+
+</form>
+
+<p><a class="button-add" href="zawodnik-szczegoly-edit.html">Edytuj</a></p>
+
+      <h2>Lista meczy zawodnika</h2>
+	<table  class="table-list">
+    		<thead>
+    		<tr>
+        		<th>Rywal</th>
+        		<th>Data</th>
+        		<th>Wynik</th>
+			<th>Akcje</th>
+    		</tr>
+		</thead>
+		<tbody>
+    <tr>   
+        <td>Naomi Osaka</td>
+        <td>20.10.2020</td>
+	<td>6:2 3:6 6:1</td>
+
+        <td>
+            <ul class="list-actions" >
+                <li>
+                    <a class="list-actions-button-details" href="mecz-szczegoly.html">Szczegóły</a>
+                </li>
+                <li>
+                    <a class="list-actions-button-edit" href="mecz-szczegoly-edit.html">Edytuj</a>
+                </li>
+                <li>
+                    <a class="list-actions-button-delete" href="">Usuń</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+     <tr>
+        <td>Serena Williams</td>
+        <td>31.10.2020</td>
+	<td>1:4 4:6 6:1</td>
+
+        <td>
+            <ul class="list-actions" >
+                <li>
+                    <a class="list-actions-button-details" href="mecz-szczegoly.html">Szczegóły</a>
+                </li>
+                <li>
+                    <a class="list-actions-button-edit" href="mecz-szczegoly-edit.html">Edytuj</a>
+                </li>
+                <li>
+                    <a class="list-actions-button-delete" href="">Usuń</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+	</table>
+
+	 <h2>Lista trenerów</h2>
+	<table id="trenerzy" class="table-list">
+    		<thead>
+    		<tr>
+        		<th>Imię</th>
+        		<th>Nazwisko</th>
+              		<th>Kraj pochodzenia</th>
+        		<th>Akcje</th>
+    		</tr>
+		</thead>
+		<tbody>
+    <tr>
+        <td>Jan</td>
+        <td>Kowalski</td>
+	<td>Polska</td>
+        <td>
+           <ul class="list-actions" >
+                <li>
+                    <a class="list-actions-button-details" href="trener-szczegoly.html">Szczegóły</a>
+                </li>
+                <li>
+                    <a class="list-actions-button-edit" href="trener-szczegoly-edit.html">Edytuj</a>
+                </li>
+                <li>
+                    <a class="list-actions-button-delete" href="">Usuń</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <!-- Tu wstaw dodatkowe wiersze -->
+</tbody>
+	</table>
+
+
+
+	<p><a class="button-add" href="zawodnicy.html">Powrót</a></p>    
+
+    </main>
+    <%- include('../../fragments/footer.ejs') %>
+
+
