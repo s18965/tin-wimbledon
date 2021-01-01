@@ -11,42 +11,21 @@
     		</tr>
 		</thead>
 		<tbody>
-    <tr>
-        <td>Jan</td>
-        <td>Kowalski</td>
-	<td id="headerCountry" >Brak danych</td>
-        <td>
-           <ul class="list-actions" >
-                <li>
-                    <a class="list-actions-button-details" href="trener-szczegoly.html">Szczegóły</a>
-                </li>
-                <li>
-                    <a class="list-actions-button-edit" href="trener-szczegoly-edit.html">Edytuj</a>
-                </li>
-                <li>
-                    <a class="list-actions-button-delete" href="">Usuń</a>
-                </li>
-            </ul>
-        </td>
-    </tr>
-   <tr>
-        <td>Kacper</td>
-        <td>Kwiatkowski</td> 
-	<td  id="Country" >Polska</td>
-        <td>
-           <ul class="list-actions" >
-                <li>
-                    <a class="list-actions-button-details" href="trener-szczegoly.html">Szczegóły</a>
-                </li>
-                <li>
-                    <a class="list-actions-button-edit" href="trener-szczegoly-edit.html">Edytuj</a>
-                </li>
-                <li>
-                    <a class="list-actions-button-delete" href="">Usuń</a>
-                </li>
-            </ul>
-        </td>
-    </tr>
+        <% for (let coach of coaches) { %>
+            <tr>
+                <td><%= coach.firstName %></td>
+                <td><%= coach.lastName %></td>
+                <td><%= coach.country %></td>
+                <td>
+                    <ul class="list-actions">
+                        <li><a href="/coaches/details/<%=coach._id%>" class="list-actions-button-details">Szczegóły</a></li>
+                        <li><a href="/coaches/edit/<%=coach._id%>" class="list-actions-button-edit">Edytuj</a></li>
+                        <li><a href="/coaches/delete/<%=coach._id%>" class="list-actions-button-delete">Usuń</a></li>
+
+                    </ul>
+                </td>
+            </tr>
+        <% } %>
 </tbody>
 	</table>
 <p><a class="button-add" href="trener-nowy.html">Dodaj nowego trenera</a></p>

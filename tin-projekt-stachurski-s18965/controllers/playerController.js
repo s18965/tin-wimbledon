@@ -1,5 +1,14 @@
+const PlayerRepository = require('../repository/mysql2/PlayerRepository');
+
 exports.showPlayerList = (req, res, next) => {
-    res.render('pages/player/list', {navLocation: 'player'});
+
+    PlayerRepository.getPlayers()
+        .then(players => {
+            res.render('pages/player/list', {
+                players: players,
+                navLocation: 'player'
+            });
+        });
 }
 
 exports.showAddPlayerForm = (req, res, next) => {

@@ -8,6 +8,9 @@ var indexRouter = require('./routes/index');
 const playerRouter = require('./routes/playerRoute');
 const coachRouter = require('./routes/coachRoute');
 const matchRouter = require('./routes/matchRoute');
+const playerApiRouter = require('./routes/api/PlayerApiRoute');
+const coachApiRouter = require('./routes/api/CoachApiRoute');
+const matchApiRouter = require('./routes/api/MatchApiRoute');
 
 var app = express();
 
@@ -25,7 +28,9 @@ app.use('/', indexRouter);
 app.use('/players', playerRouter);
 app.use('/coaches', coachRouter);
 app.use('/matches', matchRouter);
-
+app.use('/api/players', playerApiRouter);
+app.use('/api/coaches', coachApiRouter);
+app.use('/api/matches', matchApiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
