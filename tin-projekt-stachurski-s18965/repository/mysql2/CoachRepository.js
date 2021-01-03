@@ -30,6 +30,7 @@ exports.getCoachById = (coachId) => {
                 firstName: firstRow.coFN,
                 lastName: firstRow.coLN,
                 country: firstRow.co_country,
+                idPlayer: firstRow.id,
                 player: [],
             }
 

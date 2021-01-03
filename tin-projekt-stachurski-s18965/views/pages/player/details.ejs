@@ -1,17 +1,18 @@
 <%- include('../../fragments/header.ejs') %>
     <main>
-        <script type="application/javascript" src="/js/validationEmpForm.js"></script>
+        <script type="application/javascript" src="../../../public/js/validationPersonForm.js"></script>
         <h2>Zawodnik - szczegóły</h2>
 
         <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
 
-    <input type="hidden" name="id" value="<%= player.id %>">
-            <label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="hidden" name="id" value="<%= player.id %>">
+
+    <label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
     <input type="text" name="firstName" id="firstName" placeholder="2-60 znaków" value="<%= player.firstName %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
-<label for="secondName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
+        <label for="lastName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="text" name="lastName" id="lastName" placeholder="2-60 znaków" value="<%= player.lastName %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
             <span></span>
@@ -30,7 +31,7 @@
 
         <% if (formMode == 'showDetails') { %>
             <div class="section-buttons">
-                <a href="/player/edit/<%= player.id %>" class="button-add">Edytuj</a>
+                <a href="/players/edit/<%= player.id %>" class="button-add">Edytuj</a>
             </div>
         <% } %>
 

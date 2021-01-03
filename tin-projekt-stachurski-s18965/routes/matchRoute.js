@@ -7,10 +7,10 @@ const matchController = require('../controllers/matchController');
 router.get('/', matchController.showMatchList);
 router.get('/add', matchController.showAddMatchForm);
 router.get('/details/:matchId', matchController.showMatchDetails);
-router.get('/details/edit/:matchId', matchController.showEditMatchDetails);
+router.get('/edit/:matchId', matchController.showEditMatchDetails);
 
 router.post('/add', matchController.addMatch);
-router.post('/details/edit', matchController.updateMatch);
+router.post('/edit', matchController.updateMatch);
 router.get('/delete/:matchId', matchController.deleteMatch);
 
 module.exports = router;

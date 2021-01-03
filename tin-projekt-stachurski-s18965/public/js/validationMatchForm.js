@@ -1,9 +1,9 @@
 function validateForm() {
     
-const player1Input = document.getElementById('zawodnik1');
-const player2Input = document.getElementById('zawodnik2');
+const player1Input = document.getElementById('player');
+const player2Input = document.getElementById('rival');
 const dateInput = document.getElementById('date');
-const placeInput = document.getElementById('place');
+const placeInput = document.getElementById('court');
 const roundInput = document.getElementById('round');
 
 	

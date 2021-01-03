@@ -14,16 +14,13 @@ exports.showMatchList = (req, res, next) => {
 
 exports.showAddMatchForm = (req, res, next) => {
     let allPlayers;
-    let allWinners;
     PlayerRepository.getPlayers()
         .then(players => {
             allPlayers = players;
-            allWinners = players;
             res.render('pages/match/new', {
-                employment: {},
+                match: {},
                 formMode: 'createNew',
                 allPlayers: allPlayers,
-                allWinners: allWinners,
                 pageTitle: 'Nowy mecz',
                 btnLabel: 'Dodaj mecz',
                 formAction: '/matches/add',
@@ -49,19 +46,28 @@ exports.showMatchDetails = (req, res, next) => {
 
 exports.showEditMatchDetails = (req, res, next) => {
 
-    const matchId = req.params.matchId;
-    MatchRepository.getMatchById(matchId)
+        const matchId = req.params.matchId;
+        let allPlayers;
+        PlayerRepository.getPlayers()
+                .then(players => {
+                    allPlayers = players
+                    return MatchRepository.getMatchById(matchId)
+                })
+
         .then(match => {
             res.render('pages/match/details-edit', {
                 match: match,
+                allPlayers: allPlayers,
                 formMode: 'edit',
                 pageTitle: 'Edycja meczu',
                 btnLabel: 'Edytuj mecz',
-                formAction: '/players/edit',
+                formAction: '/matches/edit',
                 navLocation: 'match'
             });
         });
 }
+
+
 
 exports.addMatch = (req, res, next) => {
 

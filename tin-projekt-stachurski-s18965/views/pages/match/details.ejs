@@ -1,13 +1,13 @@
 <%- include('../../fragments/header.ejs') %>
     <main>
-        <script type="application/javascript" src="/js/validationEmpForm.js"></script>
+        <script type="application/javascript" src="../../../public/js/validationPersonForm.js"></script>
         <h2>Mecz - szczegóły</h2>
 
 	<form class="form">
         <input type="hidden" name="id" value="<%= match.id %>">
 
-        <label for="player1">Zawodnik:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="player" id="player1" placeholder="2-60 znaków" value="<%= match.player %>"
+        <label for="player">Zawodnik:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="player" id="player" placeholder="2-60 znaków" value="<%= match.player %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
@@ -38,7 +38,7 @@
 
 
 	<label for="round">Nr rundy:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="round" id="round" placeholder="1-7" value="<%= match.round %>"
+        <input type="text" name="round" id="round" placeholder="1-7" value="<%= match.roundNumber %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
@@ -51,7 +51,7 @@
 
         <% if (formMode == 'showDetails') { %>
             <div class="section-buttons">
-                <a href="/match/edit/<%= match.id %>" class="button-add">Edytuj</a>
+                <a href="/matches/edit/<%= match.id %>" class="button-add">Edytuj</a>
             </div>
         <% } %>
 

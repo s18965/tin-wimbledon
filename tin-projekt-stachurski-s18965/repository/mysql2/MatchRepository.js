@@ -25,13 +25,16 @@ FROM TennisMatch t inner join Player p on t.idPlayer1=p.id inner join
             const match = {
                 id: parseInt(matchId),
                 court: firstRow.court,
-                round: firstRow.roundNumber,
+                roundNumber: firstRow.roundNumber,
                 scorePlayer: firstRow.scorePlayer1,
                 scoreRival: firstRow.scorePlayer2,
                 player: firstRow.player,
                 rival: firstRow.rival,
                 winner: firstRow.winner,
                 date: firstRow.date,
+                idPlayer1: firstRow.idPlayer1,
+                idPlayer2: firstRow.idPlayer2,
+                idWinner: firstRow.idWinner,
                 players: []
             }
 
@@ -64,12 +67,14 @@ FROM TennisMatch t inner join Player p on t.idPlayer1=p.id inner join
 };
 
 
-exports.createMatch = (newMatchData) => {
+exports.createMatch = (data) => {
+    const sql = 'INSERT into TennisMatch (scorePlayer1, scorePlayer2, idPlayer1, idPlayer2, court, roundNumber,idWinner,date) VALUES (?, ?, ?, ?,?,?,?,?)';
+    return db.promise().execute(sql, [data.scorePlayer1, data.scorePlayer2, data.idPlayer1, data.idPlayer2, data.court, data.roundNumber, data.idWinner, data.date]);
 };
 
-exports.updateMatch = (matchId, matchData) => {
-    const sql = `UPDATE TennisMatch set firstName = ?, lastName = ?, country = ?, birthDate = ? where id = ?`;
-    return db.promise().execute(sql, [data.firstName, data.lastName, data.country, data.birthDate, matchId]);
+exports.updateMatch = (matchId, data) => {
+    const sql = 'Update TennisMatch set scorePlayer1 =?, scorePlayer2 =?, idPlayer1 =?, idPlayer2 = ?, court = ?, roundNumber = ?,idWinner = ? ,date = ? where id=?';
+    return db.promise().execute(sql, [data.scorePlayer1, data.scorePlayer2, data.idPlayer1, data.idPlayer2, data.court, data.roundNumber, data.idWinner, data.date, matchId]);
 };
 
 exports.deleteMatch = (matchId) => {

@@ -1,6 +1,6 @@
 <%- include('../../fragments/header.ejs') %>
     <main>
-		<script type="application/javascript" src="/js/validationEmpForm.js"></script>
+		<script type="application/javascript" src="../../../public/js/validationPersonForm.js"></script>
 		<h2>Trener - edytuj szczegóły</h2>
 		<form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
 
@@ -22,11 +22,11 @@
 			<span></span>
 
 			<label for="player">Zawodnik:</label>
-			<select id="player" name="playerId" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
+			<select id="player" name="idPlayer" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
 				<option value="" selected>--- Przypisz zawodnika ---</option>
 				<% for (let i=0; i<allPlayers.length; i++) { let pl = allPlayers[i]; %>
 				<option value="<%= pl.id %>" label="<%= pl.firstName + ' ' + pl.lastName %>"
-						<%= (coach.id && pl.id.toString() == coach.player.id.toString()) ? 'selected' : ''%>></option>
+						<%= (coach.id && pl.id.toString() == coach.idPlayer.toString()) ? 'selected' : ''%>></option>
 				<% } %>
 			</select>
 

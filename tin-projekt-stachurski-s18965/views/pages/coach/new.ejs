@@ -1,33 +1,51 @@
 <%- include('../../fragments/header.ejs') %>
-    <main>
-        <h2>Dodaj nowego trenera</h2>
-	<form class="form" novalidate onsubmit="return validateForm();">
+<main>
+	<script type="application/javascript" src="../../../public/js/validationPersonForm.js"></script>
+	<h2>Trener - edytuj szczegóły</h2>
+	<form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
 
-<label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
-	<input type="text" name="firstName" id="firstName" placeholder="2-60 znaków">
-		<span id="errorFirstName" class="errors-text"></span>
+		<input type="hidden" name="id" value="<%= coach.id %>">
 
-<label for="secondName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
-	<input type="text" name="secondName" id="lastName" placeholder="2-60 znaków">
-		<span id="errorLastName" class="errors-text"></span>
-	
-<label for="date">Data urodzenia:<abbr title="required" aria-label="required">*</abbr></label></label>
-	<input type="text" name="birthDate" placeholder="yyyy-mm-dd" id="date">
-		<span id="errorDate" class="errors-text"></span>
+		<label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
+		<input type="text" name="firstName" id="firstName" placeholder="2-60 znaków" value="<%= coach.firstName %>"
+				<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+		<span></span>
+
+		<label for="lastName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
+		<input type="text" name="lastName" id="lastName" placeholder="2-60 znaków" value="<%= coach.lastName %>"
+				<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+		<span></span>
+
+		<label for="country">Kraj:</label>
+		<input type="text" name="country" id="country" placeholder="2-60 znaków" value="<%= coach.country %>"
+				<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+		<span></span>
+
+		<label for="player">Zawodnik:</label>
+		<select id="player" name="idPlayer" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
+			<option value="" selected>--- Przypisz zawodnika ---</option>
+			<% for (let i=0; i<allPlayers.length; i++) { let pl = allPlayers[i]; %>
+			<option value="<%= pl.id %>" label="<%= pl.firstName + ' ' + pl.lastName %>"
+					<%= (coach.id && pl.id.toString() == coach.idPlayer.toString()) ? 'selected' : ''%>></option>
+			<% } %>
+		</select>
+
+		<div class="form-buttons">
+			<p id="errorsSummary" class="errors-text"></p>
+			<% if (formMode != 'showDetails') { %>
+			<input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+			<a class="form-button-cancel" href="/coaches">Anuluj</a>
+			<% } else { %>
+				<a class="form-button-cancel" href="/coaches">Powrót</a>
+			<% } %>
+		</div>
+
+	</form>
+</main>
+<%- include('../../fragments/footer.ejs') %>
 
 
-<label for="country">Kraj:<abbr title="required" aria-label="required">*</abbr></label>
-	<input type="text" name="country" id="country" placeholder="2-60 znaków">
-			<span id="errorCountry" class="errors-text"></span>
 
-		
-<div class="form-buttons">
-    <p id="errorsSummary" class="errors-text"></p>
-    <input class="form-button-submit"  type="submit" value="Dodaj" />
-    <a class="form-button-cancel" href="trenerzy.html">Anuluj</a>    
-</div>  
-</form>
-    </main>
-    <%- include('../../fragments/footer.ejs') %>
+
 
 

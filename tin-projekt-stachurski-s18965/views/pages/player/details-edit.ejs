@@ -1,39 +1,44 @@
 <%- include('../../fragments/header.ejs') %>
     <main>
+        <script type="application/javascript" src="../../../public/js/validationPersonForm.js"></script>
         <h2>Zawodnik - edytuj szczegóły</h2>
-	<form class="form" novalidate onsubmit="return validateForm();">
 
-        <label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="firstName" value="Iga" id="firstName" placeholder="2-60 znaków">
-        <span id="errorFirstName" class="errors-text"></span>
+        <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
 
-        <label for="secondName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="secondName" value="Swiatek" id="lastName" placeholder="2-60 znaków">
-        <span id="errorLastName" class="errors-text"></span>
+            <input type="hidden" name="id" value="<%= player.id %>">
 
-        <label for="date">Data urodzenia:<abbr title="required" aria-label="required">*</abbr></label></label>
-        <input type="text" name="birthDate" value="2001-05-31" placeholder="yyyy-mm-dd" id="date">
-        <span id="errorDate" class="errors-text"></span>
+            <label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="text" name="firstName" id="firstName" placeholder="2-60 znaków" value="<%= player.firstName %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+            <span></span>
 
-        <label for="country">Kraj:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="country" value="Polska" id="country" placeholder="2-60 znaków">
-        <span id="errorCountry" class="errors-text"></span>
+            <label for="lastName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="text" name="lastName" id="lastName" placeholder="2-60 znaków" value="<%= player.lastName %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+            <span></span>
 
-<label for="coach">Trener:</label>
-	<select name="coach" multiple>
-		<option>Harry Karry</option>
-		<option>Barry Johnson</option>
-		<option>Hunter jones</option>
-		<option>Larry Crowdell</option>
-		<option>Brak</option>
-	</select>
+            <label for="birthDate">Data urodzenia:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="text" name="birthDate" id="birthDate" placeholder="dd.mm.yyyy" value="<%= player.birthDate.toISOString().split('T')[0]  %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+            <span></span>
 
-<div class="form-buttons">
-    <p id="errorsSummary" class="errors-text"></p>
-    <input class="form-button-submit" type="submit" value="Zapisz" />
-     <a class="form-button-cancel" href="/players/add">Powrót</a>
-</div>  
-</form>
+            <label for="country">Kraj:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="text" name="country" id="country" placeholder="2-60 znaków" value="<%= player.country %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+            <span></span>
+
+            <div class="form-buttons">
+                <p id="errorsSummary" class="errors-text"></p>
+                <% if (formMode != 'showDetails') { %>
+                <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+                <a class="form-button-cancel" href="/players">Anuluj</a>
+                <% } else { %>
+                    <a class="form-button-cancel" href="/players">Powrót</a>
+                <% } %>
+            </div>
+
+        </form>
+
     </main>
    <%- include('../../fragments/footer.ejs') %>
 

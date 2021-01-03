@@ -1,69 +1,82 @@
 <%- include('../../fragments/header.ejs') %>
-    <main>
-        <h2>Mecz - szczegóły</h2>
-	<form class="form" novalidate onsubmit="return validateForm();">
+	<main>
+		<script type="application/javascript" src="../../../public/js/validationMatchForm.js"></script>
+		<script type="application/javascript" src="../../../public/js/validationCommon.js"></script>
 
-<label for="zawodnik1">Zawodnik:<abbr title="required" aria-label="required">*</abbr></label>
-	<select name="zawodnik1" id="zawodnik1">
-		<option>Naomi Osaka</option>
-		<option>Iga Świątek</option>
-	</select>
+		<h2>Nowy mecz</h2>
 
-<!--		<select id="player" name="playerId" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >-->
-<!--			<option value="" selected>-&#45;&#45; Wybierz zawodnika -&#45;&#45;</option>-->
-<!--			<% for (let i=0; i<allPlayers.length; i++) { let player = allPlayers[i]; %>-->
-<!--			<option value="<%= player.id %>" label="<%= player.firstName + ' ' + player.lastName %>"-->
-<!--					<%= (match.id && player.id.toString() == match.player._id.toString()) ? 'selected' : ''%>></option>-->
-<!--			<% } %>-->
-<!--		</select>-->
+		<form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
+				<input type="hidden" name="id" value="<%= match.id %>">
 
-		<span id="errorPlayer1" class="errors-text"></span>
-
-<label for="zawodnik2">Rywal:<abbr title="required" aria-label="required">*</abbr></label>
-	<select name="zawodnik2" id="zawodnik2">
-		<option>Naomi Osaka</option>
-		<option>Iga Świątek</option>
-	</select>
-		<span id="errorPlayer2" class="errors-text"></span>
-
-<label for="date">Data:<abbr title="required" aria-label="required">*</abbr></label>
-	<input type="text" name="date" id="date" placeholder="yyyy-mm-dd" />
-			<span id="errorDate" class="errors-text"></span>
-
-<label for="kort">Kort:<abbr title="required" aria-label="required">*</abbr></label>
-	<select id="place" name="kort">
-		<option>Kort nr 1 im. Borisa Becker'a</option>
-		<option>Kort nr 4 im. Stana Smitha</option>
-	</select>
-		<span id="errorPlace" class="errors-text"></span>
+				<label for="player">Zawodnik:<abbr title="required" aria-label="required">*</abbr></label>
+				<select id="player" name="idPlayer1" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
+					<option value="" selected>--- Przypisz zawodnika ---</option>
+					<% for (let i=0; i<allPlayers.length; i++) { let pl = allPlayers[i]; %>
+					<option value="<%= pl.id %>" label="<%= pl.firstName + ' ' + pl.lastName %>"
+							<%= (match.id && pl.id.toString() == match.idPlayer1.toString()) ? 'selected' : ''%>></option>
+					<% } %>
+				</select>
+				<span></span>
 
 
-<label for="wynik">Wynik:</label>
-	<input type="text" name="wynik" id="wynik" />
-		<span></span>
+				<label for="rival">Rywal:<abbr title="required" aria-label="required">*</abbr></label>
+				<select id="rival" name="idPlayer2" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
+					<option value="" selected>--- Przypisz rywala ---</option>
+					<% for (let i=0; i<allPlayers.length; i++) { let pl = allPlayers[i]; %>
+					<option value="<%= pl.id %>" label="<%= pl.firstName + ' ' + pl.lastName %>"
+							<%= (match.id && pl.id.toString() == match.idPlayer2.toString()) ? 'selected' : ''%>></option>
+					<% } %>
+				</select>
+				<span></span>
+
+				<label for="score1">Wynik zawodnika:</label>
+				<input type="text" name="scorePlayer1" id="score1" placeholder="2-60 znaków" value="<%= match.scorePlayer %>"
+						<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+				<span></span>
+
+				<label for="score2">Wynik rywala:</label>
+				<input type="text" name="scorePlayer2" id="score2" placeholder="2-60 znaków" value="<%= match.scoreRival %>"
+						<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+				<span></span>
+
+				<label for="date">Data:<abbr title="required" aria-label="required">*</abbr></label>
+				<input type="text" name="date" id="date" placeholder="2-60 znaków" value="<%= match.date%>"
+						<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+				<span></span>
+
+				<label for="court">Kort:<abbr title="required" aria-label="required">*</abbr></label>
+				<input type="text" name="court" id="court" placeholder="2-60 znaków" value="<%= match.court %>"
+						<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+				<span></span>
 
 
-<label for="round">Nr rundy:<abbr title="required" aria-label="required">*</abbr></label>
-	<input type="text" name="runda" id="round" />
-		<span id="errorRound" class="errors-text"></span>
+				<label for="roundNumber">Nr rundy:<abbr title="required" aria-label="required">*</abbr></label>
+				<input type="text" name="roundNumber" id="roundNumber" placeholder="1-7" value="<%= match.roundNumber %>"
+						<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+				<span></span>
 
+				<label for="winner">Zwycięzca:</label>
+				<select id="winner" name="idWinner" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
+					<option value="" selected>--- Przypisz zwycięzcę ---</option>
+					<% for (let i=0; i<allPlayers.length; i++) { let pl = allPlayers[i]; %>
+					<option value="<%= pl.id %>" label="<%= pl.firstName + ' ' + pl.lastName %>"
+							<%= (match.id && pl.id.toString() == match.idWinner.toString()) ? 'selected' : ''%>></option>
+					<% } %>
+				</select>
+				<span></span>
 
-<label for="winner">Zwycięzca:</label>
-	<select id="winner" name="winner">
-		<option>Naomi Osaka</option>
-		<option>Iga Świątek</option>
-		<option>brak</option>
-	</select>
+				<div class="form-buttons">
+					<p id="errorsSummary" class="errors-text"></p>
+					<% if (formMode != 'showDetails') { %>
+					<input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+					<a class="form-button-cancel" href="/matches">Anuluj</a>
+					<% } else { %>
+						<a class="form-button-cancel" href="/matches">Powrót</a>
+					<% } %>
+				</div>
 
-<div class="form-buttons">
-	<p id="errorsSummary" class="errors-text"></p>
-	<input class="form-button-submit" type="submit" value="Dodaj" />
-     <a class="form-button-cancel" href="mecze.html">Powrót</a>    
-</div>  
-</form>
-    </main>
-    <%- include('../../fragments/footer.ejs') %>
+			</form>
 
-
-
+	</main>
+<%- include('../../fragments/footer.ejs') %>
 

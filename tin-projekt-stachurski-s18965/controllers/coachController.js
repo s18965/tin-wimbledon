@@ -15,14 +15,22 @@ exports.showCoachList = (req, res, next) => {
 
 exports.showAddCoachForm = (req, res, next) => {
 
-    res.render('pages/coach/new', {
-        coach: {},
-        pageTitle: 'Nowy trener',
-        formMode: 'createNew',
-        btnLabel: 'Dodaj trenera',
-        formAction: '/coaches/add',
-        navLocation: 'coach'
-    });
+    let allPlayers;
+
+    PlayerRepository.getPlayers()
+        .then(players => {
+            allPlayers = players;
+
+            res.render('pages/coach/new', {
+                allPlayers: allPlayers,
+                coach: {},
+                pageTitle: 'Nowy trener',
+                formMode: 'createNew',
+                btnLabel: 'Dodaj trenera',
+                formAction: '/coaches/add',
+                navLocation: 'coach'
+            });
+        })
 
 }
 
@@ -44,12 +52,18 @@ exports.showCoachDetails = (req, res, next) => {
 exports.showEditCoachDetails = (req, res, next) => {
 
     let allPlayers;
+    const coachId = req.params.coachId;
+
     PlayerRepository.getPlayers()
         .then(players => {
             allPlayers = players;
 
+            return CoachRepository.getCoachById(coachId);
+        })
+        .then(coach => {
             res.render('pages/coach/details-edit', {
-                players: players,
+                coach: coach,
+                allPlayers: allPlayers,
                 formMode: 'edit',
                 pageTitle: 'Edycja trenera',
                 btnLabel: 'Edytuj trenera',
@@ -57,7 +71,6 @@ exports.showEditCoachDetails = (req, res, next) => {
                 navLocation: 'coach'
             });
         })
-
 }
 
 
