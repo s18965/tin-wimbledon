@@ -18,17 +18,16 @@
                 <td><%= coach.country %></td>
                 <td>
                     <ul class="list-actions">
-                        <li><a href="/coaches/details/<%=coach._id%>" class="list-actions-button-details">Szczegóły</a></li>
-                        <li><a href="/coaches/edit/<%=coach._id%>" class="list-actions-button-edit">Edytuj</a></li>
-                        <li><a href="/coaches/delete/<%=coach._id%>" class="list-actions-button-delete">Usuń</a></li>
-
+                        <li><a href="/coaches/details/<%=coach.id%>" class="list-actions-button-details">Szczegóły</a></li>
+                        <li><a href="/coaches/edit/<%=coach.id%>" class="list-actions-button-edit">Edytuj</a></li>
+                        <li><a href="/coaches/delete/<%=coach.id%>" class="list-actions-button-delete">Usuń</a></li>
                     </ul>
                 </td>
             </tr>
         <% } %>
 </tbody>
 	</table>
-<p><a class="button-add" href="trener-nowy.html">Dodaj nowego trenera</a></p>
+<p><a class="button-add" href="/coaches/add">Dodaj nowego trenera</a></p>
     </main>
     <%- include('../../fragments/footer.ejs') %>
 

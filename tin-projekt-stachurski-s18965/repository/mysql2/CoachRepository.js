@@ -13,44 +13,41 @@ exports.getCoaches = () => {
 };
 
 exports.getCoachById = (coachId) => {
-    const query = `SELECT p.id as id, p.firstName, p.lastName, p.birthDate, p.country, co.id as co_id,
-        co.firstName, co.lastName, co.country as co_country
-    FROM Player p
-    left join Coach co on co.idPlayer = p.id 
-    left join TennisMatch m on p.id = m.idPlayer1 or p.id = m.idPlayer2
-    where p.id = ?`
+    const query = `SELECT p.id as id,  p.firstName, p.lastName, p.birthDate, p.country, co.id as co_id,
+                          co.firstName as coFN , co.lastName as coLN, co.country as co_country
+                   FROM Player p
+                            right join Coach co on co.idPlayer = p.id
+                           
+                   where co.id = ?`
     return db.promise().query(query, [coachId])
         .then( (results, fields) => {
             const firstRow = results[0][0];
             if(!firstRow) {
                 return {};
             }
-            const pl = {
-                id: parseInt(id),
-                firstName: firstRow.firstName,
-                lastName: firstRow.lastName,
-                birthDate: firstRow.birthDate,
-                country: firstRow.country,
-                employments: []
+            const coach = {
+                id: parseInt(coachId),
+                firstName: firstRow.coFN,
+                lastName: firstRow.coLN,
+                country: firstRow.co_country,
+                player: [],
             }
+
             for( let i=0; i<results[0].length; i++ ) {
                 const row = results[0][i];
-                if(row.empl_id) {
-                    const coach = {
-                        id: row.co_id,
-                        salary: row.salary,
-                        dateFrom: row.dateFrom,
-                        dateTo: row.dateTo,
-                        department: {
-                            _id: row.dept_id,
-                            name: row.name,
-                            budget: row.budget
-                        }
+                if(row.id) {
+                    const player = {
+                        id: parseInt(row.id),
+                        firstName: row.firstName,
+                        lastName: row.lastName,
+                        country: row.country
                     };
-                    emp.employments.push(employment);
+
+                    coach.player.push(player);
                 }
             }
-            return emp;
+
+          return coach;
         })
         .catch(err => {
             console.log(err);
@@ -58,13 +55,19 @@ exports.getCoachById = (coachId) => {
         });
 };
 
-exports.createCoach = (newPlayerData) => {
+exports.createCoach = (data) => {
+    console.log('createCoach');
+    console.log(data);
+    const sql = 'INSERT into Coach (firstName, lastName, country, idPlayer) VALUES (?, ?, ?, ?)';
+    return db.promise().execute(sql, [data.firstName, data.lastName, data.country, data.idPlayer]);
 };
 
-exports.updateCoach = (coachId, coachData) => {
+exports.updateCoach = (coachId, data) => {
+    const sql = `UPDATE Coach set firstName = ?, lastName = ?, country = ?, idPlayer = ? where id = ?`;
+    return db.promise().execute(sql, [data.firstName, data.lastName, data.country, data.idPlayer, coachId]);
 };
 
 exports.deleteCoach = (coachId) => {
-    const sql = 'DELETE FROM Coach where id = ?'
-    return db.promise().execute(sql, [coachId]);
+    const sql1 = 'DELETE FROM Coach where id = ?';
+    return db.promise().execute(sql1, [coachId])
 };

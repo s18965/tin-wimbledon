@@ -1,59 +1,76 @@
 <%- include('../../fragments/header.ejs') %>
     <main>
+        <script type="application/javascript" src="/js/validationEmpForm.js"></script>
         <h2>Trener - szczegóły</h2>
-	<form class="form">
-<label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
-	<input type="text" name="firstName" value="Jan" id="firstName" disabled />
+
+<form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
+    <input type="hidden" name="id" value="<%= coach.id %>">
+
+    <label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
+    <input type="text" name="firstName" id="firstName" placeholder="2-60 znaków" value="<%= coach.firstName %>"
+            <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
-<label for="secondName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
-	<input type="text" name="secondName" value="Kowalski" id="secondName" disabled />
-	<span></span>
-	
-<label for="birthDate">Data urodzenia:<abbr title="required" aria-label="required">*</abbr></label>
-	<input type="text" name="birthDate" value="1991-05-31" placeholder="yyyy-mm-dd" id="birthDate" disabled />
+<label for="lastName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
+    <input type="text" name="lastName" id="lastName" placeholder="2-60 znaków" value="<%= coach.lastName %>"
+            <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
 <label for="country">Kraj:</label>
-	<input type="text" name="country" value="Polska" id="country" disabled />
+    <input type="text" name="country" id="country" placeholder="2-60 znaków" value="<%= coach.country %>"
+            <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+    <span></span>
 </form>
 
-<p><a class="button-add"  href="trener-szczegoly-edit.html">Edytuj</a></p> 
+        <% if (formMode == 'showDetails') { %>
+            <div class="section-buttons">
+                <a href="/coaches/edit/<%= coach.id %>" class="button-add">Edytuj</a>
+            </div>
+        <% } %>
 
- <h2>Trenowany zawodnik</h2>
-	<table id="zawodnicy" class="table-list">
-    		<thead>
-    		<tr>
-        		<th>Imię</th>
-        		<th>Nazwisko</th>
-               		<th>Kraj pochodzenia</th>
-        		<th>Akcje</th>
-    		</tr>
-		</thead>
-		<tbody>
-    <tr>
-        <td>Iga</td>
-        <td>Świątek</td>
-	<td>Polska</td>
-        <td>
-            <ul class="list-actions" >
-                <li>
-                    <a class="list-actions-button-details" href="zawodnik-szczegoly.html">Szczegóły</a>
-                </li>
-                <li>
-                    <a class="list-actions-button-edit" href="zawodnik-szczegoly-edit.html">Edytuj</a>
-                </li>
-                <li>
-                    <a class="list-actions-button-delete" href="">Usuń</a>
-                </li>
-            </ul>
-        </td>
-    </tr>
-    <!-- Tu wstaw dodatkowe wiersze -->
-</tbody>
-	</table>
+        <% if (formMode == 'showDetails' || formMode == 'edit') { %>
 
-	<p> <a class="button-add" href="trenerzy.html">Powrót</a> </p>
+            <h2>Trenowany zawodnik</h2>
+
+            <table id="zawodnicy"  class="table-list">
+                <thead>
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Kraj pochodzenia</th>
+                    <th>Akcje</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (let pl of coach.player) { %>
+                    <tr>
+                        <td><%= pl.firstName %></td>
+                        <td><%= pl.lastName %></td>
+                        <td><%= pl.country %></td>
+                        <td>
+                            <ul class="list-actions">
+                                <li><a href="/players/details/<%=pl.id%>" class="list-actions-button-details">Szczegóły</a></li>
+                                <li><a href="/players/edit/<%=pl.id%>" class="list-actions-button-edit">Edytuj</a></li>
+                                <li><a href="/players/delete/<%=pl.id%>" class="list-actions-button-delete">Usuń</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        <% } %>
+
+
+        <div class="form-buttons">
+            <p id="errorsSummary" class="errors-text"></p>
+            <% if (formMode != 'showDetails') { %>
+            <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+            <a class="form-button-cancel" href="/coaches">Anuluj</a>
+            <% } else { %>
+                <a class="form-button-cancel" href="/coaches">Powrót</a>
+            <% } %>
+        </div>
+
     </main>
     <%- include('../../fragments/footer.ejs') %>
 

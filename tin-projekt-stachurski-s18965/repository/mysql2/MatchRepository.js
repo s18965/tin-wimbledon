@@ -1,9 +1,8 @@
 const db = require('../../config/mysql2/db');
 
 exports.getMatches = () => {
-    return db.promise().query('SELECT * FROM TennisMatch')
+    return db.promise().query('SELECT t.*, p.id as pid, p.firstName as player1FistName, p.lastName as player1LastName, r.firstName, r.lastName, w.firstName as winnerFirstName, w.LastName as winnerLastName FROM TennisMatch t inner join Player p on t.idPlayer1=p.id inner join Player r on t.idPlayer2=r.id inner join Player w on t.idWinner=w.id ')
         .then( (results, fields) => {
-            console.log(results[0]);
             return results[0];
         })
         .catch(err => {
@@ -13,44 +12,50 @@ exports.getMatches = () => {
 };
 
 exports.getMatchById = (matchId) => {
-    const query = `SELECT p.id as id, p.firstName, p.lastName, p.birthDate, p.country, co.id as co_id,
-        co.firstName, co.lastName, co.country as co_country
-    FROM Player p
-    left join Coach co on co.idPlayer = p.id
-    left join Match m on p.id = m.idPlayer1 or p.id = m.idPlayer2
-    where p.id = ?`
-    return db.promise().query(query, [empId])
+    const query = `SELECT t.*, p.country as p_country, r.country as r_country, p.id as pid, r.id as rid, concat(p.firstName, ' ',p.lastName) as player, 
+       concat(r.firstName, ' ',r.lastName) as rival, concat(w.firstName, ' ',w.lastName) as winner 
+FROM TennisMatch t inner join Player p on t.idPlayer1=p.id inner join 
+            Player r on t.idPlayer2=r.id inner join Player w on t.idWinner=w.id where t.id = ?`
+    return db.promise().query(query, [matchId])
         .then( (results, fields) => {
             const firstRow = results[0][0];
             if(!firstRow) {
                 return {};
             }
-            const pl = {
-                id: parseInt(id),
-                firstName: firstRow.firstName,
-                lastName: firstRow.lastName,
-                birthDate: firstRow.birthDate,
-                country: firstRow.country,
-                employments: []
+            const match = {
+                id: parseInt(matchId),
+                court: firstRow.court,
+                round: firstRow.roundNumber,
+                scorePlayer: firstRow.scorePlayer1,
+                scoreRival: firstRow.scorePlayer2,
+                player: firstRow.player,
+                rival: firstRow.rival,
+                winner: firstRow.winner,
+                date: firstRow.date,
+                players: []
             }
+
+
             for( let i=0; i<results[0].length; i++ ) {
                 const row = results[0][i];
-                if(row.empl_id) {
-                    const coach = {
-                        id: row.co_id,
-                        salary: row.salary,
-                        dateFrom: row.dateFrom,
-                        dateTo: row.dateTo,
-                        department: {
-                            _id: row.dept_id,
-                            name: row.name,
-                            budget: row.budget
-                        }
-                    };
-                    emp.employments.push(employment);
-                }
+
+                const player = {
+                    id: parseInt(row.pid),
+                    player: row.player,
+                    country: row.p_country
+                };
+
+                const rival = {
+                    id: parseInt(row.rid),
+                    player:firstRow.rival,
+                    country: row.r_country
+                };
+
+                match.players.push(player);
+                match.players.push(rival);
+
             }
-            return emp;
+            return match;
         })
         .catch(err => {
             console.log(err);
@@ -63,9 +68,11 @@ exports.createMatch = (newMatchData) => {
 };
 
 exports.updateMatch = (matchId, matchData) => {
+    const sql = `UPDATE TennisMatch set firstName = ?, lastName = ?, country = ?, birthDate = ? where id = ?`;
+    return db.promise().execute(sql, [data.firstName, data.lastName, data.country, data.birthDate, matchId]);
 };
 
 exports.deleteMatch = (matchId) => {
-    const sql = 'DELETE FROM Match where id = ?'
+    const sql = 'DELETE FROM TennisMatch where id = ?'
     return db.promise().execute(sql, [matchId]);
 };

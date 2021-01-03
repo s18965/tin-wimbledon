@@ -1,116 +1,110 @@
 <%- include('../../fragments/header.ejs') %>
     <main>
+        <script type="application/javascript" src="/js/validationEmpForm.js"></script>
         <h2>Zawodnik - szczegóły</h2>
-	<form class="form">
 
-<label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
-	<input type="text" name="firstName" value="Iga" id="firstName" disabled />
+        <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
+
+    <input type="hidden" name="id" value="<%= player.id %>">
+            <label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
+    <input type="text" name="firstName" id="firstName" placeholder="2-60 znaków" value="<%= player.firstName %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
 <label for="secondName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
-	<input type="text" name="secondName" value="Swiatek" id="secondName" disabled />
-	<span></span>
+            <input type="text" name="lastName" id="lastName" placeholder="2-60 znaków" value="<%= player.lastName %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+            <span></span>
 
 <label for="birthDate">Data urodzenia:<abbr title="required" aria-label="required">*</abbr></label>
-	<input type="text" name="birthDate" value="31.05.2001" id="birthDate" disabled/>
+    <input type="text" name="birthDate" id="birthDate" placeholder="dd.mm.yyyy" value="<%= player.birthDate.toISOString().split('T')[0]  %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
 <label for="country">Kraj:<abbr title="required" aria-label="required">*</abbr></label>
-	<input type="text" name="country" value="Polska" id="country" disabled />
+    <input type="text" name="country" id="country" placeholder="2-60 znaków" value="<%= player.country %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
 </form>
 
-<p><a class="button-add" href="zawodnik-szczegoly-edit.html">Edytuj</a></p>
+        <% if (formMode == 'showDetails') { %>
+            <div class="section-buttons">
+                <a href="/player/edit/<%= player.id %>" class="button-add">Edytuj</a>
+            </div>
+        <% } %>
 
-      <h2>Lista meczy zawodnika</h2>
-	<table  class="table-list">
-    		<thead>
-    		<tr>
-        		<th>Rywal</th>
-        		<th>Data</th>
-        		<th>Wynik</th>
-			<th>Akcje</th>
-    		</tr>
-		</thead>
-		<tbody>
-    <tr>   
-        <td>Naomi Osaka</td>
-        <td>20.10.2020</td>
-	<td>6:2 3:6 6:1</td>
+        <% if (formMode == 'showDetails' || formMode == 'edit') { %>
+            <h2>Lista meczy zawodnika</h2>
 
-        <td>
-            <ul class="list-actions" >
-                <li>
-                    <a class="list-actions-button-details" href="mecz-szczegoly.html">Szczegóły</a>
-                </li>
-                <li>
-                    <a class="list-actions-button-edit" href="mecz-szczegoly-edit.html">Edytuj</a>
-                </li>
-                <li>
-                    <a class="list-actions-button-delete" href="">Usuń</a>
-                </li>
-            </ul>
-        </td>
-    </tr>
-     <tr>
-        <td>Serena Williams</td>
-        <td>31.10.2020</td>
-	<td>1:4 4:6 6:1</td>
+            <table id="mecze" class="table-list">
+                <thead>
+                <tr>
+                    <th>Rywal</th>
+                    <th>Data</th>
+                    <th>Zwycięzca</th>
+                    <th>Akcje</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (let m of player.matches) { %>
+                    <tr>
+                        <td><%= m.rival %></td>
+                        <td><%= m.date.toISOString().split('T')[0] %></td>
+                        <td><%= m.winner%></td>
+                        <td>
 
-        <td>
-            <ul class="list-actions" >
-                <li>
-                    <a class="list-actions-button-details" href="mecz-szczegoly.html">Szczegóły</a>
-                </li>
-                <li>
-                    <a class="list-actions-button-edit" href="mecz-szczegoly-edit.html">Edytuj</a>
-                </li>
-                <li>
-                    <a class="list-actions-button-delete" href="">Usuń</a>
-                </li>
-            </ul>
-        </td>
-    </tr>
-    </tbody>
-	</table>
+                            <ul class="list-actions" >
+                                <li><a href="/matches/details/<%=m.id%>" class="list-actions-button-details">Szczegóły</a></li>
+                                <li><a href="/matches/edit/<%=m.id%>" class="list-actions-button-edit">Edytuj</a></li>
+                                <li><a href="/matches/delete/<%=m.id%>" class="list-actions-button-delete">Usuń</a></li>
+                            </ul>
+                        </td>
+
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        <% } %>
+
 
 	 <h2>Lista trenerów</h2>
 	<table id="trenerzy" class="table-list">
-    		<thead>
-    		<tr>
-        		<th>Imię</th>
-        		<th>Nazwisko</th>
-              		<th>Kraj pochodzenia</th>
-        		<th>Akcje</th>
-    		</tr>
-		</thead>
-		<tbody>
-    <tr>
-        <td>Jan</td>
-        <td>Kowalski</td>
-	<td>Polska</td>
-        <td>
-           <ul class="list-actions" >
-                <li>
-                    <a class="list-actions-button-details" href="trener-szczegoly.html">Szczegóły</a>
-                </li>
-                <li>
-                    <a class="list-actions-button-edit" href="trener-szczegoly-edit.html">Edytuj</a>
-                </li>
-                <li>
-                    <a class="list-actions-button-delete" href="">Usuń</a>
-                </li>
-            </ul>
-        </td>
-    </tr>
-    <!-- Tu wstaw dodatkowe wiersze -->
-</tbody>
-	</table>
+        <thead>
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Kraj pochodzenia</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for (let coach of player.coaches) { %>
+            <tr>
+                <td><%= coach.firstName %></td>
+                <td><%= coach.lastName %></td>
+                <td><%= coach.country %></td>
+                <td>
+                    <ul class="list-actions">
+                        <li><a href="/coaches/details/<%=coach.id%>" class="list-actions-button-details">Szczegóły</a></li>
+                        <li><a href="/coaches/edit/<%=coach.id%>" class="list-actions-button-edit">Edytuj</a></li>
+                        <li><a href="/coaches/delete/<%=coach.id%>" class="list-actions-button-delete">Usuń</a></li>
+                    </ul>
+                </td>
+            </tr>
+        <% } %>
+        </tbody>
+        </table>
 
-
-
-	<p><a class="button-add" href="zawodnicy.html">Powrót</a></p>    
+        <div class="form-buttons">
+            <p id="errorsSummary" class="errors-text"></p>
+            <% if (formMode != 'showDetails') { %>
+            <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+            <a class="form-button-cancel" href="/players">Anuluj</a>
+            <% } else { %>
+                <a class="form-button-cancel" href="/players">Powrót</a>
+            <% } %>
+        </div>
 
     </main>
     <%- include('../../fragments/footer.ejs') %>

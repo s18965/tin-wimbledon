@@ -14,11 +14,15 @@ exports.getPlayers = () => {
 
 exports.getPlayerById = (playerId) => {
     const query = `SELECT p.id as id,  p.firstName, p.lastName, p.birthDate, p.country, co.id as co_id,
-    co.firstName as coFN , co.lastName as coLN, co.country as co_country, m.id as mid, m.idPlayer2, m.date, m.idWinner
+    co.firstName as coFN , co.lastName as coLN, co.country as co_country
     FROM Player p
     left join Coach co on co.idPlayer = p.id 
-    left join TennisMatch m on p.id = m.idPlayer1 or p.id = m.idPlayer2
     where p.id = ?`
+
+    const query1 = `SELECT t.id as tid,t.date as tdate, concat(r.firstName, ' ',r.lastName) as rival, concat(w.firstName, ' ',w.lastName) as winner
+                    FROM TennisMatch t inner join Player p on t.idPlayer1=p.id inner join
+                         Player r on t.idPlayer2=r.id inner join Player w on t.idWinner=w.id where p.id=?`
+
     return db.promise().query(query, [playerId])
         .then( (results, fields) => {
             const firstRow = results[0][0];
@@ -37,7 +41,7 @@ exports.getPlayerById = (playerId) => {
 
             for( let i=0; i<results[0].length; i++ ) {
                 const row = results[0][i];
-                if(row.co_id) {
+                if (row.co_id) {
                     const coach = {
                         id: parseInt(row.co_id),
                         firstName: row.coFN,
@@ -47,20 +51,29 @@ exports.getPlayerById = (playerId) => {
 
                     pl.coaches.push(coach);
                 }
-
-                if(row.mid) {
-                    const match = {
-                        id: parseInt(row.mid),
-                        rival: row.idPlayer2,
-                        date: row.date,
-                        winner: row.idWinner
-                    };
-
-                    pl.matches.push(match);
-                }
             }
 
-            return pl;
+                return db.promise().query(query1, [playerId])
+                    .then( (results, fields) => {
+
+                        for( let i=0; i<results[0].length; i++ ) {
+                            const row = results[0][i];
+                            if(row.tid) {
+                                const match = {
+                                    id: parseInt(row.tid),
+                                    rival: row.rival,
+                                    winner: row.winner,
+                                    date: row.tdate,
+                                }
+
+                                pl.matches.push(match);
+                            }
+                        }
+
+                        return pl;
+                    })
+
+
         })
         .catch(err => {
             console.log(err);

@@ -4,76 +4,48 @@
 	<table id="mecze" class="table-list">
     		<thead>
     		<tr>
-			<th>Id</th>
+
         		<th>Zawodnik</th>
         		<th>Rywal</th>
         		<th>Data</th>
-        		<th>Wynik</th>
+        		<th>Zwycięzca</th>
 			<th>Akcje</th>
     		</tr>
 		</thead>
 		<tbody>
-    <tr>
-	<td>1</td>    
-        <td>Iga Swiatek</td>
-        <td>Naomi Osaka</td>
-        <td>20.10.2020</td>
-	<td>6:2 3:6 6:1</td>
+		<% for (let match of matches) { %>
+			<tr>
+				<td><%= match.firstName + ' ' +match.lastName %></td>
+				<td><%= match.player1FistName + ' ' +match.player1LastName %></td>
+				<td><%= match.date.toISOString().split('T')[0] %></td>
+				<td><%= match.winnerFirstName + ' ' + match.winnerLastName%></td>
 
-        <td>
-            <ul class="list-actions" >
-                <li>
-       		    <a href="mecz-szczegoly.html">
-			<img border="0" alt="details" src="../images/details.png" width="20" height="20">
-			</a>               
-		</li>
-		 <li>
-       		    <a href="mecz-szczegoly-edit.html">
-			<img border="0" alt="details" src="../images/edit.png" width="20" height="20">
-			</a>               
-		</li>
+				<td>
 
-		 <li>
-       		    <a href="mecz-szczegoly-delete.html">
-			<img border="0" alt="details" src="../images/delete.png" width="20" height="20">
-			</a>               
-		</li>
-            </ul>
-        </td>
-    </tr>
-     <tr>
-	<td>1</td>    
-        <td>Iga Swiatek</td>
-        <td>Serena Williams</td>
-        <td>31.10.2020</td>
-	<td>1:4 6:3 6:1</td>
+					<ul class="list-actions" >
+						<li>
+							<a href="/matches/details/<%=match.id%>">
+								<img border="0" alt="details" src="../images/details.png" width="20" height="20">
+							</a>
+						</li>
+						<li>
+							<a href="/matches/edit/<%=match.id%>">
+								<img border="0" alt="details" src="../images/edit.png" width="20" height="20">
+							</a>
+						</li>
 
-        <td>
-            <ul class="list-actions" >
-                 <li>
-       		    <a href="mecz-szczegoly.html">
-			<img border="0" alt="details" src="../images/details.png" width="20" height="20">
-			</a>               
-		</li>
-		 <li>
-       		    <a href="mecz-szczegoly-edit.html">
-			<img border="0" alt="details" src="../images/edit.png" width="20" height="20">
-			</a>               
-		</li>
-
-		 <li>
-       		    <a href="mecz-szczegoly-delete.html">
-			<img border="0" alt="details" src="../images/delete.png" width="20" height="20">
-			</a>               
-		</li>
-            </ul>
-        </td>
-    </tr>
-
-    <!-- Tu wstaw dodatkowe wiersze -->
+						<li>
+							<a href="/matches/delete/<%=match.id%>">
+								<img border="0" alt="details" src="../images/delete.png" width="20" height="20">
+							</a>
+						</li>
+					</ul>
+				</td>
+			</tr>
+		<% } %>
 </tbody>
 	</table>
-<p><a class="button-add" href="mecz-nowy.html">Dodaj nowy mecz</a></p>
+<p><a class="button-add" href="/matches/add">Dodaj nowy mecz</a></p>
     </main>
     <%- include('../../fragments/footer.ejs') %>
 
