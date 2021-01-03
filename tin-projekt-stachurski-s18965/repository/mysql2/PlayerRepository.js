@@ -1,4 +1,5 @@
 const db = require('../../config/mysql2/db');
+const playerSchema = require('../../model/joi/Player');
 
 exports.getPlayers = () => {
     return db.promise().query('SELECT * FROM Player')
@@ -82,6 +83,13 @@ exports.getPlayerById = (playerId) => {
 };
 
 exports.createPlayer = (data) => {
+
+    const vRes = playerSchema.validate(data, { abortEarly: false} );
+    if(vRes) {
+        return Promise.reject(vRes);
+    }
+
+
     console.log('createPlayer');
     console.log(data);
     const sql = 'INSERT into Player (firstName, lastName, country, birthDate) VALUES (?, ?, ?, ?)';

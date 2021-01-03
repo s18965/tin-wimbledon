@@ -81,7 +81,6 @@ exports.addCoach = (req, res, next) => {
         .then( result => {
             res.redirect('/coaches');
         });
-
 };
 
 exports.updateCoach = (req, res, next) => {
@@ -92,7 +91,6 @@ exports.updateCoach = (req, res, next) => {
         .then( result => {
             res.redirect('/coaches');
         });
-
 };
 
 exports.deleteCoach = (req, res, next) => {

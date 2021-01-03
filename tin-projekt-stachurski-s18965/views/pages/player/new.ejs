@@ -1,8 +1,8 @@
 <%- include('../../fragments/header.ejs') %>
     <main>
-        <script type="application/javascript" src="../../../public/js/validationPersonForm.js"></script>
-        <script type="application/javascript" src="../../../public/js/validationCommon.js"></script>
         <h2>Nowy zawodnik</h2>
+        <script type="application/javascript" src="/js/validationPlayerForm.js"></script>
+        <script type="application/javascript" src="/js/validationCommon.js"></script>
 
         <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
 
@@ -10,22 +10,22 @@
             <label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="text" name="firstName" id="firstName" placeholder="2-60 znaków" value="<%= player.firstName %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
-            <span></span>
+            <span id="errorFirstName" class="errors-text"></span>
 
             <label for="lastName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="text" name="lastName" id="lastName" placeholder="2-60 znaków" value="<%= player.lastName %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
-            <span></span>
+            <span id="errorLastName" class="errors-text"></span>
 
             <label for="birthDate">Data urodzenia:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="text" name="birthDate" id="birthDate" placeholder="dd.mm.yyyy" value="<%= player.birthDate%>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
-            <span></span>
+            <span id="errorDate" class="errors-text"></span>
 
             <label for="country">Kraj:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="text" name="country" id="country" placeholder="2-60 znaków" value="<%= player.country %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
-            <span></span>
+            <span id="errorCountry" class="errors-text"></span>
 
             <div class="form-buttons">
                 <p id="errorsSummary" class="errors-text"></p>

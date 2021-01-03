@@ -1,22 +1,21 @@
 function validateForm() {
-    
-const player1Input = document.getElementById('player');
-const player2Input = document.getElementById('rival');
-const dateInput = document.getElementById('date');
-const placeInput = document.getElementById('court');
-const roundInput = document.getElementById('round');
 
-	
-const errorPlayer1 = document.getElementById('errorPlayer1');
-const errorPlayer2 = document.getElementById('errorPlayer2');
-const errorDate = document.getElementById('errorDate');
-const errorPlace = document.getElementById('errorPlace');
-const errorRound = document.getElementById('errorRound');
-const errorsSummary = document.getElementById('errorsSummary');
+    const player1Input = document.getElementById('player');
+    const player2Input = document.getElementById('rival');
+    const dateInput = document.getElementById('date');
+    const placeInput = document.getElementById('court');
+    const roundInput = document.getElementById('roundNumber');
 
-resetErrors([player1Input, player2Input, dateInput,placeInput,roundInput], [errorPlayer1, errorPlayer2, errorDate,errorPlace,errorRound], errorsSummary);
+    const errorPlayer1 = document.getElementById('errorPlayer1');
+    const errorPlayer2 = document.getElementById('errorPlayer2');
+    const errorDate = document.getElementById('errorDate');
+    const errorPlace = document.getElementById('errorPlace');
+    const errorRound = document.getElementById('errorRound');
+    const errorsSummary = document.getElementById('errorsSummary');
 
-let valid = true;
+    resetErrors([player1Input, player2Input, dateInput,placeInput,roundInput], [errorPlayer1, errorPlayer2, errorDate,errorPlace,errorRound], errorsSummary);
+
+    let valid = true;
 
     if (!checkRequired(player1Input.value)) {
         valid = false;
@@ -75,12 +74,10 @@ let valid = true;
         errorDate.innerText = "Data nie może być z przyszłości";
     }
 
-
-
-if (!valid) {
-    errorsSummary.innerText = "Formularz zawiera błędy";
-}
-return valid;
+    if (!valid) {
+        errorsSummary.innerText = "Formularz zawiera błędy";
+    }
+    return valid;
 
 }
 

@@ -1,6 +1,10 @@
 <%- include('../../fragments/header.ejs') %>
     <main>
         <h2>Mecz - edytuj szczegóły</h2>
+        <script type="application/javascript" src="/js/validationMatchForm.js"></script>
+        <script type="application/javascript" src="/js/validationCommon.js"></script>
+
+
         <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
             <input type="hidden" name="id" value="<%= match.id %>">
 
@@ -12,7 +16,7 @@
                         <%= (match.id && pl.id.toString() == match.idPlayer1.toString()) ? 'selected' : ''%>></option>
                 <% } %>
             </select>
-            <span></span>
+            <span id="errorPlayer1" class="errors-text"></span>
 
             <label for="rival">Rywal:<abbr title="required" aria-label="required">*</abbr></label>
             <select id="rival" name="idPlayer2" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
@@ -22,7 +26,7 @@
                         <%= (match.id && pl.id.toString() == match.idPlayer2.toString()) ? 'selected' : ''%>></option>
                 <% } %>
             </select>
-            <span></span>
+            <span id="errorPlayer2" class="errors-text"></span>
 
             <label for="score1">Wynik zawodnika:</label>
             <input type="text" name="scorePlayer1" id="score1" placeholder="2-60 znaków" value="<%= match.scorePlayer %>"
@@ -37,18 +41,18 @@
             <label for="date">Data:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="text" name="date" id="date" placeholder="2-60 znaków" value="<%= match.date.toISOString().split('T')[0]%>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
-            <span></span>
+            <span id="errorDate" class="errors-text"></span>
 
             <label for="court">Kort:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="text" name="court" id="court" placeholder="2-60 znaków" value="<%= match.court %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
-            <span></span>
+            <span id="errorPlace" class="errors-text"></span>
 
 
             <label for="roundNumber">Nr rundy:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="text" name="roundNumber" id="roundNumber" placeholder="1-7" value="<%= match.roundNumber %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
-            <span></span>
+            <span id="errorRound" class="errors-text"></span>
 
             <label for="winner">Zwycięzca:</label>
             <select id="winner" name="idWinner" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >

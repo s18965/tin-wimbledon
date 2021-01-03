@@ -3,7 +3,7 @@ function validateForm() {
 const firstNameInput = document.getElementById('firstName');
 const lastNameInput = document.getElementById('lastName');
 const countryInput = document.getElementById('country');
-const dateInput = document.getElementById('date');
+const dateInput = document.getElementById('birthDate');
 
 const errorDate = document.getElementById('errorDate');
 const errorFirstName = document.getElementById('errorFirstName');

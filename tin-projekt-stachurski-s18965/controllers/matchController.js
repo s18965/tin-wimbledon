@@ -81,8 +81,12 @@ exports.addMatch = (req, res, next) => {
 
 exports.updateMatch = (req, res, next) => {
 
+
     const matchId = req.body.id;
     const matchData = { ...req.body };
+    if(matchData.idWinner == ''){
+        matchData.idWinner = null;
+    }
     MatchRepository.updateMatch(matchId, matchData)
         .then( result => {
             res.redirect('/matches');
