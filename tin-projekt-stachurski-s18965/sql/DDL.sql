@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS `tin-Wimbledon`.`Player`
   `lastName` VARCHAR(60) NOT NULL ,
   `country` VARCHAR(60) NOT NULL ,
   `birthDate` DATE NOT NULL ,
+  `email` DATE NOT NULL ,
+  `password` DATE NOT NULL ,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `player_id_UNIQUE` (`id` ASC)
 ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci;
@@ -37,10 +39,10 @@ CREATE TABLE IF NOT EXISTS `tin-Wimbledon`.`TennisMatch`
   CONSTRAINT `play2_fk` FOREIGN KEY (`idPlayer2`) REFERENCES `tin-Wimbledon`.`Player` (`id`)
 ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci;
 
-INSERT IGNORE INTO `tin-Wimbledon`.`Player` (`id`, `firstName`, `lastName`, `country`, `birthDate`)VALUES
-(1, 'Iga', 'Świątek', 'Poland', '2000-05-21'),
-(2, 'Naomi', 'Osaka', 'Japan', '1995-04-03'),
-(3, 'Serena', 'Williams', 'United States', '1987-05-01');
+INSERT IGNORE INTO `tin-Wimbledon`.`Player` (`id`, `firstName`, `lastName`, `country`, `birthDate`, `email`, `password`)VALUES
+(1, 'Iga', 'Świątek', 'Poland', '2000-05-21', 'iga@gmail.com' , '$2a$08$5MN1ONlxE0qQvO.gSyomkuQUtIWYI5lswmImoNulaYua9Qi/pVHrm'),
+(2, 'Naomi', 'Osaka', 'Japan', '1995-04-03', 'iga@gmail.com' , '$2a$08$5MN1ONlxE0qQvO.gSyomkuQUtIWYI5lswmImoNulaYua9Qi/pVHrm'),
+(3, 'Serena', 'Williams', 'United States', '1987-05-01', 'iga@gmail.com' , '$2a$08$5MN1ONlxE0qQvO.gSyomkuQUtIWYI5lswmImoNulaYua9Qi/pVHrm');
 ;
 
 INSERT IGNORE INTO `tin-Wimbledon`.`Coach` (`id`, `firstName`, `lastName`, `country`, `idPlayer`)VALUES

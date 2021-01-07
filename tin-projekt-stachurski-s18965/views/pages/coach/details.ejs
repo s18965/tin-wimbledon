@@ -49,8 +49,12 @@
                         <td>
                             <ul class="list-actions">
                                 <li><a href="/players/details/<%=pl.id%>" class="list-actions-button-details">Szczegóły</a></li>
+                                <% if(loggedUser) { %>
                                 <li><a href="/players/edit/<%=pl.id%>" class="list-actions-button-edit">Edytuj</a></li>
+                                <% } %>
+                                <% if(loggedUser) { %>
                                 <li><a href="/players/delete/<%=pl.id%>" class="list-actions-button-delete">Usuń</a></li>
+                                <% } %>
                             </ul>
                         </td>
                     </tr>

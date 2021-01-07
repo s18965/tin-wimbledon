@@ -15,6 +15,9 @@ const errMessages = (errors) => {
             case "string.max":
                 err.message = `Pole powinno zawierać co najwyżej ${err.local.limit} znaki`;
                 break;
+            case "string.email":
+                err.message = `Pole powinno zawierać prawidłowy adres email`;
+                break;
             default:
                 break;
         }
@@ -44,7 +47,16 @@ const playerSchema = Joi.object({
         .max(60)
         .error(errMessages),
     id: Joi.number()
-        .allow("")
+        .allow(""),
+    email: Joi.string()
+        .email()
+        .required()
+        .error(errMessages),
+    password: Joi.string()
+        .required()
+        .min(2)
+        .max(100)
+        .error(errMessages),
 });
 
 module.exports = playerSchema;

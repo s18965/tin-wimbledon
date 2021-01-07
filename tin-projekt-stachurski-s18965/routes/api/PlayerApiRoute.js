@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+
 const playerApiController = require('../../api/PlayerAPI');
 
 router.get('/', playerApiController.getPlayers);

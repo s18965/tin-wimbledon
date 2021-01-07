@@ -56,8 +56,12 @@
 
                             <ul class="list-actions" >
                                 <li><a href="/matches/details/<%=m.id%>" class="list-actions-button-details">Szczegóły</a></li>
+                                <% if(loggedUser) { %>
                                 <li><a href="/matches/edit/<%=m.id%>" class="list-actions-button-edit">Edytuj</a></li>
+                                <% } %>
+                                <% if(loggedUser) { %>
                                 <li><a href="/matches/delete/<%=m.id%>" class="list-actions-button-delete">Usuń</a></li>
+                                <% } %>
                             </ul>
                         </td>
 
@@ -87,8 +91,12 @@
                 <td>
                     <ul class="list-actions">
                         <li><a href="/coaches/details/<%=coach.id%>" class="list-actions-button-details">Szczegóły</a></li>
+                        <% if(loggedUser) { %>
                         <li><a href="/coaches/edit/<%=coach.id%>" class="list-actions-button-edit">Edytuj</a></li>
+                        <% } %>
+                        <% if(loggedUser) { %>
                         <li><a href="/coaches/delete/<%=coach.id%>" class="list-actions-button-delete">Usuń</a></li>
+                        <% } %>
                     </ul>
                 </td>
             </tr>

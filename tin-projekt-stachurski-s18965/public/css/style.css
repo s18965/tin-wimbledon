@@ -299,6 +299,31 @@ abbr[title='required'] {
     background-color: #e74c3c;
 }
 
+div#login{
+    background: white;
+    margin-left: 1rem;
+    height: 130px;
+    padding: 20px;
+    margin-right: 1rem;
+    border-radius:25px;
+}
+input#loginEmail{
+    margin-bottom: 15px;
+}
+button#logout{
+    padding: 20px;
+    background-color: red;
+}
+
+div#log{
+    background: white;
+    margin-left: 1rem;
+    height: 100px;
+    padding: 20px;
+    margin-right: 1rem;
+    border-radius:25px;
+}
+
 .form-button-submit,
 .form-button-cancel {
     width: 100%;
@@ -404,10 +429,20 @@ main,footer{
 	border-radius:0px;
 }
 
+    div#login{
+        background: white;
+        height: 150px;
+        padding-left: 20px;
+        padding-top: 5px;
+        margin: 1rem;
+        border-radius: 25px;
+    }
 
+    div#logout{
+        height: 150px;
+    }
 
 }
-
 
 .errors-text {
   font-size: 0.85em;

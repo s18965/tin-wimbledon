@@ -19,15 +19,21 @@
             <td>
                 <ul class="list-actions">
                     <li><a href="/players/details/<%=player.id%>" class="list-actions-button-details">Szczegóły</a></li>
+                    <% if(loggedUser) { %>
                     <li><a href="/players/edit/<%=player.id%>" class="list-actions-button-edit">Edytuj</a></li>
+                    <% } %>
+                    <% if(loggedUser) { %>
                     <li><a href="/players/delete/<%=player.id%>" class="list-actions-button-delete">Usuń</a></li>
+                    <% } %>
                 </ul>
             </td>
         </tr>
     <% } %>
 </tbody>
 	</table>
-	<p><a class="button-add" href="/players/add">Dodaj nowego zawodnika</a></p>
+        <% if(loggedUser) { %>
+        <p><a class="button-add" href="/players/add">Dodaj nowego zawodnika</a></p>
+        <% } %>
     </main>
     <%- include('../../fragments/footer.ejs') %>
 

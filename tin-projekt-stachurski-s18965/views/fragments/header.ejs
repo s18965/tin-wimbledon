@@ -15,13 +15,36 @@
     <header>
         <h1>Wimbledon</h1>
         <img src="../../images/logo.png" alt="Turniej Wimbledon logo">
-
    </header>
+
     <nav class="form-buttons">
         <ul>
             <li><a class="<%= navLocation == 'main' ? 'active' : ''%>" href="/">Strona główna</a></li>
             <li><a class="<%= navLocation == 'player' ? 'active' : ''%>"href="/players">Zawodnicy</a></li>
             <li><a class="<%= navLocation == 'coach' ? 'active' : ''%>"href="/coaches">Trenerzy</a></li>
-            <li><a class="<%= navLocation == 'match' ? 'active' : ''%>"href="/matches">Mecze</a></li>
+            <% if(loggedUser) { %>
+                <li><a href="/matches" class="<%= navLocation == 'match' ? 'active' : ''%>">Mecze</a></li>
+            <% } %>
         </ul>
     </nav>
+
+    <% if(!loggedUser) { %>
+        <div id="login">
+            <h5 style="margin-bottom: 10px">Logowanie</h5>
+            <form method="post" action="/login" novalidate>
+                <label for="loginEmail">Email:</label>
+                <input type="email" id="loginEmail" name="email">
+
+                <label for="loginPassword">Hasło:</label>
+                <input type="password" id="loginPassword" name="password">
+
+                <input type="submit" value="Zaloguj się">
+                <span style="color: red" id="loginErrors"><%= loginError ? loginError : ''%></span>
+            </form>
+        </div>
+    <% } else { %>
+    <div id="log">
+    <h5 id="loginSpan">Jesteś zalogowany jako: <%=loggedUser.firstName + " " + loggedUser.lastName%></h5>
+    <a class="button-add" id="logout" href="/logout">Wyloguj się</a>
+    </div>
+    <% } %>

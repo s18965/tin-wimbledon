@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const authUtils = require('./util/authUtils');
 
 var indexRouter = require('./routes/index');
 const playerRouter = require('./routes/playerRoute');
@@ -13,6 +14,22 @@ const coachApiRouter = require('./routes/api/CoachApiRoute');
 const matchApiRouter = require('./routes/api/MatchApiRoute');
 
 var app = express();
+
+const session = require('express-session');
+app.use(session({
+  secret: 'my_secret_password',
+  resave: false
+}));
+
+app.use((req, res, next) => {
+  const loggedUser = req.session.loggedUser;
+  res.locals.loggedUser = loggedUser;
+  if(!res.locals.loginError) {
+    res.locals.loginError = undefined;
+  }
+  next();
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,8 +43,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/players', playerRouter);
+/*
+app.use('/players/edit', authUtils.permitAuthenticatedUser, playerRouter);
+*/
 app.use('/coaches', coachRouter);
-app.use('/matches', matchRouter);
+app.use('/matches', authUtils.permitAuthenticatedUser, matchRouter);
 app.use('/api/players', playerApiRouter);
 app.use('/api/coaches', coachApiRouter);
 app.use('/api/matches', matchApiRouter);

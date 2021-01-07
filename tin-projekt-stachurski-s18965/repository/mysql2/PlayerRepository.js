@@ -1,5 +1,7 @@
 const db = require('../../config/mysql2/db');
 const playerSchema = require('../../model/joi/Player');
+const playerEditSchema = require('../../model/joi/PlayerEdit');
+const authUtils = require('../../util/authUtils');
 
 exports.getPlayers = () => {
     return db.promise().query('SELECT * FROM Player')
@@ -14,8 +16,8 @@ exports.getPlayers = () => {
 };
 
 exports.getPlayerById = (playerId) => {
-    const query = `SELECT p.id as id,  p.firstName, p.lastName, p.birthDate, p.country, co.id as co_id,
-    co.firstName as coFN , co.lastName as coLN, co.country as co_country
+    const query = `SELECT p.id as id,  p.firstName, p.lastName, p.birthDate, p.country,co.id as co_id,
+    co.firstName as coFN, co.lastName as coLN, co.country as co_country
     FROM Player p
     left join Coach co on co.idPlayer = p.id 
     where p.id = ?`
@@ -74,7 +76,6 @@ exports.getPlayerById = (playerId) => {
                         return pl;
                     })
 
-
         })
         .catch(err => {
             console.log(err);
@@ -89,25 +90,64 @@ exports.createPlayer = (data) => {
         return Promise.reject(vRes.error);
     }
 
-    console.log('createPlayer');
-    console.log(data);
-    const sql = 'INSERT into Player (firstName, lastName, country, birthDate) VALUES (?, ?, ?, ?)';
-    return db.promise().execute(sql, [data.firstName, data.lastName, data.country, data.birthDate]);
+    return checkEmailUnique(data.email)
+        .then(emailErr => {
+            if(emailErr.details) {
+                return Promise.reject(emailErr);
+            } else {
+                const password = authUtils.hashPassword(data.password);
+                const sql = 'INSERT into Player (firstName, lastName, country, birthDate, email, password) VALUES (?, ?, ?, ?,?,?)';
+                return db.promise().execute(sql, [data.firstName, data.lastName, data.country, data.birthDate,data.email, password]);
+            }
+        })
+        .catch(err => {
+            return Promise.reject(err);
+        });
 };
 
 exports.updatePlayer = (playerId, data) => {
 
-    const vRes = playerSchema.validate(data, { abortEarly: false} );
+    const vRes = playerEditSchema.validate(data, { abortEarly: false} );
     if(vRes.error) {
+        console.log(vRes.error.details)
         return Promise.reject(vRes.error);
     }
-    const firstName = data.firstName;
-    const lastName = data.lastName;
-    const country = data.country;
-    const birthDate = data.birthDate;
+    return checkEmailUnique(data.email)
+        .then(emailErr => {
+            console.log(data.email)
+            if(emailErr.details) {
+                return Promise.reject(emailErr);
+            } else {
+                const firstName = data.firstName;
+                const lastName = data.lastName;
+                const country = data.country;
+                const birthDate = data.birthDate;
 
-    const sql = `UPDATE Player set firstName = ?, lastName = ?, country = ?, birthDate = ? where id = ?`;
-    return db.promise().execute(sql, [firstName, lastName, country, birthDate, playerId]);
+                if(data.password) {
+                    const password = authUtils.hashPassword(data.password);
+                    if(data.email){
+                        const sql = `UPDATE Player set firstName = ?, lastName = ?, country = ?, birthDate = ?, email=?, password=? where id = ?`;
+                        return db.promise().execute(sql, [firstName, lastName, country, birthDate,data.email, password, playerId]);
+                    }else{
+                        const sql = `UPDATE Player set firstName = ?, lastName = ?, country = ?, birthDate = ?, password=? where id = ?`;
+                        return db.promise().execute(sql, [firstName, lastName, country, birthDate, password,playerId]);
+                    }
+                }else{
+                    if(data.email){
+                        const sql = `UPDATE Player set firstName = ?, lastName = ?, country = ?, birthDate = ?, email=? where id = ?`;
+                        return db.promise().execute(sql, [firstName, lastName, country, birthDate, data.email, playerId]);
+                    }else{
+                        console.log(data)
+                        const sql = `UPDATE Player set firstName = ?, lastName = ?, country = ?, birthDate = ? where id = ?`;
+                        return db.promise().execute(sql, [firstName, lastName, country, birthDate, data.id]);
+                    }
+
+                }
+            }
+        })
+        .catch(err => {
+            return Promise.reject(err);
+        });
 };
 
 exports.deletePlayer = (playerId) => {
@@ -130,3 +170,52 @@ exports.deleteManyPlayers = (playersIds) => {
     const sql = 'DELETE FROM Player where id IN (?)'
     return db.promise().execute(sql, [playersIds]);
 };
+
+exports.findByEmail = (email) => {
+    const query = `SELECT p.id as pid,  p.email, p.password, p.firstName, p.lastName FROM Player p where p.email = ?`
+
+    return db.promise().query(query, [email])
+        .then( (results, fields) => {
+            const firstRow = results[0][0];
+            if(!firstRow) {
+                return {};
+            }
+            const pl = {
+                id: parseInt(firstRow.pid),
+                email: firstRow.email,
+                password: firstRow.password,
+                firstName: firstRow.firstName,
+                lastName: firstRow.lastName,
+            };
+            return pl;
+
+        })
+        .catch(err => {
+            console.log(err);
+            throw err;
+        });
+}
+
+checkEmailUnique = (email, empId) => {
+    let sql, promise;
+    if(empId) {
+        sql = `SELECT COUNT(1) as c FROM Player where id != ? and email = ?`;
+        promise = db.promise().query(sql, [empId, email]);
+    } else {
+        sql = `SELECT COUNT(1) as c FROM Player where email = ?`;
+        promise = db.promise().query(sql, [email]);
+    }
+    return promise.then( (results, fields) => {
+        const count = results[0][0].c;
+        let err = {};
+        if(count > 0) {
+            err = {
+                details: [{
+                    path: ['email'],
+                    message: 'Podany adres email jest już używany'
+                }]
+            };
+        }
+        return err;
+    });
+}

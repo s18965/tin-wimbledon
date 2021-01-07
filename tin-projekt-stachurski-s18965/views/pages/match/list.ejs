@@ -28,25 +28,30 @@
 								<img border="0" alt="details" src="../images/details.png" width="20" height="20">
 							</a>
 						</li>
+						<% if(loggedUser) { %>
 						<li>
 							<a href="/matches/edit/<%=match.id%>">
 								<img border="0" alt="details" src="../images/edit.png" width="20" height="20">
 							</a>
 						</li>
-
+						<% } %>
+						<% if(loggedUser) { %>
 						<li>
 							<a href="/matches/delete/<%=match.id%>">
 								<img border="0" alt="details" src="../images/delete.png" width="20" height="20">
 							</a>
 						</li>
+						<% } %>
 					</ul>
 				</td>
 			</tr>
 		<% } %>
 </tbody>
 	</table>
-<p><a class="button-add" href="/matches/add">Dodaj nowy mecz</a></p>
-    </main>
+		<% if(loggedUser) { %>
+		<p><a class="button-add" href="/matches/add">Dodaj nowy mecz</a></p>
+		<% } %>
+	</main>
     <%- include('../../fragments/footer.ejs') %>
 
 
