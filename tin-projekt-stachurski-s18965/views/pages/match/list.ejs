@@ -17,7 +17,7 @@
 			<tr>
 				<td><%= match.player1FistName + ' ' +match.player1LastName %></td>
 				<td><%= match.firstName + ' ' +match.lastName %></td>
-				<td><%= match.date.toISOString().split('T')[0] %></td>
+				<td><%= match.date.toLocaleString().split(',')[0] %></td>
 				<td><%= match.winnerFirstName + ' ' + match.winnerLastName%></td>
 
 				<td>

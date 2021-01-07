@@ -3,9 +3,6 @@ const Joi = require('joi');
 const errMessages = (errors) => {
     errors.forEach(err => {
         switch (err.code) {
-            case "string.isoDate":
-                err.message = `Data powinna być w formacie yyyy-mm-dd`;
-                break;
             case "string.empty":
                 err.message = "Pole jest wymagane";
                 break;
@@ -22,7 +19,7 @@ const errMessages = (errors) => {
     return errors;
 }
 
-const playerSchema = Joi.object({
+const coachSchema = Joi.object({
 
     firstName: Joi.string()
         .min(2)
@@ -34,17 +31,15 @@ const playerSchema = Joi.object({
         .max(60)
         .required()
         .error(errMessages),
-    birthDate: Joi.string()
-        .required()
-        .isoDate()
-        .error(errMessages),
     country: Joi.string()
-        .required()
-        .min(2)
-        .max(60)
+        .allow("")
         .error(errMessages),
     id: Joi.number()
         .allow("")
+        .optional(),
+    idPlayer: Joi.string()
+        .required()
+        .error(errMessages)
 });
 
-module.exports = playerSchema;
+module.exports = coachSchema;

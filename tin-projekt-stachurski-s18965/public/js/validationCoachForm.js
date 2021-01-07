@@ -33,15 +33,6 @@ function validateForm() {
         errorLastName.innerText = "Pole powinno zawierać od 2 do 60 znaków";
     }
 
-    if (!checkRequired(countryInput.value)) {
-        valid = false;
-        countryInput.classList.add("error-input");
-        errorCountry.innerText = "Pole jest wymagane";
-    } else if (!checkTextLengthRange(countryInput.value, 2, 60)) {
-        valid = false;
-        countryInput.classList.add("error-input");
-        errorCountry.innerText = "Pole powinno zawierać od 2 do 60 znaków";
-    }
 
     if (!valid) {
         errorsSummary.innerText = "Formularz zawiera błędy";

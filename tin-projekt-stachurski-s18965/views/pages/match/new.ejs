@@ -4,65 +4,96 @@
 		<script type="application/javascript" src="/js/validationMatchForm.js"></script>
 		<script type="application/javascript" src="/js/validationCommon.js"></script>
 
-		<form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
+		<form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="validateForm()">
 				<input type="hidden" name="id" value="<%= match.id %>">
 
 				<label for="player">Zawodnik:<abbr title="required" aria-label="required">*</abbr></label>
-				<select id="player" name="idPlayer1" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
+				<select id="player" class="<%= validationErrors.find(e => e.path.includes('idPlayer1')) ? 'error-input' : '' %>"
+						name="idPlayer1" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
 					<option value="" selected>--- Przypisz zawodnika ---</option>
 					<% for (let i=0; i<allPlayers.length; i++) { let pl = allPlayers[i]; %>
 					<option value="<%= pl.id %>" label="<%= pl.firstName + ' ' + pl.lastName %>"
 							<%= (match.id && pl.id.toString() == match.idPlayer1.toString()) ? 'selected' : ''%>></option>
 					<% } %>
 				</select>
-			<span id="errorPlayer1" class="errors-text"></span>
-
-
+			<span id="errorPlayer1" class="errors-text">
+				<% if (validationErrors.find(e => e.path.includes('country'))) { %>
+					<%= validationErrors.find(e => e.path.includes('country')).message %>
+				<% } %>
+			</span>
 
 			<label for="rival">Rywal:<abbr title="required" aria-label="required">*</abbr></label>
-				<select id="rival" name="idPlayer2" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
+				<select id="rival" class="<%= validationErrors.find(e => e.path.includes('idPlayer2')) ? 'error-input' : '' %>"
+						name="idPlayer2" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
 					<option value="" selected>--- Przypisz rywala ---</option>
 					<% for (let i=0; i<allPlayers.length; i++) { let pl = allPlayers[i]; %>
 					<option value="<%= pl.id %>" label="<%= pl.firstName + ' ' + pl.lastName %>"
 							<%= (match.id && pl.id.toString() == match.idPlayer2.toString()) ? 'selected' : ''%>></option>
 					<% } %>
 				</select>
-			<span id="errorPlayer2" class="errors-text"></span>
+			<span id="errorPlayer2" class="errors-text">
+				<% if (validationErrors.find(e => e.path.includes('errorPlayer2'))) { %>
+					<%= validationErrors.find(e => e.path.includes('errorPlayer2')).message %>
+				<% } %>
+			</span>
 
-				<label for="score1">Wynik zawodnika:</label>
-				<input type="text" name="scorePlayer1" id="score1" placeholder="2-60 znaków" value="<%= match.scorePlayer %>"
+				<label for="scorePlayer1">Wynik zawodnika:</label>
+				<input type="text" class="<%= validationErrors.find(e => e.path.includes('scorePlayer1')) ? 'error-input' : '' %>"
+					   name="scorePlayer1" id="scorePlayer1" placeholder="2-60 znaków" value="<%= match.scorePlayer1 %>"
 						<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 				<span></span>
 
-				<label for="score2">Wynik rywala:</label>
-				<input type="text" name="scorePlayer2" id="score2" placeholder="2-60 znaków" value="<%= match.scoreRival %>"
+				<label for="scorePlayer2">Wynik rywala:</label>
+				<input type="text" class="<%= validationErrors.find(e => e.path.includes('scorePlayer2')) ? 'error-input' : '' %>"
+					   name="scorePlayer2" id="scorePlayer2" placeholder="2-60 znaków" value="<%= match.scorePlayer2 %>"
 						<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 				<span></span>
 
 				<label for="date">Data:<abbr title="required" aria-label="required">*</abbr></label>
-				<input type="text" name="date" id="date" placeholder="2-60 znaków" value="<%= match.date%>"
+				<input type="text" class="<%= validationErrors.find(e => e.path.includes('date')) ? 'error-input' : '' %>"
+					   name="date" id="date" placeholder="yyyy-mm-dd" value="<%= match.date%>"
 						<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
-				<span id="errorDate" class="errors-text"></span>
+				<span id="errorDate" class="errors-text">
+					<% if (validationErrors.find(e => e.path.includes('date'))) { %>
+						<%= validationErrors.find(e => e.path.includes('date')).message %>
+					<% } %>
+				</span>
 
 				<label for="court">Kort:<abbr title="required" aria-label="required">*</abbr></label>
-				<input type="text" name="court" id="court" placeholder="2-60 znaków" value="<%= match.court %>"
+				<input type="text" class="<%= validationErrors.find(e => e.path.includes('court')) ? 'error-input' : '' %>"
+					   name="court" id="court" placeholder="2-60 znaków" value="<%= match.court %>"
 						<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
-				<span id="errorPlace" class="errors-text"></span>
+				<span id="errorPlace" class="errors-text">
+					<% if (validationErrors.find(e => e.path.includes('court'))) { %>
+						<%= validationErrors.find(e => e.path.includes('court')).message %>
+					<% } %>
+				</span>
 
 
 				<label for="roundNumber">Nr rundy:<abbr title="required" aria-label="required">*</abbr></label>
-				<input type="text" name="roundNumber" id="roundNumber" placeholder="1-7" value="<%= match.roundNumber %>"
+				<input type="text" class="<%= validationErrors.find(e => e.path.includes('roundNumber')) ? 'error-input' : '' %>"
+					   name="roundNumber" id="roundNumber" placeholder="1-7" value="<%= match.roundNumber %>"
 						<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
-				<span id="errorRound" class="errors-text"></span>
+				<span id="errorRound" class="errors-text">
+					<% if (validationErrors.find(e => e.path.includes('roundNumber'))) { %>
+						<%= validationErrors.find(e => e.path.includes('roundNumber')).message %>
+					<% } %>
+				</span>
 
-				<label for="winner">Zwycięzca:</label>
-				<select id="winner" name="idWinner" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
+				<label for="winner">Zwycięzca:<abbr title="required" aria-label="required">*</abbr></label>
+				<select id="winner" class="<%= validationErrors.find(e => e.path.includes('idWinner')) ? 'error-input' : '' %>"
+						name="idWinner" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
 					<option value="" selected>--- Przypisz zwycięzcę ---</option>
 					<% for (let i=0; i<allPlayers.length; i++) { let pl = allPlayers[i]; %>
 					<option value="<%= pl.id %>" label="<%= pl.firstName + ' ' + pl.lastName %>"
 							<%= (match.id && pl.id.toString() == match.idWinner.toString()) ? 'selected' : ''%>></option>
 					<% } %>
 				</select>
+			<span id="errorWinner" class="errors-text">
+				<% if (validationErrors.find(e => e.path.includes('idWinner'))) { %>
+					<%= validationErrors.find(e => e.path.includes('idWinner')).message %>
+				<% } %>
+			</span>
 
 				<div class="form-buttons">
 					<p id="errorsSummary" class="errors-text"></p>

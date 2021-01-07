@@ -239,6 +239,11 @@ textarea {
     margin-bottom: 1rem;
 }
 
+.section-buttons{
+    margin-top: 2rem;
+
+}
+
 abbr[title='required'] {
     color: #c0392b;
 }

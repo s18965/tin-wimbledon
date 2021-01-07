@@ -15,18 +15,18 @@
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
-    <label for="score1">Wynik zawodnika:</label>
-        <input type="text" name="player's score" id="score1" placeholder="2-60 znaków" value="<%= match.scorePlayer %>"
+    <label for="scorePlayer1">Wynik zawodnika:</label>
+        <input type="text" name="player's score" id="scorePlayer1" placeholder="2-60 znaków" value="<%= match.scorePlayer1 %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
         <span></span>
 
-    <label for="score2">Wynik rywala:</label>
-        <input type="text" name="rival's score" id="score2" placeholder="2-60 znaków" value="<%= match.scoreRival %>"
+    <label for="scorePlayer2">Wynik rywala:</label>
+        <input type="text" name="rival's score" id="scorePlayer2" placeholder="2-60 znaków" value="<%= match.scorePlayer2 %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
         <span></span>
 
 	<label for="date">Data:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="date" id="date" placeholder="2-60 znaków" value="<%= match.date.toISOString().split('T')[0] %>"
+        <input type="text" name="date" id="date" placeholder="2-60 znaków" value="<%= match.date.toLocaleString().split(',')[0] %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
         <span></span>
 
@@ -41,7 +41,7 @@
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
-	<label for="winner">Zwycięzca:</label>
+        <label for="winner">Zwycięzca:<abbr title="required" aria-label="required">*</abbr></label>
         <input type="text" name="winner" id="winner" placeholder="2-60 znaków" value="<%= match.winner %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
         <span></span>

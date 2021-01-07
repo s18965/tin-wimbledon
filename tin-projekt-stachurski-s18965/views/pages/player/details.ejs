@@ -17,7 +17,7 @@
             <span></span>
 
 <label for="birthDate">Data urodzenia:<abbr title="required" aria-label="required">*</abbr></label>
-    <input type="text" name="birthDate" id="birthDate" placeholder="dd.mm.yyyy" value="<%= player.birthDate.toISOString().split('T')[0]  %>"
+    <input type="text" name="birthDate" id="birthDate" placeholder="dd.mm.yyyy" value="<%= player.birthDate.toLocaleString().split(',')[0]  %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 

@@ -18,8 +18,9 @@ exports.showAddPlayerForm = (req, res, next) => {
         formMode: 'createNew',
         btnLabel: 'Dodaj zawodnika',
         formAction: '/players/add',
-        navLocation: 'player'
-    });
+        validationErrors: [],
+        navLocation: 'player',
+    })
 }
 
 
@@ -49,6 +50,7 @@ exports.showEditPlayerDetails = (req, res, next) => {
                 pageTitle: 'Edycja zawodnika',
                 btnLabel: 'Edytuj zawodnika',
                 formAction: '/players/edit',
+                validationErrors: [],
                 navLocation: 'player'
             });
         });
@@ -61,8 +63,19 @@ exports.addPlayer = (req, res, next) => {
     PlayerRepository.createPlayer(playerData)
         .then( result => {
             res.redirect('/players');
+        })
+        .catch(err => {
+            console.log(err.details);
+            res.render('pages/player/new', {
+                player: playerData,
+                pageTitle: 'Dodawanie zawodnika',
+                formMode: 'createNew',
+                btnLabel: 'Dodaj zawodnika',
+                formAction: '/players/add',
+                navLocation: 'player',
+                validationErrors: err.details
+            });
         });
-
 };
 
 exports.updatePlayer = (req, res, next) => {
@@ -72,7 +85,18 @@ exports.updatePlayer = (req, res, next) => {
     PlayerRepository.updatePlayer(playerId, playerData)
         .then( result => {
             res.redirect('/players');
+        })
+        .catch(err => {
+        res.render('pages/player/details-edit', {
+            player: playerData,
+            pageTitle: 'Edytowanie zawodnika',
+            formMode: 'edit',
+            btnLabel: 'Edytuj zawodnika',
+            formAction: '/players/edit',
+            navLocation: 'player',
+            validationErrors: err.details
         });
+    });
 
 };
 

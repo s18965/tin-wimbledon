@@ -2,19 +2,19 @@ CREATE SCHEMA IF NOT EXISTS `tin-Wimbledon`;
 
 CREATE TABLE IF NOT EXISTS `tin-Wimbledon`.`Player`
 ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `firstName` VARCHAR(50) NOT NULL ,
-  `lastName` VARCHAR(50) NOT NULL ,
-  `country` VARCHAR(70) NOT NULL ,
-  `birthDate` DATE NULL ,
+  `firstName` VARCHAR(60) NOT NULL ,
+  `lastName` VARCHAR(60) NOT NULL ,
+  `country` VARCHAR(60) NOT NULL ,
+  `birthDate` DATE NOT NULL ,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `player_id_UNIQUE` (`id` ASC)
 ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS `tin-Wimbledon`.`Coach`
 ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `firstName` VARCHAR(50) NOT NULL ,
-  `lastName` VARCHAR(50) NOT NULL ,
-  `country` VARCHAR(70) NOT NULL ,
+  `firstName` VARCHAR(60) NOT NULL ,
+  `lastName` VARCHAR(60) NOT NULL ,
+  `country` VARCHAR(60) NULL ,
   `idPlayer` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `coach_id_UNIQUE` (`id` ASC),
@@ -23,8 +23,8 @@ CREATE TABLE IF NOT EXISTS `tin-Wimbledon`.`Coach`
 
 CREATE TABLE IF NOT EXISTS `tin-Wimbledon`.`TennisMatch`
 ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `scorePlayer1` varchar(50) NOT NULL ,
-  `scorePlayer2` varchar(50) NOT NULL ,
+  `scorePlayer1` varchar(50) NULL ,
+  `scorePlayer2` varchar(50) NULL ,
   `date` DATE NOT NULL ,
   `idPlayer1` INT UNSIGNED NOT NULL ,
   `idPlayer2` INT UNSIGNED NOT NULL ,

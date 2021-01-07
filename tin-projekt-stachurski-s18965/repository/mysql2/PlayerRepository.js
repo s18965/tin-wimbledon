@@ -85,10 +85,9 @@ exports.getPlayerById = (playerId) => {
 exports.createPlayer = (data) => {
 
     const vRes = playerSchema.validate(data, { abortEarly: false} );
-    if(vRes) {
-        return Promise.reject(vRes);
+    if(vRes.error) {
+        return Promise.reject(vRes.error);
     }
-
 
     console.log('createPlayer');
     console.log(data);
@@ -97,22 +96,32 @@ exports.createPlayer = (data) => {
 };
 
 exports.updatePlayer = (playerId, data) => {
+
+    const vRes = playerSchema.validate(data, { abortEarly: false} );
+    if(vRes.error) {
+        return Promise.reject(vRes.error);
+    }
+    const firstName = data.firstName;
+    const lastName = data.lastName;
+    const country = data.country;
+    const birthDate = data.birthDate;
+
     const sql = `UPDATE Player set firstName = ?, lastName = ?, country = ?, birthDate = ? where id = ?`;
-    return db.promise().execute(sql, [data.firstName, data.lastName, data.country, data.birthDate, playerId]);
+    return db.promise().execute(sql, [firstName, lastName, country, birthDate, playerId]);
 };
 
 exports.deletePlayer = (playerId) => {
     const sql1 = 'DELETE FROM Player where id = ?';
-    const sql2 = 'DELETE FROM TennisMatch where  idPlayer2 = ? ';
-    const sql3 = 'UPDATE Coach set idPlayer = 0 where idPlayer = ?';
+    const sql2 = 'DELETE FROM TennisMatch where  idPlayer2 = ? or idPlayer1 =?';
+    const sql3 = 'DELETE FROM Coach where idPlayer= ?';
 
-    return db.promise().execute(sql1, [playerId])
+    return db.promise().execute(sql2, [playerId, playerId])
         .then(() => {
-            return db.promise().execute(sql2, [playerId])
+            return db.promise().execute(sql3, [playerId])
 
         })
         .then(() => {
-            return db.promise().execute(sql3, [playerId])
+            return db.promise().execute(sql1, [playerId])
         })
 };
 

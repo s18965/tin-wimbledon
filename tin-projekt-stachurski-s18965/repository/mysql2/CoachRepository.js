@@ -1,4 +1,5 @@
 const db = require('../../config/mysql2/db');
+const coachSchema = require('../../model/joi/Coach');
 
 exports.getCoaches = () => {
     return db.promise().query('SELECT * FROM Coach')
@@ -57,13 +58,24 @@ exports.getCoachById = (coachId) => {
 };
 
 exports.createCoach = (data) => {
-    console.log('createCoach');
-    console.log(data);
+
+    const vRes = coachSchema.validate(data, { abortEarly: false} );
+    if(vRes.error) {
+        return Promise.reject(vRes.error);
+    }
+
+
     const sql = 'INSERT into Coach (firstName, lastName, country, idPlayer) VALUES (?, ?, ?, ?)';
     return db.promise().execute(sql, [data.firstName, data.lastName, data.country, data.idPlayer]);
 };
 
 exports.updateCoach = (coachId, data) => {
+
+    const vRes = coachSchema.validate(data, { abortEarly: false} );
+    if(vRes.error) {
+        return Promise.reject(vRes.error);
+    }
+
     const sql = `UPDATE Coach set firstName = ?, lastName = ?, country = ?, idPlayer = ? where id = ?`;
     return db.promise().execute(sql, [data.firstName, data.lastName, data.country, data.idPlayer, coachId]);
 };

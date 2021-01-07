@@ -24,6 +24,7 @@ exports.showAddMatchForm = (req, res, next) => {
                 pageTitle: 'Nowy mecz',
                 btnLabel: 'Dodaj mecz',
                 formAction: '/matches/add',
+                validationErrors: [],
                 navLocation: 'match'
             });
         });
@@ -62,6 +63,7 @@ exports.showEditMatchDetails = (req, res, next) => {
                 pageTitle: 'Edycja meczu',
                 btnLabel: 'Edytuj mecz',
                 formAction: '/matches/edit',
+                validationErrors: [],
                 navLocation: 'match'
             });
         });
@@ -75,7 +77,28 @@ exports.addMatch = (req, res, next) => {
     MatchRepository.createMatch(matchData)
         .then( result => {
             res.redirect('/matches');
-        });
+        }).catch(err => {
+
+
+
+        let allPlayers;
+        PlayerRepository.getPlayers()
+            .then(players => {
+                allPlayers = players;
+
+
+                res.render('pages/match/new', {
+                    match: matchData,
+                    allPlayers: allPlayers,
+                    pageTitle: 'Dodawanie meczu',
+                    formMode: 'createNew',
+                    btnLabel: 'Dodaj mecz',
+                    formAction: '/matches/add',
+                    navLocation: 'match',
+                    validationErrors: err.details
+                });
+            })
+    });
 
 };
 
@@ -84,13 +107,32 @@ exports.updateMatch = (req, res, next) => {
 
     const matchId = req.body.id;
     const matchData = { ...req.body };
-    if(matchData.idWinner == ''){
-        matchData.idWinner = null;
-    }
+
     MatchRepository.updateMatch(matchId, matchData)
         .then( result => {
             res.redirect('/matches');
-        });
+        }).catch(err => {
+
+
+        let allPlayers;
+        PlayerRepository.getPlayers()
+            .then(players => {
+                allPlayers = players;
+
+                console.log(err.details);
+
+                res.render('pages/match/details-edit', {
+                    match: matchData,
+                    allPlayers: allPlayers,
+                    formMode: 'edit',
+                    pageTitle: 'Edycja meczu',
+                    btnLabel: 'Edytuj mecz',
+                    formAction: '/matches/edit',
+                    validationErrors: err.details,
+                    navLocation: 'match'
+                });
+            })
+    });
 
 };
 
