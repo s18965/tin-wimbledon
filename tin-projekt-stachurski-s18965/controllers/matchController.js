@@ -1,6 +1,6 @@
 const MatchRepository = require('../repository/mysql2/MatchRepository');
 const PlayerRepository = require('../repository/mysql2/PlayerRepository');
-
+const i18n = require('i18n')
 
 exports.showMatchList = (req, res, next) => {
         MatchRepository.getMatches()
@@ -21,8 +21,8 @@ exports.showAddMatchForm = (req, res, next) => {
                 match: {},
                 formMode: 'createNew',
                 allPlayers: allPlayers,
-                pageTitle: 'Nowy mecz',
-                btnLabel: 'Dodaj mecz',
+                pageTitle: i18n.__('match.form.add.pageTitle'),
+                btnLabel: i18n.__('player.form.add.btnLabel'),
                 formAction: '/matches/add',
                 validationErrors: [],
                 navLocation: 'match'
@@ -38,7 +38,7 @@ exports.showMatchDetails = (req, res, next) => {
             res.render('pages/match/details', {
                 match: match,
                 formMode: 'showDetails',
-                pageTitle: 'Szczegóły meczu',
+                pageTitle: i18n.__('match.form.add.details'),
                 formAction: '',
                 navLocation: 'match'
             });
@@ -60,8 +60,8 @@ exports.showEditMatchDetails = (req, res, next) => {
                 match: match,
                 allPlayers: allPlayers,
                 formMode: 'edit',
-                pageTitle: 'Edycja meczu',
-                btnLabel: 'Edytuj mecz',
+                pageTitle: i18n.__('match.form.edit.pageTitle'),
+                btnLabel: i18n.__('player.form.edit.btnLabel'),
                 formAction: '/matches/edit',
                 validationErrors: [],
                 navLocation: 'match'
@@ -90,9 +90,9 @@ exports.addMatch = (req, res, next) => {
                 res.render('pages/match/new', {
                     match: matchData,
                     allPlayers: allPlayers,
-                    pageTitle: 'Dodawanie meczu',
+                    pageTitle: i18n.__('match.form.add.pageTitle'),
                     formMode: 'createNew',
-                    btnLabel: 'Dodaj mecz',
+                    btnLabel: i18n.__('player.form.add.btnLabel'),
                     formAction: '/matches/add',
                     navLocation: 'match',
                     validationErrors: err.details
@@ -119,14 +119,12 @@ exports.updateMatch = (req, res, next) => {
             .then(players => {
                 allPlayers = players;
 
-                console.log(err.details);
-
                 res.render('pages/match/details-edit', {
                     match: matchData,
                     allPlayers: allPlayers,
                     formMode: 'edit',
-                    pageTitle: 'Edycja meczu',
-                    btnLabel: 'Edytuj mecz',
+                    pageTitle: i18n.__('match.form.edit.pageTitle'),
+                    btnLabel: i18n.__('player.form.edit.btnLabel'),
                     formAction: '/matches/edit',
                     validationErrors: err.details,
                     navLocation: 'match'

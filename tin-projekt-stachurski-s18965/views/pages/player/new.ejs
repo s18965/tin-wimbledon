@@ -1,17 +1,26 @@
 <%- include('../../fragments/header.ejs') %>
     <main>
-        <h2>Nowy zawodnik</h2>
+        <h2><%= __('player.form.add.pageTitle')%></h2>
         <script type="application/javascript" src="/js/validationPlayerForm.js"></script>
         <script type="application/javascript" src="/js/validationCommon.js"></script>
 
-        <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="validateForm()">
+        <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm()">
+            <div style="display: none">
+                <span id="errorMessage-required"><%= __('validationMessage.fieldRequired') %></span>
+                <span id="errorMessage-dateFormat"><%= __('validationMessage.dateFormat') %></span>
+                <span id="errorMessage-mailFormat"><%= __('validationMessage.mailFormat') %></span>
+                <span id="errorMessage-futureDate"><%= __('validationMessage.futureDate') %></span>
+                <span id="errorMessage-form"><%= __('validationMessage.form') %></span>
+                <span id="errorMessage-charsUniversal"><%= __('validationMessage.charsUniversal') %></span>
+                <span id="errorMessage-signs"><%= __('validationMessage.signs') %></span>
+            </div>
 
             <input type="hidden" name="id" value="<%= player.id %>">
 
-            <label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
+            <label for="firstName"><%= __('player.fields.firstName')%>:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="text"
                    class="<%= validationErrors.find(e => e.path.includes('firstName')) ? 'error-input' : '' %>"
-                   name="firstName" id="firstName" placeholder="2-60 znaków" value="<%= player.firstName %>"
+                   name="firstName" id="firstName" placeholder="2-60 <%= __('validationMessage.signs') %>" value="<%= player.firstName %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 
             <span id="errorFirstName" class="errors-text">
@@ -20,10 +29,10 @@
                 <% } %>
             </span>
 
-            <label for="lastName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
+            <label for="lastName"><%= __('player.fields.lastName')%>:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="text"
                    class="<%= validationErrors.find(e => e.path.includes('lastName')) ? 'error-input' : '' %>"
-                   name="lastName" id="lastName" placeholder="2-60 znaków" value="<%= player.lastName %>"
+                   name="lastName" id="lastName" placeholder="2-60 <%= __('validationMessage.signs') %>" value="<%= player.lastName %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 
             <span id="errorLastName" class="errors-text">
@@ -32,7 +41,7 @@
                 <% } %>
             </span>
 
-            <label for="birthDate">Data urodzenia:<abbr title="required" aria-label="required">*</abbr></label>
+            <label for="birthDate"><%= __('player.fields.birthDate') %>:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="text"
                    class="<%= validationErrors.find(e => e.path.includes('birthDate')) ? 'error-input' : '' %>"
                    name="birthDate" id="birthDate" placeholder="yyyy-mm-dd" value="<%= player.birthDate%>"
@@ -43,10 +52,10 @@
                 <% } %>
             </span>
 
-            <label for="country">Kraj:<abbr title="required" aria-label="required">*</abbr></label>
+            <label for="country"><%= __('player.fields.country') %>:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="text"
                    class="<%= validationErrors.find(e => e.path.includes('country')) ? 'error-input' : '' %>"
-                   name="country" id="country" placeholder="2-60 znaków" value="<%= player.country %>"
+                   name="country" id="country" placeholder="2-60 <%= __('validationMessage.signs') %>" value="<%= player.country %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
             <span id="errorCountry" class="errors-text">
                     <% if (validationErrors.find(e => e.path.includes('country'))) { %>
@@ -54,10 +63,10 @@
                     <% } %>
             </span>
 
-            <label for="email">Email:<abbr title="required" aria-label="required">*</abbr></label>
+            <label for="email"><%= __('player.fields.email') %>:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="text"
                    class="<%= validationErrors.find(e => e.path.includes('email')) ? 'error-input' : '' %>"
-                   name="email" id="email" placeholder="2-100 znaków" value="<%= player.email %>"
+                   name="email" id="email" placeholder="2-100 <%= __('validationMessage.signs') %>" value="<%= player.email %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 
             <span id="errorEmail" class="errors-text">
@@ -65,10 +74,10 @@
                     <%= validationErrors.find(e => e.path.includes('email')).message %>
                 <% } %>
             </span>
-            <label for="password">Hasło:<abbr title="required" aria-label="required">*</abbr></label>
+            <label for="password"><%= __('player.fields.password') %>:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="text"
                    class="<%= validationErrors.find(e => e.path.includes('password')) ? 'error-input' : '' %>"
-                   name="password" type="password" id="password" placeholder="2-100 znaków" value="<%= player.password %>"
+                   name="password" type="password" id="password" placeholder="2-100 <%= __('validationMessage.signs') %>" value="<%= player.password %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 
             <span id="errorPassword" class="errors-text">
@@ -81,9 +90,9 @@
                 <p id="errorsSummary" class="errors-text"></p>
                 <% if (formMode != 'showDetails') { %>
                 <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
-                <a class="form-button-cancel" href="/players">Anuluj</a>
+                <a class="form-button-cancel" href="/players"><%= __('form.actions.cancel') %></a>
                 <% } else { %>
-                    <a class="form-button-cancel" href="/players">Powrót</a>
+                    <a class="form-button-cancel" href="/players"><%= __('form.actions.return') %></a>
                 <% } %>
             </div>
 

@@ -1,22 +1,24 @@
 const PlayerRepository = require('../repository/mysql2/PlayerRepository');
+const i18n = require('i18n')
 
 exports.showPlayerList = (req, res, next) => {
-
     PlayerRepository.getPlayers()
         .then(players => {
             res.render('pages/player/list', {
                 players: players,
-                navLocation: 'player'
+                navLocation: 'player',
+                i18n:i18n
             });
         });
 }
 
 exports.showAddPlayerForm = (req, res, next) => {
+
     res.render('pages/player/new', {
         player: {},
-        pageTitle: 'Nowy zawodnik',
+        pageTitle: i18n.__('player.form.add.pageTitle'),
         formMode: 'createNew',
-        btnLabel: 'Dodaj zawodnika',
+        btnLabel: i18n.__('player.form.add.btnLabel'),
         formAction: '/players/add',
         validationErrors: [],
         navLocation: 'player',
@@ -32,7 +34,7 @@ exports.showPlayerDetails = (req, res, next) => {
             res.render('pages/player/details', {
                 player: player,
                 formMode: 'showDetails',
-                pageTitle: 'Szczegóły zawodnika',
+                pageTitle: i18n.__('player.form.add.details'),
                 formAction: '',
                 navLocation: 'player'
             });
@@ -47,8 +49,8 @@ exports.showEditPlayerDetails = (req, res, next) => {
             res.render('pages/player/details-edit', {
                 player: player,
                 formMode: 'edit',
-                pageTitle: 'Edycja zawodnika',
-                btnLabel: 'Edytuj zawodnika',
+                pageTitle: i18n.__('player.form.edit.pageTitle'),
+                btnLabel: i18n.__('player.form.edit.btnLabel'),
                 formAction: '/players/edit',
                 validationErrors: [],
                 navLocation: 'player'
@@ -68,9 +70,9 @@ exports.addPlayer = (req, res, next) => {
             console.log(err.details);
             res.render('pages/player/new', {
                 player: playerData,
-                pageTitle: 'Dodawanie zawodnika',
+                pageTitle: i18n.__('player.form.add.pageTitle'),
                 formMode: 'createNew',
-                btnLabel: 'Dodaj zawodnika',
+                btnLabel: i18n.__('player.form.add.btnLabel'),
                 formAction: '/players/add',
                 navLocation: 'player',
                 validationErrors: err.details
@@ -89,9 +91,9 @@ exports.updatePlayer = (req, res, next) => {
         .catch(err => {
         res.render('pages/player/details-edit', {
             player: playerData,
-            pageTitle: 'Edytowanie zawodnika',
+            pageTitle: i18n.__('player.form.edit.pageTitle'),
             formMode: 'edit',
-            btnLabel: 'Edytuj zawodnika',
+            btnLabel: i18n.__('player.form.edit.btnLabel'),
             formAction: '/players/edit',
             navLocation: 'player',
             validationErrors: err.details

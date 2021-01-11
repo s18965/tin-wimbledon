@@ -1,5 +1,6 @@
 const PlayerRepository = require('../repository/mysql2/PlayerRepository');
 const authUtil = require('../util/authUtils');
+const i18n = require('i18n');
 
 exports.login = (req, res, next) => {
     const email = req.body.email;
@@ -9,7 +10,7 @@ exports.login = (req, res, next) => {
             if(!emp.password) {
                 res.render('index', {
                     navLocation: '',
-                    loginError: "Nieprawidłowy adres email lub hasło"
+                    loginError: i18n.__('nav.login.wrongPassword')
                 })
             } else if(authUtil.comparePasswords(password, emp.password) === true) {
                 req.session.loggedUser = emp;
@@ -17,7 +18,7 @@ exports.login = (req, res, next) => {
             } else {
                 res.render('index', {
                     navLocation: '',
-                    loginError: "Nieprawidłowy adres email lub hasło"
+                    loginError: i18n.__('nav.login.wrongPassword')
                 })
             }
         })

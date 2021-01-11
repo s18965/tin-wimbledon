@@ -1,9 +1,8 @@
 <%- include('./fragments/header.ejs') %>
 <main>
-        <h2>Strona główna</h2>
-        <p>Ta aplikacja służy do wyświetlania informacji o zawodnikach biorących udział w turnieju tenisowym Wimbledon, jak również ich trenerów oraz wyniki.</p>
+        <h2><%= __('main-page.content')%></h2>
+        <p><%= __('main-page.description')%></p>
 	   <img id="photo" src="images/banner.jpg" alt="Turniej Wimbledon">
-	<p>Wimbledon zawsze odbywa się w lipcu w Londynie oraz posiada określoną liczbę rund. 
-Dla każdego uczestnika przechowywane są jego dane personalne, takie jak imię, nazwisko, kraj pochodzenia oraz data urodzenia. Dodatkowo podani są trenerzy danego zawodnika, których może być więcej niż 1. Znamy imię, nazwisko oraz kraj pochodzenia coach’a. W każdej parze dla każdego zawodnika jest podawany wynik w postaci chronologicznej listy zdobytych gemów w poszczególnych setach, data i nazwa kortu, gdzie odbył się mecz, numer rundy oraz wyróżniony jest zwycięzca. </p>
+	<p><%= __('main-page.details')%></p>
 </main>
     <%- include('./fragments/footer.ejs') %>

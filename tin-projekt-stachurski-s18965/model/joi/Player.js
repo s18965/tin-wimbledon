@@ -1,22 +1,24 @@
 const Joi = require('joi');
+const i18n = require('i18n');
+
 
 const errMessages = (errors) => {
     errors.forEach(err => {
         switch (err.code) {
             case "string.isoDate":
-                err.message = `Data powinna być w formacie yyyy-mm-dd`;
+                err.message = i18n.__('validationMessage.dateFormat');
                 break;
             case "string.empty":
-                err.message = "Pole jest wymagane";
+                err.message = i18n.__('validationMessage.fieldRequired');
                 break;
             case "string.min":
-                err.message = `Pole powinno zawierać co najmniej ${err.local.limit} znaki`;
+                err.message = i18n.__('validationMessage.minimumChars')+ err.local.limit + i18n.__('validationMessage.chars');
                 break;
             case "string.max":
-                err.message = `Pole powinno zawierać co najwyżej ${err.local.limit} znaki`;
+                err.message = i18n.__('validationMessage.maximumChars')+ err.local.limit + i18n.__('validationMessage.chars');
                 break;
             case "string.email":
-                err.message = `Pole powinno zawierać prawidłowy adres email`;
+                err.message = i18n.__('validationMessage.mailFormat');
                 break;
             default:
                 break;

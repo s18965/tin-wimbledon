@@ -1,48 +1,48 @@
 <%- include('../../fragments/header.ejs') %>
     <main>
-        <h2>Mecz - szczegóły</h2>
+        <h2><%= __('match.form.add.details')%></h2>
 
 	<form class="form">
         <input type="hidden" name="id" value="<%= match.id %>">
 
-        <label for="player">Zawodnik:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="player" id="player" placeholder="2-60 znaków" value="<%= match.player %>"
+        <label for="player"><%= __('match.fields.player') %>:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="player" id="player" placeholder="2-60 <%= __('validationMessage.signs') %>" value="<%= match.player %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
-	<label for="rival">Rywal:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="rival" id="rival" placeholder="2-60 znaków" value="<%= match.rival %>"
+	<label for="rival"><%= __('match.fields.rival') %>:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="rival" id="rival" placeholder="2-60 <%= __('validationMessage.signs') %>" value="<%= match.rival %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
-    <label for="scorePlayer1">Wynik zawodnika:</label>
-        <input type="text" name="player's score" id="scorePlayer1" placeholder="2-60 znaków" value="<%= match.scorePlayer1 %>"
+    <label for="scorePlayer1"><%= __('match.fields.scorePlayer') %>:</label>
+        <input type="text" name="player's score" id="scorePlayer1" placeholder="2-60 <%= __('validationMessage.signs') %>" value="<%= match.scorePlayer1 %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
         <span></span>
 
-    <label for="scorePlayer2">Wynik rywala:</label>
-        <input type="text" name="rival's score" id="scorePlayer2" placeholder="2-60 znaków" value="<%= match.scorePlayer2 %>"
+    <label for="scorePlayer2"><%= __('match.fields.scoreRival') %>:</label>
+        <input type="text" name="rival's score" id="scorePlayer2" placeholder="2-60 <%= __('validationMessage.signs') %>" value="<%= match.scorePlayer2 %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
         <span></span>
 
-	<label for="date">Data:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="date" id="date" placeholder="2-60 znaków" value="<%= match.date.toLocaleString().split(',')[0] %>"
+	<label for="date"><%= __('match.fields.date') %>:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="date" id="date" placeholder="2-60 <%= __('validationMessage.signs') %>" value="<%= match.date.toLocaleString().split(',')[0] %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
         <span></span>
 
-	<label for="court">Kort:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="court" id="court" placeholder="2-60 znaków" value="<%= match.court %>"
+	<label for="court"><%= __('match.fields.court') %>:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="court" id="court" placeholder="2-60 <%= __('validationMessage.signs') %>" value="<%= match.court %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
 
-	<label for="round">Nr rundy:<abbr title="required" aria-label="required">*</abbr></label>
+	<label for="round"><%= __('match.fields.round') %>:<abbr title="required" aria-label="required">*</abbr></label>
         <input type="text" name="round" id="round" placeholder="1-7" value="<%= match.roundNumber %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
-        <label for="winner">Zwycięzca:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="winner" id="winner" placeholder="2-60 znaków" value="<%= match.winner %>"
+        <label for="winner"><%= __('match.fields.winner') %>:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="winner" id="winner" placeholder="2-60 <%= __('validationMessage.signs') %>" value="<%= match.winner %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
         <span></span>
 
@@ -50,18 +50,18 @@
 
         <% if (formMode == 'showDetails') { %>
             <div class="section-buttons">
-                <a href="/matches/edit/<%= match.id %>" class="button-add">Edytuj</a>
+                <a href="/matches/edit/<%= match.id %>" class="button-add"><%= __('form.actions.edit') %></a>
             </div>
         <% } %>
 
 
-	  <h2>Lista zawodników</h2>
+	  <h2><%= __('player.list.pageTitle') %></h2>
 	<table id="zawodnicy" class="table-list">
     		<thead>
     		<tr>
-        		<th>Imię i nazwisko</th>
-           		<th>Kraj pochodzenia</th>
-        		<th>Akcje</th>
+                <th><%= __('player.fields.name') %></th>
+                <th><%= __('player.fields.country')%></th>
+                <th><%= __('list.actions.title')%></th>
     		</tr>
 		</thead>
         <tbody>
@@ -71,12 +71,12 @@
                 <td><%= pl.country %></td>
                 <td>
                     <ul class="list-actions">
-                        <li><a href="/players/details/<%=pl.id%>" class="list-actions-button-details">Szczegóły</a></li>
+                        <li><a href="/players/details/<%=pl.id%>" class="list-actions-button-details"><%= __('list.actions.details')%></a></li>
                         <% if(loggedUser) { %>
-                        <li><a href="/players/edit/<%=pl.id%>" class="list-actions-button-edit">Edytuj</a></li>
+                        <li><a href="/players/edit/<%=pl.id%>" class="list-actions-button-edit"><%= __('list.actions.edit')%></a></li>
                         <% } %>
                         <% if(loggedUser) { %>
-                        <li><a href="/players/delete/<%=pl.id%>" class="list-actions-button-delete">Usuń</a></li>
+                        <li><a href="/players/delete/<%=pl.id%>" class="list-actions-button-delete"><%= __('list.actions.delete')%></a></li>
                         <% } %>
                     </ul>
                 </td>
@@ -89,9 +89,9 @@
             <p id="errorsSummary" class="errors-text"></p>
             <% if (formMode != 'showDetails') { %>
             <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
-            <a class="form-button-cancel" href="/matches">Anuluj</a>
+            <a class="form-button-cancel" href="/matches"><%= __('form.actions.cancel') %></a>
             <% } else { %>
-                <a class="form-button-cancel" href="/matches">Powrót</a>
+                <a class="form-button-cancel" href="/matches"><%= __('form.actions.return') %></a>
             <% } %>
         </div>
 

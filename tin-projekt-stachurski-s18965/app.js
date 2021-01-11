@@ -30,7 +30,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -39,6 +38,26 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use((req, res, next) => {
+  if(!res.locals.lang) {
+    const currentLang = req.cookies['acme-hr-lang'];
+    res.locals.lang = currentLang;
+  }
+  next();
+});
+
+
+const i18n = require('i18n');
+i18n.configure({
+  locales: ['pl', 'en'],
+  directory: path.join(__dirname, 'locales'),
+  objectNotation: true,
+  cookie: 'acme-hr-lang',
+  defaultLocale: 'pl', //c
+  register: global     //c
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
@@ -66,6 +85,7 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+  console.error(err.stack)
 });
 
 module.exports = app;

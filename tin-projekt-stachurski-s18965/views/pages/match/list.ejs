@@ -1,15 +1,15 @@
 <%- include('../../fragments/header.ejs') %>
     <main>
-        <h2>Lista meczy</h2>
+		<h2><%= __('match.list.pageTitle')%></h2>
 	<table id="mecze" class="table-list">
     		<thead>
     		<tr>
 
-        		<th>Zawodnik</th>
-        		<th>Rywal</th>
-        		<th>Data</th>
-        		<th>Zwycięzca</th>
-			<th>Akcje</th>
+				<th><%= __('match.fields.player') %></th>
+				<th><%= __('match.fields.rival')%></th>
+				<th><%= __('match.fields.date')%></th>
+				<th><%= __('match.fields.winner')%></th>
+				<th><%= __('list.actions.title')%></th>
     		</tr>
 		</thead>
 		<tbody>
@@ -49,7 +49,7 @@
 </tbody>
 	</table>
 		<% if(loggedUser) { %>
-		<p><a class="button-add" href="/matches/add">Dodaj nowy mecz</a></p>
+		<p><a class="button-add" href="/matches/add"><%= __('match.list.addNew')%></a></p>
 		<% } %>
 	</main>
     <%- include('../../fragments/footer.ejs') %>

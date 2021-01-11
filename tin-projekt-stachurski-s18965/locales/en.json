@@ -1,0 +1,166 @@
+{
+	"main-page": {
+		"content": "Main Page",
+		"description": "This project lets you check information about players taking part in a tennis tournanment Wimbledon, as well as their coaches and scores.",
+		"details": "Wimbledon always takes place in July in London and has a certain number of rounds. Personal data such as name, surname, country of origin and date of birth are stored for each participant. Additionally, the coaches of a given player are given, which may be more than 1. We know the name, surname and country of origin of the coach. In each pair, each player is given the result in the form of a chronological list of games scored in each set, date and name of the court where the match took place, the round number and the winner is distinguished."
+	},
+	"nav": {
+		"main-page": "Main page",
+		"players": "Players",
+		"coaches": "Coaches",
+		"matches": "Matches",
+		"login": {
+			"loggedIn": "You're logged as",
+			"btnLogOut": "Log out",
+			"btnLogIn": "Confirm",
+			"wrongPassword": "Incorrect password or email",
+			"title": "Log in",
+			"email": "Email",
+			"password": "Password"
+		}
+	},
+	"list": {
+		"actions": {
+			"title": "Actions",
+			"details": "Details",
+			"edit": "Edit",
+			"delete": "Delete"
+		}
+	},
+	"form": {
+		"actions": {
+			"return": "Return",
+			"edit": "Edit",
+			"cancel": "Cancel"
+		}
+	},
+	"player": {
+		"fields": {
+			"firstName": "First name",
+			"lastName": "Last name",
+			"email": "Email",
+			"birthDate": "Birthday",
+			"country": "Country",
+			"password": "Password",
+			"name": "Name"
+		},
+		"list": {
+			"title": "Players",
+			"addNew": "Add new player",
+			"noData": "No players in database",
+			"pageTitle": "List of players"
+		},
+		"form": {
+			"matches": "Previous matches",
+			"add": {
+				"pageTitle": "Adding a new player",
+				"btnLabel": "Add the player",
+				"confirm": {
+					"header": "Confirmation",
+					"text": "The new player has been successfully created"
+				},
+				"details": "Player - details"
+			},
+			"edit": {
+				"pageTitle": "Editing a player",
+				"btnLabel": "Save changes",
+				"confirm": {
+					"header": "Confirmation",
+					"text": "The player has been successfully updated"
+				}
+			}
+		}
+	},
+	"coach": {
+		"fields": {
+			"firstName": "First Name",
+			"lastName": "Last Name",
+			"country": "Country",
+			"player": "Coached player"
+		},
+		"list": {
+			"title": "Coaches",
+			"addNew": "Add a new coach",
+			"noData": "No coaches in database",
+			"pageTitle": "Coaches list"
+		},
+		"form": {
+			"player": "Coached Player",
+			"add": {
+				"pageTitle": "Adding coach",
+				"btnLabel": "Add coach",
+				"confirm": {
+					"header": "Confirmation",
+					"text": "Successfully added coach"
+				},
+				"details": "Coach - details"
+			},
+			"edit": {
+				"pageTitle": "Editing a coach",
+				"btnLabel": "Save changes",
+				"confirm": {
+					"header": "Confirmation",
+					"text": "The coach has been successfully updated"
+				}
+			}
+		}
+	},
+	"match": {
+		"fields": {
+			"player": "Player",
+			"rival": "Rival",
+			"court": "Court",
+			"date": "Date",
+			"winner": "Winner",
+			"round": "Round",
+			"scorePlayer": "Player's score",
+			"scoreRival": "Rival's score"
+		},
+		"list": {
+			"title": "Matches",
+			"addNew": "Add a new match",
+			"noData": "No matches in database",
+			"pageTitle": "Matches list"
+		},
+		"form": {
+			"players": "Players",
+			"add": {
+				"pageTitle": "Adding a new match",
+				"btnLabel": "Add the match",
+				"confirm": {
+					"header": "Confirmation",
+					"text": "The new match has been successfully created"
+				},
+				"details": "Match - details"
+			},
+			"edit": {
+				"pageTitle": "Editing a match",
+				"btnLabel": "Save changes",
+				"confirm": {
+					"header": "Confirmation",
+					"text": "The match has been successfully updated"
+				}
+			}
+		}
+	},
+	"validationMessage": {
+		"fieldRequired": "Field is required",
+		"dateFormat": "Date should be put in yyyy-mm-dd format",
+		"mailFormat": "Mail should be put in correct format",
+		"chars": " signs",
+		"minimumChars": "Field requires at least ",
+		"maximumChars": "Field requires at most ",
+		"futureDate": "Date cannot be from the future",
+		"form": "Form has mistakes",
+		"charsUniversal": "Field requires ",
+		"signs": "signs",
+		"changePassword": "Enter only to change",
+		"changeEmail": "Enter only to change",
+		"score": "[games],[games],[games]",
+		"player": "Choose player",
+		"rival": "Choose rival",
+		"winner": "Choose winner",
+		"number": "Field should be a number",
+		"extent": "validationMessage.extent"
+	}
+}

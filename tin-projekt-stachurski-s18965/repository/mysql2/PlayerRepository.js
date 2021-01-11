@@ -114,7 +114,6 @@ exports.updatePlayer = (playerId, data) => {
     }
     return checkEmailUnique(data.email)
         .then(emailErr => {
-            console.log(data.email)
             if(emailErr.details) {
                 return Promise.reject(emailErr);
             } else {

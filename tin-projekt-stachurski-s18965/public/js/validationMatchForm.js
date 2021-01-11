@@ -2,51 +2,71 @@ function validateForm() {
 
     const player1Input = document.getElementById('player');
     const player2Input = document.getElementById('rival');
+    const winnerInput = document.getElementById('winner');
     const dateInput = document.getElementById('date');
     const placeInput = document.getElementById('court');
     const roundInput = document.getElementById('roundNumber');
 
     const errorPlayer1 = document.getElementById('errorPlayer1');
     const errorPlayer2 = document.getElementById('errorPlayer2');
+    const errorWinner = document.getElementById('errorWinner');
     const errorDate = document.getElementById('errorDate');
     const errorPlace = document.getElementById('errorPlace');
     const errorRound = document.getElementById('errorRound');
     const errorsSummary = document.getElementById('errorsSummary');
 
-    resetErrors([player1Input, player2Input, dateInput,placeInput,roundInput], [errorPlayer1, errorPlayer2, errorDate,errorPlace,errorRound], errorsSummary);
+    const reqMessage = document.getElementById('errorMessage-required').innerText;
+    const dateMessage = document.getElementById('errorMessage-dateFormat').innerText;
+    const formMessage = document.getElementById('errorMessage-form').innerText;
+    const charsMessage = document.getElementById('errorMessage-charsUniversal').innerText;
+    const signsMessage = document.getElementById('errorMessage-signs').innerText;
+    const extentMessage = document.getElementById('errorMessage-extent').innerText;
+    const numberMessage = document.getElementById('errorMessage-number').innerText;
+
+
+    resetErrors([player1Input, player2Input,winnerInput, dateInput,placeInput,roundInput], [errorPlayer1, errorPlayer2, errorWinner,errorDate,errorPlace,errorRound], errorsSummary);
 
     let valid = true;
+    const minSign=2;
+    const maxSign=60;
+    const minRound=1;
+    const maxRound=7;
+    const lengthErrorMessage=charsMessage + minSign +'-'+maxSign +' '+ signsMessage;
 
     if (!checkRequired(player1Input.value)) {
         valid = false;
         player1Input.classList.add("error-input");
-        errorPlayer1.innerText = "Pole jest wymagane";
+        errorPlayer1.innerText = reqMessage;
     }
 
     if (!checkRequired(player2Input.value)) {
         valid = false;
         player2Input.classList.add("error-input");
-        errorPlayer2.innerText = "Pole jest wymagane";
+        errorPlayer2.innerText = reqMessage;
     }
 
     if (!checkRequired(placeInput.value)) {
         valid = false;
         placeInput.classList.add("error-input");
-        errorPlace.innerText = "Pole jest wymagane";
+        errorPlace.innerText = reqMessage;
+    }else if (!checkTextLengthRange(placeInput.value, minSign, maxSign)) {
+        valid = false;
+        placeInput.classList.add("error-input");
+        errorPlace.innerText = lengthErrorMessage;
     }
 
     if (!checkRequired(roundInput.value)) {
         valid = false;
         roundInput.classList.add("error-input");
-        errorRound.innerText = "Pole jest wymagane";
+        errorRound.innerText = reqMessage;
     } else if (!checkNumber(roundInput.value)) {
         valid = false;
         roundInput.classList.add("error-input");
-        errorRound.innerText = "Pole powinno być liczbą";
-    }else if (!checkNumberRange(roundInput.value, 1, 7)) {
+        errorRound.innerText = numberMessage;
+    }else if (!checkNumberRange(roundInput.value, minRound, maxRound)) {
         valid = false;
         roundInput.classList.add("error-input");
-        errorRound.innerText = "Pole powinno być liczbą w zakresie od 1 do 7";
+        errorRound.innerText = numberMessage + ' ' + extentMessage + ' '+minRound+'-'+maxRound;
     }
 
     let nowDate = new Date(),
@@ -63,19 +83,22 @@ function validateForm() {
     if (!checkRequired(dateInput.value)) {
         valid = false;
         dateInput.classList.add("error-input");
-        errorDate.innerText = "Pole jest wymagane";
+        errorDate.innerText = reqMessage;
     } else if (!checkDate(dateInput.value)) {
         valid = false;
         dateInput.classList.add("error-input");
-        errorDate.innerText = "Pole powinno zawierać datę w formacie yyyy-MM-dd (np. 2000-01-01)";
-    } else if (checkDateIfAfter(dateInput.value, nowString)) {
-        valid = false;
-        dateInput.classList.add("error-input");
-        errorDate.innerText = "Data nie może być z przyszłości";
+        errorDate.innerText = dateMessage;
     }
 
+    if (!checkRequired(winnerInput.value)) {
+        valid = false;
+        winnerInput.classList.add("error-input");
+        errorWinner.innerText = reqMessage;
+    }
+
+
     if (!valid) {
-        errorsSummary.innerText = "Formularz zawiera błędy";
+        errorsSummary.innerText = formMessage;
     }
     return valid;
 

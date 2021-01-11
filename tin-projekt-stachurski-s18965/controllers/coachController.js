@@ -1,6 +1,6 @@
 const CoachRepository = require('../repository/mysql2/CoachRepository');
 const PlayerRepository = require('../repository/mysql2/PlayerRepository');
-
+const i18n = require('i18n')
 
 exports.showCoachList = (req, res, next) => {
 
@@ -24,9 +24,9 @@ exports.showAddCoachForm = (req, res, next) => {
             res.render('pages/coach/new', {
                 allPlayers: allPlayers,
                 coach: {},
-                pageTitle: 'Nowy trener',
+                pageTitle: i18n.__('coach.form.add.pageTitle'),
                 formMode: 'createNew',
-                btnLabel: 'Dodaj trenera',
+                btnLabel: i18n.__('coach.form.add.btnLabel'),
                 formAction: '/coaches/add',
                 validationErrors: [],
                 navLocation: 'coach'
@@ -42,7 +42,7 @@ exports.showCoachDetails = (req, res, next) => {
             res.render('pages/coach/details', {
                 coach: coach,
                 formMode: 'showDetails',
-                pageTitle: 'Szczegóły trenera',
+                pageTitle: i18n.__('coach.form.add.details'),
                 formAction: '',
                 navLocation: 'coach'
             });
@@ -66,8 +66,8 @@ exports.showEditCoachDetails = (req, res, next) => {
                 coach: coach,
                 allPlayers: allPlayers,
                 formMode: 'edit',
-                pageTitle: 'Edycja trenera',
-                btnLabel: 'Edytuj trenera',
+                pageTitle: i18n.__('coach.form.edit.pageTitle'),
+                btnLabel: i18n.__('coach.form.edit.btnLabel'),
                 formAction: '/coaches/edit',
                 validationErrors: [],
                 navLocation: 'coach'
@@ -79,7 +79,6 @@ exports.showEditCoachDetails = (req, res, next) => {
 exports.addCoach = (req, res, next) => {
 
     const coachData = { ...req.body };
-    console.log(req.body.idPlayer);
 
     CoachRepository.createCoach(coachData)
         .then( result => {
@@ -92,15 +91,12 @@ exports.addCoach = (req, res, next) => {
             .then(players => {
                 allPlayers = players;
 
-                console.log(req.body.idPlayer);
-                console.log(err.details);
-
                 res.render('pages/coach/new', {
                     coach: coachData,
                     allPlayers: allPlayers,
-                    pageTitle: 'Dodawanie trenera',
+                    pageTitle: i18n.__('coach.form.add.pageTitle'),
                     formMode: 'createNew',
-                    btnLabel: 'Dodaj trenera',
+                    btnLabel: i18n.__('coach.form.add.btnLabel'),
                     formAction: '/coaches/add',
                     navLocation: 'coach',
                     validationErrors: err.details
@@ -119,7 +115,6 @@ exports.updateCoach = (req, res, next) => {
         .then( result => {
             res.redirect('/coaches');
         }).catch(err => {
-        console.log(err.details);
 
         let allPlayers;
         PlayerRepository.getPlayers()
@@ -128,9 +123,9 @@ exports.updateCoach = (req, res, next) => {
                 res.render('pages/coach/details-edit', {
                     coach: coachData,
                     allPlayers: allPlayers,
-                    pageTitle: 'Edycja trenera',
+                    pageTitle: i18n.__('coach.form.edit.pageTitle'),
                     formMode: 'edit',
-                    btnLabel: 'Edytuj trenera',
+                    btnLabel: i18n.__('coach.form.edit.btnLabel'),
                     formAction: '/coaches/edit',
                     navLocation: 'coach',
                     validationErrors: err.details

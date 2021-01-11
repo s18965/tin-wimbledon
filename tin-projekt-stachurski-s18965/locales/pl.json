@@ -1,0 +1,166 @@
+{
+	"main-page": {
+		"content": "Strona główna",
+		"description": "Ta aplikacja służy do wyświetlania informacji o zawodnikach biorących udział w turnieju tenisowym Wimbledon, jak również ich trenerów oraz wyniki",
+		"details": "Wimbledon zawsze odbywa się w lipcu w Londynie oraz posiada określoną liczbę rund. \nDla każdego uczestnika przechowywane są jego dane personalne, takie jak imię, nazwisko, kraj pochodzenia oraz data urodzenia. Dodatkowo podani są trenerzy danego zawodnika, których może być więcej niż 1. Znamy imię, nazwisko oraz kraj pochodzenia coach’a. W każdej parze dla każdego zawodnika jest podawany wynik w postaci chronologicznej listy zdobytych gemów w poszczególnych setach, data i nazwa kortu, gdzie odbył się mecz, numer rundy oraz wyróżniony jest zwycięzca."
+	},
+	"nav": {
+		"main-page": "Strona główna",
+		"players": "Zawodnicy",
+		"coaches": "Trenerzy",
+		"matches": "Mecze",
+		"login": {
+			"title": "Logowanie",
+			"email": "Email",
+			"password": "Hasło",
+			"wrongPassword": "Nieprawidłowy adres email lub hasło",
+			"loggedIn": "Jesteś zalogowany jako",
+			"btnLogOut": "Wyloguj się",
+			"btnLogIn": "Zaloguj się"
+		}
+	},
+	"list": {
+		"actions": {
+			"title": "Akcje",
+			"details": "Szczegóły",
+			"edit": "Edytuj",
+			"delete": "Usuń"
+		}
+	},
+	"form": {
+		"actions": {
+			"return": "Powrót",
+			"edit": "Edytuj",
+			"cancel": "Anuluj"
+		}
+	},
+	"player": {
+		"fields": {
+			"firstName": "Imię",
+			"lastName": "Nazwisko",
+			"birthDate": "Data urodzenia",
+			"country": "Kraj urodzenia",
+			"email": "Email",
+			"password": "Hasło",
+			"name": "Imię i nazwisko"
+		},
+		"list": {
+			"title": "Zawodnicy",
+			"addNew": "Dodaj nowego zawodnika",
+			"noData": "Brak zawodników w bazie",
+			"pageTitle": "Lista zawodników"
+		},
+		"form": {
+			"matches": "Historia meczy zawodnika",
+			"add": {
+				"pageTitle": "Dodawanie zawodnika",
+				"btnLabel": "Dodaj zawodnika",
+				"confirm": {
+					"header": "Potwierdzenie operacji",
+					"text": "Pomyślnie dodano zawodnika"
+				},
+				"details": "Zawodnik - szczegóły"
+			},
+			"edit": {
+				"pageTitle": "Edycja zawodnika",
+				"btnLabel": "Zapisz zmiany",
+				"confirm": {
+					"header": "Potwierdzenie operacji",
+					"text": "Pomyślnie zaktualizowano zawodnika"
+				}
+			}
+		}
+	},
+	"coach": {
+		"fields": {
+			"firstName": "Imię",
+			"lastName": "Nazwisko",
+			"country": "Kraj urodzenia",
+			"player": "Trenowany zawodnik"
+		},
+		"list": {
+			"title": "Trenerzy",
+			"addNew": "Dodaj nowego trenera",
+			"noData": "Brak trenerów w bazie",
+			"pageTitle": "Lista trenerów"
+		},
+		"form": {
+			"player": "Trenowany zawodnik",
+			"add": {
+				"pageTitle": "Dodawanie trenera",
+				"btnLabel": "Dodaj trenera",
+				"confirm": {
+					"header": "Potwierdzenie operacji",
+					"text": "Pomyślnie dodano trenera"
+				},
+				"details": "Trener - szczegóły"
+			},
+			"edit": {
+				"pageTitle": "Edycja trenera",
+				"btnLabel": "Zapisz zmiany",
+				"confirm": {
+					"header": "Potwierdzenie operacji",
+					"text": "Pomyślnie zaktualizowano trenera"
+				}
+			}
+		}
+	},
+	"match": {
+		"fields": {
+			"player": "Zawodnik",
+			"rival": "Rywal",
+			"court": "Kort",
+			"date": "Data rozegrania",
+			"winner": "Zwycięzca",
+			"round": "Runda",
+			"scorePlayer": "Punkty zawodnika",
+			"scoreRival": "Punkty rywala"
+		},
+		"list": {
+			"title": "Mecze",
+			"addNew": "Dodaj nowy mecz",
+			"noData": "Brak meczy w bazie",
+			"pageTitle": "Lista meczy"
+		},
+		"form": {
+			"players": "Zawodnicy",
+			"add": {
+				"pageTitle": "Dodawanie meczu",
+				"btnLabel": "Dodaj mecz",
+				"confirm": {
+					"header": "Potwierdzenie operacji",
+					"text": "Pomyślnie dodano mecz"
+				},
+				"details": "Mecz - szczegóły"
+			},
+			"edit": {
+				"pageTitle": "Edycja meczu",
+				"btnLabel": "Zapisz zmiany",
+				"confirm": {
+					"header": "Potwierdzenie operacji",
+					"text": "Pomyślnie zaktualizowano mecz"
+				}
+			}
+		}
+	},
+	"validationMessage": {
+		"fieldRequired": "Pole jest wymagane",
+		"dateFormat": "Data powinna być w formacie yyyy-mm-dd",
+		"mailFormat": "Pole powinno zawierać prawidłowy adres email",
+		"chars": " znaki",
+		"minimumChars": "Pole powinno zawierać co najmniej ",
+		"maximumChars": "Pole powinno zawierać co najwyżej ",
+		"charsUniversal": "Pole powinno zawierać ",
+		"signs": "znaków",
+		"futureDate": "Data nie powinna być z przyszłości",
+		"form": "Formularz zawiera błędy",
+		"changePassword": "Wprowadź jedynie w wypadku zmiany",
+		"changeEmail": "Wprowadź jedynie w wypadku zmiany",
+		"score": "[gemy],[gemy],[gemy]",
+		"player": "Przypisz zawodnika",
+		"rival": "Przypisz rywala",
+		"winner": "Przypisz zwycięzcę",
+		"number": "Pole powinno być liczbą",
+		"extent": "z zakresu"
+	}
+}

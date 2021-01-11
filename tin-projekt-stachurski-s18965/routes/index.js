@@ -10,4 +10,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { navLocation: 'main' });
 });
 
+const LangController = require('../controllers/LangController');
+router.get('/changeLang/:lang', LangController.changeLang);
+
 module.exports = router;

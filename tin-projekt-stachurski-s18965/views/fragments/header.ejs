@@ -4,10 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--    <script type="application/javascript" src="/js/validationMatchForm.js"></script>-->
-<!--    <script type="application/javascript" src="/js/validationCommon.js"></script>-->
-<!--    <script type="application/javascript" src="/js/validationPlayerForm.js"></script>-->
-<!--    <script type="application/javascript" src="/js/validationCoachForm.js"></script>-->
 
     <title>Wimbledon</title>
 </head>
@@ -19,32 +15,35 @@
 
     <nav class="form-buttons">
         <ul>
-            <li><a class="<%= navLocation == 'main' ? 'active' : ''%>" href="/">Strona główna</a></li>
-            <li><a class="<%= navLocation == 'player' ? 'active' : ''%>"href="/players">Zawodnicy</a></li>
-            <li><a class="<%= navLocation == 'coach' ? 'active' : ''%>"href="/coaches">Trenerzy</a></li>
+            <li><a class="<%= navLocation == 'main' ? 'active' : ''%>" href="/"><%= __('nav.main-page')%></a></li>
+            <li><a class="<%= navLocation == 'player' ? 'active' : ''%>"href="/players"><%= __('nav.players')%></a></li>
+            <li><a class="<%= navLocation == 'coach' ? 'active' : ''%>"href="/coaches"><%= __('nav.coaches')%></a></li>
             <% if(loggedUser) { %>
-                <li><a href="/matches" class="<%= navLocation == 'match' ? 'active' : ''%>">Mecze</a></li>
+                <li><a href="/matches" class="<%= navLocation == 'match' ? 'active' : ''%>"><%= __('nav.matches')%></a></li>
             <% } %>
+            <li><a href="/changeLang/pl" class="<%= lang == 'pl' ? 'active' : ''%>">PL</a></li>
+            <li><a href="/changeLang/en" class="<%= lang == 'en' ? 'active' : ''%>">EN</a></li>
+
         </ul>
     </nav>
 
     <% if(!loggedUser) { %>
         <div id="login">
-            <h5 style="margin-bottom: 10px">Logowanie</h5>
+            <h5 style="margin-bottom: 10px"><%= __('nav.login.title')%></h5>
             <form method="post" action="/login" novalidate>
-                <label for="loginEmail">Email:</label>
+                <label for="loginEmail"><%= __('nav.login.email')%>:</label>
                 <input type="email" id="loginEmail" name="email">
 
-                <label for="loginPassword">Hasło:</label>
+                <label for="loginPassword"><%= __('nav.login.password')%>:</label>
                 <input type="password" id="loginPassword" name="password">
 
-                <input type="submit" value="Zaloguj się">
+                <input class="button-add" type="submit" value="<%= __('nav.login.btnLogIn')%>">
                 <span style="color: red" id="loginErrors"><%= loginError ? loginError : ''%></span>
             </form>
         </div>
     <% } else { %>
     <div id="log">
-    <h5 id="loginSpan">Jesteś zalogowany jako: <%=loggedUser.firstName + " " + loggedUser.lastName%></h5>
-    <a class="button-add" id="logout" href="/logout">Wyloguj się</a>
+    <h5 id="loginSpan"><%= __('nav.login.loggedIn')%>: <%=loggedUser.firstName + " " + loggedUser.lastName%></h5>
+    <a class="button-add" id="logout" href="/logout"><%= __('nav.login.btnLogOut')%></a>
     </div>
     <% } %>
