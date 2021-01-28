@@ -6,6 +6,9 @@ function validateForm() {
     const dateInput = document.getElementById('date');
     const placeInput = document.getElementById('court');
     const roundInput = document.getElementById('roundNumber');
+    const scorePlayer1Input = document.getElementById('scorePlayer1');
+    const scorePlayer2Input = document.getElementById('scorePlayer2');
+
 
     const errorPlayer1 = document.getElementById('errorPlayer1');
     const errorPlayer2 = document.getElementById('errorPlayer2');
@@ -14,6 +17,9 @@ function validateForm() {
     const errorPlace = document.getElementById('errorPlace');
     const errorRound = document.getElementById('errorRound');
     const errorsSummary = document.getElementById('errorsSummary');
+    const errorScore1 = document.getElementById('errorScore1');
+    const errorScore2 = document.getElementById('errorScore2');
+
 
     const reqMessage = document.getElementById('errorMessage-required').innerText;
     const dateMessage = document.getElementById('errorMessage-dateFormat').innerText;
@@ -22,9 +28,11 @@ function validateForm() {
     const signsMessage = document.getElementById('errorMessage-signs').innerText;
     const extentMessage = document.getElementById('errorMessage-extent').innerText;
     const numberMessage = document.getElementById('errorMessage-number').innerText;
+    const notNumberMessage = document.getElementById('errorMessage-notNumber').innerText;
+    const wrongFormatMessage = document.getElementById('errorMessage-wrongScoreFormat').innerText;
 
 
-    resetErrors([player1Input, player2Input,winnerInput, dateInput,placeInput,roundInput], [errorPlayer1, errorPlayer2, errorWinner,errorDate,errorPlace,errorRound], errorsSummary);
+    resetErrors([player1Input, player2Input,scorePlayer2Input, scorePlayer2Input, winnerInput, dateInput,placeInput,roundInput], [errorPlayer1, errorPlayer2, errorScore1, errorScore2, errorWinner,errorDate,errorPlace,errorRound], errorsSummary);
 
     let valid = true;
     const minSign=2;
@@ -53,7 +61,24 @@ function validateForm() {
         valid = false;
         placeInput.classList.add("error-input");
         errorPlace.innerText = lengthErrorMessage;
+    }else if (hasNumber(placeInput.value)) {
+        valid = false;
+        placeInput.classList.add("error-input");
+        errorPlace.innerText = notNumberMessage;
     }
+
+    if (!checkScore(scorePlayer1Input.value)) {
+        valid = false;
+        scorePlayer1Input.classList.add("error-input");
+        errorScore1.innerText=wrongFormatMessage;
+    }
+
+    if (!checkScore(scorePlayer2Input.value)) {
+        valid = false;
+        scorePlayer2Input.classList.add("error-input");
+        errorScore2.innerText=wrongFormatMessage;
+    }
+
 
     if (!checkRequired(roundInput.value)) {
         valid = false;
@@ -103,4 +128,23 @@ function validateForm() {
     return valid;
 
 }
+
+// document.getElementById("player").onchange = function () {
+//     document.getElementById("rival").setAttribute("disabled", "disabled");
+//     if (this.value == 'car')
+//         document.getElementById("two").removeAttribute("disabled");
+// };
+
+// let player= document.getElementById("player");
+// let rival = document.getElementById("rival");
+// player.addEventListener('change', analyseUserSelection);
+//
+// function analyseUserSelection(e) {
+//     if (player.selected) {
+//         for (var i = 0; i < rival.children.length; i++) {
+//             rival[i].disabled = true;
+//         }
+//         rival.disabled = false;
+//     }
+// }
 

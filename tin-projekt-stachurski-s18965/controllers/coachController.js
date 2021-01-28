@@ -85,15 +85,14 @@ exports.addCoach = (req, res, next) => {
             res.redirect('/coaches');
         }).catch(err => {
 
-
         let allPlayers;
         PlayerRepository.getPlayers()
             .then(players => {
                 allPlayers = players;
 
                 res.render('pages/coach/new', {
-                    coach: coachData,
                     allPlayers: allPlayers,
+                    coach: coachData,
                     pageTitle: i18n.__('coach.form.add.pageTitle'),
                     formMode: 'createNew',
                     btnLabel: i18n.__('coach.form.add.btnLabel'),

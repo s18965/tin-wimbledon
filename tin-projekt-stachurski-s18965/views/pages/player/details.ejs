@@ -17,7 +17,7 @@
             <span></span>
 
 <label for="birthDate"><%= __('player.fields.birthDate') %><abbr title="required" aria-label="required">*</abbr></label>
-    <input type="text" name="birthDate" id="birthDate" placeholder="yyyy-mm-dd" value="<%= player.birthDate.toLocaleString().split(',')[0]  %>"
+    <input type="text" name="birthDate" id="birthDate" placeholder="yyyy-mm-dd" value="<%= player.birthDate%>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
 
@@ -25,6 +25,13 @@
     <input type="text" name="country" id="country" placeholder="2-60 <%= __('validationMessage.signs') %>" value="<%= player.country %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 	<span></span>
+
+            <label for="email"><%= __('player.fields.email') %>:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="text"
+                   name="email" id="email" placeholder="<%= __('validationMessage.changeEmail') %>" value="<%= player.email %>"
+                    <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+
+            <span></span>
 
 </form>
 
@@ -50,7 +57,7 @@
                 <% for (let m of player.matches) { %>
                     <tr>
                         <td><%= m.rival %></td>
-                        <td><%= m.date.toISOString().split('T')[0] %></td>
+                        <td><%= m.date%></td>
                         <td><%= m.winner%></td>
                         <td>
 

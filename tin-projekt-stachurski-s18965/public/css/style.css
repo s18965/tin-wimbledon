@@ -386,11 +386,11 @@ table#trenerzy tr th:nth-child(3) {
   display: none;
 }
 
-        table#mecze td:nth-child(1), table#mecze td:nth-child(4) {
+        table#mecze td:nth-child(3), table#mecze td:nth-child(4) {
   display: none;
 }
 
-table#mecze th:nth-child(1), table#mecze th:nth-child(4) {
+table#mecze th:nth-child(3), table#mecze th:nth-child(4) {
   display: none;
 }
 

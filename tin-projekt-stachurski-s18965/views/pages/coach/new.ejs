@@ -10,12 +10,13 @@
 			<span id="errorMessage-form"><%= __('validationMessage.form') %></span>
 			<span id="errorMessage-charsUniversal"><%= __('validationMessage.charsUniversal') %></span>
 			<span id="errorMessage-signs"><%= __('validationMessage.signs') %></span>
+			<span id="errorMessage-notNumber"><%= __('validationMessage.notNumber') %></span>
 		</div>
 
 		<input type="hidden" name="id" value="<%= coach.id %>">
 
-		<label for="firstName"><%= __('player.fields.firstName')%>:<abbr title="required" aria-label="required">*</abbr></label>
-		<input type="text" class="<%= validationErrors.find(e => e.path.includes('firstName')) ? 'error-input' : '' %>"
+		<label for="firstName"><%= __('coach.fields.firstName') %>:<abbr title="required" aria-label="required">*</abbr></label>
+		<input type="text" class="<%=  validationErrors.find(e => e.path.includes('firstName'))? 'error-input' : '' %>"
 			   name="firstName" id="firstName" placeholder="2-60 <%= __('validationMessage.signs') %>" value="<%= coach.firstName %>"
 				<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 		<span id="errorFirstName" class="errors-text">
@@ -25,7 +26,7 @@
 		</span>
 
 
-		<label for="lastName"><%= __('player.fields.lastName')%>:<abbr title="required" aria-label="required">*</abbr></label>
+		<label for="lastName"><%= __('coach.fields.lastName')%>:<abbr title="required" aria-label="required">*</abbr></label>
 		<input type="text" class="<%= validationErrors.find(e => e.path.includes('lastName')) ? 'error-input' : '' %>"
 			   name="lastName" id="lastName" placeholder="2-60 <%= __('validationMessage.signs') %>" value="<%= coach.lastName %>"
 				<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
@@ -35,7 +36,7 @@
 			<% } %>
 		</span>
 
-		<label for="country"><%= __('player.fields.country')%>:</label>
+		<label for="country"><%= __('coach.fields.country')%>:</label>
 		<input type="text" class="<%= validationErrors.find(e => e.path.includes('country')) ? 'error-input' : '' %>"
 			   name="country" id="country" placeholder="2-60 <%= __('validationMessage.signs') %>" value="<%= coach.country %>"
 				<%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
@@ -48,10 +49,10 @@
 		<label for="idPlayer"><%= __('coach.fields.player')%>:</label>
 		<select id="idPlayer" class="<%= validationErrors.find(e => e.path.includes('country')) ? 'error-input' : '' %>"
 				name="idPlayer" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
-			<option value="" selected><%= __('validationMessage.player') %></option>
+			<option value="" disabled selected><%= __('validationMessage.player') %></option>
 			<% for (let i=0; i<allPlayers.length; i++) { let pl = allPlayers[i]; %>
 			<option value="<%= pl.id %>" label="<%= pl.firstName + ' ' + pl.lastName %>"
-					<%= coach.id && pl.id.toString() == coach.idPlayer.toString() ? 'selected' : ''%>></option>
+					<%= coach.idPlayer && pl.id.toString() == coach.idPlayer.toString() ? 'selected' : ''%>></option>
 			<% } %>
 		</select>
 		<span id="errorPlayer" class="errors-text">
@@ -61,7 +62,6 @@
 		</span>
 
 		<div class="form-buttons">
-
 			<p id="errorsSummary" class="errors-text"></p>
 			<% if (formMode != 'showDetails') { %>
 			<input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
@@ -70,7 +70,6 @@
 				<a class="form-button-cancel" href="/coaches"><%= __('form.actions.return') %></a>
 			<% } %>
 		</div>
-
 	</form>
 </main>
 <%- include('../../fragments/footer.ejs') %>

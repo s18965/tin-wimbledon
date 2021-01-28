@@ -42,7 +42,9 @@
 			"birthDate": "Birthday",
 			"country": "Country",
 			"password": "Password",
-			"name": "Name"
+			"name": "Name",
+			"repeatPassword": "Repeat password"
+
 		},
 		"list": {
 			"title": "Players",
@@ -161,6 +163,13 @@
 		"rival": "Choose rival",
 		"winner": "Choose winner",
 		"number": "Field should be a number",
-		"extent": "validationMessage.extent"
+		"extent": "between",
+		"notNumber": "Field should not contain a number",
+		"minimalAge": "Player should be at least 18 years old",
+		"wrongScoreFormat": "Score should be put as e.g. 1,1,2",
+		"repeatPassword": "Passwords should be the same",
+		"wrongFormat": "Wrong format"
+
+
 	}
 }

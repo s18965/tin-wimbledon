@@ -42,7 +42,8 @@
 			"country": "Kraj urodzenia",
 			"email": "Email",
 			"password": "Hasło",
-			"name": "Imię i nazwisko"
+			"name": "Imię i nazwisko",
+			"repeatPassword": "Powtórz hasło"
 		},
 		"list": {
 			"title": "Zawodnicy",
@@ -161,6 +162,11 @@
 		"rival": "Przypisz rywala",
 		"winner": "Przypisz zwycięzcę",
 		"number": "Pole powinno być liczbą",
-		"extent": "z zakresu"
+		"extent": "z zakresu",
+		"notNumber": "Pole nie powinno zawierać cyfr",
+		"minimalAge": "Zawodnik powinien mieć minimum 18 lat",
+		"wrongScoreFormat": "Wynik powinien być podany jako np. 1,1,2",
+		"repeatPassword": "Hasła powinny byc takie same",
+		"wrongFormat": "Zły format"
 	}
 }

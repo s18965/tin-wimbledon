@@ -14,14 +14,15 @@
                 <span id="errorMessage-signs"><%= __('validationMessage.signs') %></span>
                 <span id="errorMessage-dateFormat"><%= __('validationMessage.dateFormat') %></span>
                 <span id="errorMessage-extent"><%= __('validationMessage.extent') %></span>
-
+                <span id="errorMessage-wrongScoreFormat"><%= __('validationMessage.wrongScoreFormat') %></span>
+                <span id="errorMessage-notNumber"><%= __('validationMessage.notNumber') %></span>
             </div>
             <input type="hidden" name="id" value="<%= match.id %>">
 
             <label for="player"><%= __('match.fields.player') %>:<abbr title="required" aria-label="required">*</abbr></label>
             <select id="player" class="<%= validationErrors.find(e => e.path.includes('idPlayer1')) ? 'error-input' : '' %>"
                     name="idPlayer1" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
-                <option value="" selected><%= __('validationMessage.player') %></option>
+                <option value="" disabled selected><%= __('validationMessage.player') %></option>
                 <% for (let i=0; i<allPlayers.length; i++) { let pl = allPlayers[i]; %>
                 <option value="<%= pl.id %>" label="<%= pl.firstName + ' ' + pl.lastName %>"
                         <%= (match.id && pl.id.toString() == match.idPlayer1.toString()) ? 'selected' : ''%>></option>
@@ -38,7 +39,7 @@
             <label for="rival"><%= __('match.fields.rival') %>:<abbr title="required" aria-label="required">*</abbr></label>
             <select id="rival" class="<%= validationErrors.find(e => e.path.includes('idPlayer2')) ? 'error-input' : '' %>"
                     name="idPlayer2" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
-                <option value="" selected><%= __('validationMessage.rival') %></option>
+                <option value="" disabled selected><%= __('validationMessage.rival') %></option>
                 <% for (let i=0; i<allPlayers.length; i++) { let pl = allPlayers[i]; %>
                 <option value="<%= pl.id %>" label="<%= pl.firstName + ' ' + pl.lastName %>"
                         <%= (match.id && pl.id.toString() == match.idPlayer2.toString()) ? 'selected' : ''%>></option>
@@ -54,17 +55,25 @@
             <input type="text" class="<%= validationErrors.find(e => e.path.includes('scorePlayer1')) ? 'error-input' : '' %>"
                    name="scorePlayer1" id="scorePlayer1" placeholder="<%= __('validationMessage.score') %>" value="<%= match.scorePlayer1 %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
-            <span></span>
+            <span id="errorScore1" class="errors-text">
+                <% if (validationErrors.find(e => e.path.includes('scorePlayer1'))) { %>
+                    <%= validationErrors.find(e => e.path.includes('scorePlayer1')).message %>
+                <% } %>
+            </span>
 
             <label for="scorePlayer2"><%= __('match.fields.scoreRival') %>:</label>
             <input type="text" class="<%= validationErrors.find(e => e.path.includes('scorePlayer2')) ? 'error-input' : '' %>"
                    name="scorePlayer2" id="scorePlayer2" placeholder="<%= __('validationMessage.score') %>" value="<%= match.scorePlayer2 %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
-            <span></span>
+            <span id="errorScore2" class="errors-text">
+                <% if (validationErrors.find(e => e.path.includes('scorePlayer2'))) { %>
+                    <%= validationErrors.find(e => e.path.includes('scorePlayer2')).message %>
+                <% } %>
+            </span>
 
             <label for="date"><%= __('match.fields.date') %>:<abbr title="required" aria-label="required">*</abbr></label>
-            <input type="text" class="<%= validationErrors.find(e => e.path.includes('date')) ? 'error-input' : '' %>"
-                   name="date" id="date" placeholder="yyyy-mm-dd" value="<%= match.date.toLocaleString().split(',')[0]%>"
+            <input type="date" class="<%= validationErrors.find(e => e.path.includes('date')) ? 'error-input' : '' %>"
+                   name="date" id="date" placeholder="yyyy-mm-dd" value="<%= match.date%>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
             <span id="errorDate" class="errors-text">
                 <% if (validationErrors.find(e => e.path.includes('date'))) { %>
@@ -84,7 +93,7 @@
 
 
             <label for="roundNumber"><%= __('match.fields.round') %>:<abbr title="required" aria-label="required">*</abbr></label>
-            <input type="text" class="<%= validationErrors.find(e => e.path.includes('roundNumber')) ? 'error-input' : '' %>"
+            <input type="number" max="7" min="1" class="<%= validationErrors.find(e => e.path.includes('roundNumber')) ? 'error-input' : '' %>"
                    name="roundNumber" id="roundNumber" placeholder="1-7" value="<%= match.roundNumber %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
             <span id="errorRound" class="errors-text">
@@ -96,7 +105,7 @@
             <label for="winner"><%= __('match.fields.winner') %>:<abbr title="required" aria-label="required">*</abbr></label>
             <select id="winner" class="<%= validationErrors.find(e => e.path.includes('idWinner')) ? 'error-input' : '' %>"
                     name="idWinner" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
-                <option value="" selected><%= __('validationMessage.winner') %></option>
+                <option value="" disabled selected><%= __('validationMessage.winner') %></option>
                 <% for (let i=0; i<allPlayers.length; i++) { let pl = allPlayers[i]; %>
                 <option value="<%= pl.id %>" label="<%= pl.firstName + ' ' + pl.lastName %>"
                         <%= (match.id && pl.id.toString() == match.idWinner.toString()) ? 'selected' : ''%>></option>

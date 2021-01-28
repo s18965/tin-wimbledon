@@ -1,12 +1,13 @@
 function resetErrors(inputs, errorTexts, errorInfo) {
     for(let i=0; i<inputs.length; i++) {
-        inputs[i].classList.remove("error_input");
+        inputs[i].classList.remove("error-input");
     }
     for(let i=0; i<errorTexts.length; i++) {
         errorTexts[i].innerText = "";
     }
     errorInfo.innerText = "";
 }
+
 
 function checkRequired(value) {
     if (!value) {
@@ -18,6 +19,8 @@ function checkRequired(value) {
     }
     return true;
 }
+
+
 
 function checkEmail(value) {
     if (!value) {
@@ -54,6 +57,10 @@ function checkNumber(value) {
     return true;
 }
 
+function hasNumber(myString) {
+    return /\d/.test(myString);
+}
+
 function checkNumberRange(value, min, max) {
     if (!value) {
         return false;
@@ -77,6 +84,23 @@ function checkDate(value) {
     }
     const pattern = /(\d{4})-(\d{2})-(\d{2})/;
     return pattern.test(value);
+}
+
+function checkScore(value) {
+    if (!value) {
+        return false;
+    }
+    const pattern = /^\d,\d,\d$/;
+    return pattern.test(value);
+}
+
+function checkifTheSame(value, value1){
+    if (!value) {
+        return false;
+    }else if (!value1){
+        return false;
+    }
+    return value==value1;
 }
 
 function checkDateIfAfter(value, compareTo) {

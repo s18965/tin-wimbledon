@@ -5,17 +5,33 @@ const i18n = require('i18n');
 const errMessages = (errors) => {
     errors.forEach(err => {
         switch (err.code) {
-            case "string.empty":
+            case "date.max":
+                err.message = i18n.__('validationMessage.minimalAge');
+                break;
+            case "any.only":
+                err.message = i18n.__('validationMessage.repeatPassword');
+                break;
+            case "any.required":
                 err.message = i18n.__('validationMessage.fieldRequired');
                 break;
-            case "string.isoDate":
+            case "date.base":
                 err.message = i18n.__('validationMessage.dateFormat');
+                break;
+            case "string.pattern.base":
+                err.message = i18n.__('validationMessage.wrongFormat');
+                break;
+            case "string.empty":
+                err.message = i18n.__('validationMessage.fieldRequired');
                 break;
             case "string.min":
                 err.message = i18n.__('validationMessage.minimumChars')+ err.local.limit + i18n.__('validationMessage.chars');
                 break;
+
             case "string.max":
                 err.message = i18n.__('validationMessage.maximumChars')+ err.local.limit + i18n.__('validationMessage.chars');
+                break;
+            case "string.email":
+                err.message = i18n.__('validationMessage.mailFormat');
                 break;
             default:
                 break;
@@ -29,6 +45,7 @@ const playerSchema = Joi.object({
     court: Joi.string()
         .min(2)
         .max(60)
+        .pattern(new RegExp(/^([^0-9]*)$/))
         .required()
         .error(errMessages),
     roundNumber: Joi.number()
@@ -46,20 +63,17 @@ const playerSchema = Joi.object({
         .required()
         .error(errMessages),
     scorePlayer1:Joi.string()
-        .min(2)
-        .max(60)
+        .pattern(new RegExp(/^\d,\d,\d$/))
         .allow("")
         .error(errMessages),
     scorePlayer2:Joi.string()
-        .min(2)
-        .max(60)
+        .pattern(new RegExp(/^\d,\d,\d$/))
         .allow("")
         .error(errMessages),
     id: Joi.number()
         .allow(""),
-    date: Joi.string()
+    date: Joi.date()
         .required()
-        .isoDate()
         .error(errMessages),
 });
 

@@ -16,15 +16,15 @@ exports.getPlayers = () => {
 };
 
 exports.getPlayerById = (playerId) => {
-    const query = `SELECT p.id as id,  p.firstName, p.lastName, p.birthDate, p.country,co.id as co_id,
+    const query = `SELECT p.id as id,  p.firstName, p.lastName, p.birthDate, p.country, p.email, co.id as co_id,
     co.firstName as coFN, co.lastName as coLN, co.country as co_country
     FROM Player p
     left join Coach co on co.idPlayer = p.id 
     where p.id = ?`
 
-    const query1 = `SELECT t.id as tid,t.date as tdate, concat(r.firstName, ' ',r.lastName) as rival, concat(w.firstName, ' ',w.lastName) as winner
+    const query1 = `SELECT t.id as tid,t.date as tdate, concat(p.firstName, ' ',p.lastName) as player, concat(r.firstName, ' ',r.lastName) as rival, r.id as rid ,concat(w.firstName, ' ',w.lastName) as winner
                     FROM TennisMatch t inner join Player p on t.idPlayer1=p.id inner join
-                         Player r on t.idPlayer2=r.id inner join Player w on t.idWinner=w.id where p.id=?`
+                         Player r on t.idPlayer2=r.id inner join Player w on t.idWinner=w.id where p.id=? or r.id=?`
 
     return db.promise().query(query, [playerId])
         .then( (results, fields) => {
@@ -38,8 +38,9 @@ exports.getPlayerById = (playerId) => {
                 lastName: firstRow.lastName,
                 birthDate: firstRow.birthDate,
                 country: firstRow.country,
+                email: firstRow.email,
                 coaches: [],
-                matches: []
+                matches: [],
             }
 
             for( let i=0; i<results[0].length; i++ ) {
@@ -56,20 +57,33 @@ exports.getPlayerById = (playerId) => {
                 }
             }
 
-                return db.promise().query(query1, [playerId])
+                return db.promise().query(query1, [playerId,playerId])
                     .then( (results, fields) => {
 
                         for( let i=0; i<results[0].length; i++ ) {
                             const row = results[0][i];
                             if(row.tid) {
-                                const match = {
-                                    id: parseInt(row.tid),
-                                    rival: row.rival,
-                                    winner: row.winner,
-                                    date: row.tdate,
+                                if(row.rid==playerId){
+                                    const match = {
+                                        id: parseInt(row.tid),
+                                        rival: row.player,
+                                        winner: row.winner,
+                                        date: row.tdate,
+                                    }
+                                    pl.matches.push(match);
+
+                                }else{
+                                    const match = {
+                                        id: parseInt(row.tid),
+                                        rival: row.rival,
+                                        winner: row.winner,
+                                        date: row.tdate,
+                                    }
+                                    pl.matches.push(match);
+
                                 }
 
-                                pl.matches.push(match);
+
                             }
                         }
 
@@ -112,7 +126,7 @@ exports.updatePlayer = (playerId, data) => {
         console.log(vRes.error.details)
         return Promise.reject(vRes.error);
     }
-    return checkEmailUnique(data.email)
+    return checkEmailUnique(data.email, playerId)
         .then(emailErr => {
             if(emailErr.details) {
                 return Promise.reject(emailErr);

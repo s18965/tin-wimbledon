@@ -10,6 +10,7 @@
 				<span id="errorMessage-form"><%= __('validationMessage.form') %></span>
 				<span id="errorMessage-charsUniversal"><%= __('validationMessage.charsUniversal') %></span>
 				<span id="errorMessage-signs"><%= __('validationMessage.signs') %></span>
+				<span id="errorMessage-notNumber"><%= __('validationMessage.notNumber') %></span>
 			</div>
 
 			<input type="hidden" name="id" value="<%= coach.id %>">
@@ -47,10 +48,10 @@
 			<label for="idPlayer"><%= __('coach.fields.player') %>:<abbr title="required" aria-label="required">*</abbr></label>
 			<select id="idPlayer" class="<%= validationErrors.find(e => e.path.includes('idPlayer')) ? 'error-input' : '' %>"
 					name="idPlayer" <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
-				<option value="" selected><%= __('validationMessage.player') %></option>
+				<option value="" disabled selected><%= __('validationMessage.player') %></option>
 				<% for (let i=0; i<allPlayers.length; i++) { let pl = allPlayers[i]; %>
 				<option value="<%= pl.id %>" label="<%= pl.firstName + ' ' + pl.lastName %>"
-						<%= (coach.id && pl.id.toString() == coach.idPlayer.toString()) ? 'selected' : ''%>></option>
+						<%= (coach.idPlayer && pl.id.toString() == coach.idPlayer.toString()) ? 'selected' : ''%>></option>
 				<% } %>
 			</select>
 			<span id="errorPlayer" class="errors-text">

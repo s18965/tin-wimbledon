@@ -22,7 +22,7 @@ exports.showAddMatchForm = (req, res, next) => {
                 formMode: 'createNew',
                 allPlayers: allPlayers,
                 pageTitle: i18n.__('match.form.add.pageTitle'),
-                btnLabel: i18n.__('player.form.add.btnLabel'),
+                btnLabel: i18n.__('match.form.add.btnLabel'),
                 formAction: '/matches/add',
                 validationErrors: [],
                 navLocation: 'match'
@@ -61,7 +61,7 @@ exports.showEditMatchDetails = (req, res, next) => {
                 allPlayers: allPlayers,
                 formMode: 'edit',
                 pageTitle: i18n.__('match.form.edit.pageTitle'),
-                btnLabel: i18n.__('player.form.edit.btnLabel'),
+                btnLabel: i18n.__('match.form.edit.btnLabel'),
                 formAction: '/matches/edit',
                 validationErrors: [],
                 navLocation: 'match'
@@ -92,7 +92,7 @@ exports.addMatch = (req, res, next) => {
                     allPlayers: allPlayers,
                     pageTitle: i18n.__('match.form.add.pageTitle'),
                     formMode: 'createNew',
-                    btnLabel: i18n.__('player.form.add.btnLabel'),
+                    btnLabel: i18n.__('match.form.add.btnLabel'),
                     formAction: '/matches/add',
                     navLocation: 'match',
                     validationErrors: err.details
@@ -124,7 +124,7 @@ exports.updateMatch = (req, res, next) => {
                     allPlayers: allPlayers,
                     formMode: 'edit',
                     pageTitle: i18n.__('match.form.edit.pageTitle'),
-                    btnLabel: i18n.__('player.form.edit.btnLabel'),
+                    btnLabel: i18n.__('match.form.edit.btnLabel'),
                     formAction: '/matches/edit',
                     validationErrors: err.details,
                     navLocation: 'match'
