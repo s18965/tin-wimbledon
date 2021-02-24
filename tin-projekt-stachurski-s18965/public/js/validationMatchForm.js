@@ -32,7 +32,7 @@ function validateForm() {
     const wrongFormatMessage = document.getElementById('errorMessage-wrongScoreFormat').innerText;
 
 
-    resetErrors([player1Input, player2Input,scorePlayer2Input, scorePlayer2Input, winnerInput, dateInput,placeInput,roundInput], [errorPlayer1, errorPlayer2, errorScore1, errorScore2, errorWinner,errorDate,errorPlace,errorRound], errorsSummary);
+    resetErrors([player1Input, player2Input,scorePlayer1Input, scorePlayer2Input, winnerInput, dateInput,placeInput,roundInput], [errorPlayer1, errorPlayer2, errorScore1, errorScore2, errorWinner,errorDate,errorPlace,errorRound], errorsSummary);
 
     let valid = true;
     const minSign=2;
@@ -67,13 +67,13 @@ function validateForm() {
         errorPlace.innerText = notNumberMessage;
     }
 
-    if (!checkScore(scorePlayer1Input.value)) {
+    if (scorePlayer1Input.value!="" && !checkScore(scorePlayer1Input.value)) {
         valid = false;
         scorePlayer1Input.classList.add("error-input");
         errorScore1.innerText=wrongFormatMessage;
     }
 
-    if (!checkScore(scorePlayer2Input.value)) {
+    if (scorePlayer2Input.value!="" && !checkScore(scorePlayer2Input.value)) {
         valid = false;
         scorePlayer2Input.classList.add("error-input");
         errorScore2.innerText=wrongFormatMessage;
@@ -128,23 +128,4 @@ function validateForm() {
     return valid;
 
 }
-
-// document.getElementById("player").onchange = function () {
-//     document.getElementById("rival").setAttribute("disabled", "disabled");
-//     if (this.value == 'car')
-//         document.getElementById("two").removeAttribute("disabled");
-// };
-
-// let player= document.getElementById("player");
-// let rival = document.getElementById("rival");
-// player.addEventListener('change', analyseUserSelection);
-//
-// function analyseUserSelection(e) {
-//     if (player.selected) {
-//         for (var i = 0; i < rival.children.length; i++) {
-//             rival[i].disabled = true;
-//         }
-//         rival.disabled = false;
-//     }
-// }
 

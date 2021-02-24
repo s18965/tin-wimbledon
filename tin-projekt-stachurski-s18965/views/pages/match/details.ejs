@@ -49,9 +49,11 @@
 	</form>
 
         <% if (formMode == 'showDetails') { %>
+            <% if(loggedUser && (loggedUser.id== match.idPlayer1 || loggedUser.id== match.idPlayer2 || loggedUser.level==2)) { %>
             <div class="section-buttons">
                 <a href="/matches/edit/<%= match.id %>" class="button-add"><%= __('form.actions.edit') %></a>
             </div>
+            <% } %>
         <% } %>
 
 
@@ -72,10 +74,10 @@
                 <td>
                     <ul class="list-actions">
                         <li><a href="/players/details/<%=pl.id%>" class="list-actions-button-details"><%= __('list.actions.details')%></a></li>
-                        <% if(loggedUser) { %>
+                        <% if(loggedUser && (loggedUser.id== pl.id || loggedUser.level==2)) { %>
                         <li><a href="/players/edit/<%=pl.id%>" class="list-actions-button-edit"><%= __('list.actions.edit')%></a></li>
                         <% } %>
-                        <% if(loggedUser) { %>
+                        <% if(loggedUser && (loggedUser.id== pl.id|| loggedUser.level==2)) { %>
                         <li><a href="/players/delete/<%=pl.id%>" class="list-actions-button-delete"><%= __('list.actions.delete')%></a></li>
                         <% } %>
                     </ul>

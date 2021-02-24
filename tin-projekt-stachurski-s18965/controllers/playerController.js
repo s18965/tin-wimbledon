@@ -1,5 +1,6 @@
 const PlayerRepository = require('../repository/mysql2/PlayerRepository');
 const i18n = require('i18n')
+const authUtils = require('../util/authUtils');
 
 exports.showPlayerList = (req, res, next) => {
     PlayerRepository.getPlayers()
@@ -7,6 +8,7 @@ exports.showPlayerList = (req, res, next) => {
             res.render('pages/player/list', {
                 players: players,
                 navLocation: 'player',
+                banner: req.query.banner,
                 i18n:i18n
             });
         });
@@ -44,18 +46,23 @@ exports.showPlayerDetails = (req, res, next) => {
 exports.showEditPlayerDetails = (req, res, next) => {
 
     const playerId = req.params.playerId;
-    PlayerRepository.getPlayerById(playerId)
-        .then(player => {
-            res.render('pages/player/details-edit', {
-                player: player,
-                formMode: 'edit',
-                pageTitle: i18n.__('player.form.edit.pageTitle'),
-                btnLabel: i18n.__('player.form.edit.btnLabel'),
-                formAction: '/players/edit',
-                validationErrors: [],
-                navLocation: 'player'
+    if(authUtils.permitCorrectUser(req.session.loggedUser.id, playerId) || req.session.loggedUser.level==2)
+    {
+        PlayerRepository.getPlayerById(playerId)
+            .then(player => {
+                res.render('pages/player/details-edit', {
+                    player: player,
+                    formMode: 'edit',
+                    pageTitle: i18n.__('player.form.edit.pageTitle'),
+                    btnLabel: i18n.__('player.form.edit.btnLabel'),
+                    formAction: '/players/edit',
+                    validationErrors: [],
+                    navLocation: 'player'
+                });
             });
-        });
+    }else{
+        res.redirect('/unauthorised');
+    }
 }
 
 
@@ -64,7 +71,7 @@ exports.addPlayer = (req, res, next) => {
     const playerData = { ...req.body };
     PlayerRepository.createPlayer(playerData)
         .then( result => {
-            res.redirect('/players');
+            res.redirect('/players?banner=add');
         })
         .catch(err => {
             console.log(err.details);
@@ -86,7 +93,7 @@ exports.updatePlayer = (req, res, next) => {
     const playerData = { ...req.body };
     PlayerRepository.updatePlayer(playerId, playerData)
         .then( result => {
-            res.redirect('/players');
+            res.redirect('/players?banner=update');
         })
         .catch(err => {
         res.render('pages/player/details-edit', {
@@ -103,12 +110,21 @@ exports.updatePlayer = (req, res, next) => {
 };
 
 exports.deletePlayer = (req, res, next) => {
-
     const playerId = req.params.playerId;
-    PlayerRepository.deletePlayer(playerId)
-        .then( () => {
-            res.redirect('/players');
-        });
-
+    if(authUtils.permitCorrectUser(req.session.loggedUser.id, playerId)) {
+        PlayerRepository.deletePlayer(playerId)
+            .then(() => {
+                res.redirect('/logout');
+            })
+    }
+    else if(req.session.loggedUser.level==2){
+            PlayerRepository.deletePlayer(playerId)
+                .then( () => {
+                    res.redirect('/players?banner=delete');
+                });
+        }
+    else{
+        res.redirect('/unauthorised');
+    }
 };
 

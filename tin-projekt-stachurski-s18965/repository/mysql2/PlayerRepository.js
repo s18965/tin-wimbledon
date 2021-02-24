@@ -4,7 +4,7 @@ const playerEditSchema = require('../../model/joi/PlayerEdit');
 const authUtils = require('../../util/authUtils');
 
 exports.getPlayers = () => {
-    return db.promise().query('SELECT * FROM Player')
+    return db.promise().query('SELECT id,firstName,lastName,birthDate,country FROM Player')
         .then( (results, fields) => {
             console.log(results[0]);
             return results[0];
@@ -22,7 +22,7 @@ exports.getPlayerById = (playerId) => {
     left join Coach co on co.idPlayer = p.id 
     where p.id = ?`
 
-    const query1 = `SELECT t.id as tid,t.date as tdate, concat(p.firstName, ' ',p.lastName) as player, concat(r.firstName, ' ',r.lastName) as rival, r.id as rid ,concat(w.firstName, ' ',w.lastName) as winner
+    const query1 = `SELECT p.id as pid, r.id as rid, t.id as tid,t.date as tdate, concat(p.firstName, ' ',p.lastName) as player, concat(r.firstName, ' ',r.lastName) as rival, r.id as rid ,concat(w.firstName, ' ',w.lastName) as winner
                     FROM TennisMatch t inner join Player p on t.idPlayer1=p.id inner join
                          Player r on t.idPlayer2=r.id inner join Player w on t.idWinner=w.id where p.id=? or r.id=?`
 
@@ -50,7 +50,8 @@ exports.getPlayerById = (playerId) => {
                         id: parseInt(row.co_id),
                         firstName: row.coFN,
                         lastName: row.coLN,
-                        country: row.co_country
+                        country: row.co_country,
+                        idPlayer:playerId
                     };
 
                     pl.coaches.push(coach);
@@ -69,6 +70,8 @@ exports.getPlayerById = (playerId) => {
                                         rival: row.player,
                                         winner: row.winner,
                                         date: row.tdate,
+                                        idPlayer1: row.pid,
+                                        idPlayer2: row.rid
                                     }
                                     pl.matches.push(match);
 
@@ -78,6 +81,8 @@ exports.getPlayerById = (playerId) => {
                                         rival: row.rival,
                                         winner: row.winner,
                                         date: row.tdate,
+                                        idPlayer1: row.pid,
+                                        idPlayer2: row.rid
                                     }
                                     pl.matches.push(match);
 
@@ -185,7 +190,7 @@ exports.deleteManyPlayers = (playersIds) => {
 };
 
 exports.findByEmail = (email) => {
-    const query = `SELECT p.id as pid,  p.email, p.password, p.firstName, p.lastName FROM Player p where p.email = ?`
+    const query = `SELECT p.id as pid,  p.email, p.password, p.firstName, p.lastName, p.level FROM Player p where p.email = ?`
 
     return db.promise().query(query, [email])
         .then( (results, fields) => {
@@ -199,6 +204,7 @@ exports.findByEmail = (email) => {
                 password: firstRow.password,
                 firstName: firstRow.firstName,
                 lastName: firstRow.lastName,
+                level: firstRow.level
             };
             return pl;
 

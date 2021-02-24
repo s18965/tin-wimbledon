@@ -34,8 +34,6 @@
                 <% } %>
             </span>
 
-
-
             <label for="rival"><%= __('match.fields.rival') %>:<abbr title="required" aria-label="required">*</abbr></label>
             <select id="rival" class="<%= validationErrors.find(e => e.path.includes('idPlayer2')) ? 'error-input' : '' %>"
                     name="idPlayer2" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
@@ -128,6 +126,62 @@
             </div>
 
         </form>
+        <script>
+            let player= document.getElementById("player");
+            let rival = document.getElementById("rival");
+            let winner = document.getElementById("winner");
+            analysePlayerSelection();
+            analyseRivalSelection();
+
+            player.addEventListener('change', () =>{
+                analysePlayerSelection();
+                analyseWinnerSelection();
+            });
+            rival.addEventListener('change', () =>{
+                analyseRivalSelection();
+                analyseWinnerSelection();
+            });
+
+            analyseWinnerSelection();
+
+
+            function analysePlayerSelection(e) {
+                for (i = 0; i < rival.options.length; i++) {
+                    if(player.value ==rival.options[i].value){
+                        rival.options[i].disabled=true;
+                        winner.options[i].disabled=false;
+                    }else{
+                        rival.options[i].disabled=false;
+                    }
+                }
+            }
+
+            function analyseRivalSelection(e) {
+                for (i = 0; i < player.options.length; i++) {
+                    if(rival.value ==player.options[i].value){
+                        player.options[i].disabled=true;
+                        winner.options[i].disabled=false;
+                    }else{
+                        player.options[i].disabled=false;
+                    }
+
+                }
+            }
+
+            function analyseWinnerSelection(e) {
+                for (i = 1; i < winner.options.length; i++) {
+                    if(rival.value ==winner.options[i].value || player.value ==winner.options[i].value){
+                        winner.options[i].disabled=false;
+                    }else{
+                        winner.options[i].disabled=true;
+                    }
+
+                    if(winner.value!= rival.value && winner.value!=player.value){
+                        winner.value="";
+                    }
+                }
+            }
+        </script>
 
     </main>
     <%- include('../../fragments/footer.ejs') %>

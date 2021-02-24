@@ -22,12 +22,15 @@
 </form>
 
         <% if (formMode == 'showDetails') { %>
+            <% if(loggedUser && (loggedUser.id== coach.idPlayer|| loggedUser.level==2)) { %>
             <div class="section-buttons">
                 <a href="/coaches/edit/<%= coach.id %>" class="button-add"><%= __('form.actions.edit') %></a>
             </div>
+            <% } %>
         <% } %>
 
-        <% if (formMode == 'showDetails' || formMode == 'edit') { %>
+
+    <% if (formMode == 'showDetails' || formMode == 'edit') { %>
 
             <h2><%= __('coach.fields.player') %></h2>
 
@@ -49,10 +52,10 @@
                         <td>
                             <ul class="list-actions">
                                 <li><a href="/players/details/<%=pl.id%>" class="list-actions-button-details"><%= __('list.actions.details')%></a></li>
-                                <% if(loggedUser) { %>
+                                <% if(loggedUser && (loggedUser.id== pl.id|| loggedUser.level==2)) { %>
                                 <li><a href="/players/edit/<%=pl.id%>" class="list-actions-button-edit"><%= __('list.actions.edit')%></a></li>
                                 <% } %>
-                                <% if(loggedUser) { %>
+                                <% if(loggedUser && (loggedUser.id== pl.id|| loggedUser.level==2)) { %>
                                 <li><a href="/players/delete/<%=pl.id%>" class="list-actions-button-delete"><%= __('list.actions.delete')%></a></li>
                                 <% } %>
                             </ul>

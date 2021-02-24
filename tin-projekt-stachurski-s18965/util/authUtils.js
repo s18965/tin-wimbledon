@@ -20,3 +20,7 @@ exports.permitAuthenticatedUser = (req, res, next) => {
         throw new Error('unauthorized access');
     }
 }
+
+exports.permitCorrectUser = (a, b) => {
+    return a==b;
+}

@@ -80,7 +80,7 @@
             <label for="password"><%= __('player.fields.password') %>:</label>
             <input type="password"
                    class="<%= validationErrors.find(e => e.path.includes('password')) ? 'error-input' : '' %>"
-                   name="password" type="password" id="password" placeholder="<%= __('validationMessage.changePassword') %>" value="<%= player.password %>"
+                   name="password" type="password" id="password" placeholder="<%= __('validationMessage.changePassword') %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 
             <span id="errorPassword" class="errors-text">
@@ -92,7 +92,7 @@
             <label for="repeatPassword"><%= __('player.fields.repeatPassword') %>:</label>
             <input type="password"
                    class="<%= validationErrors.find(e => e.path.includes('repeatPassword')) ? 'error-input' : '' %>"
-                   name="repeatPassword" id="repeatPassword" placeholder="<%= __('validationMessage.changePassword') %>" value="<%= player.password %>"
+                   name="repeatPassword" id="repeatPassword" placeholder="<%= __('validationMessage.changePassword') %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 
             <span id="errorRepeatPassword" class="errors-text">

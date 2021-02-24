@@ -337,6 +337,28 @@ div#log{
     margin-bottom: 0.5rem;
 }
 
+#text-banner {
+    margin-left: 1rem;
+    margin-top: 20px;
+    margin-right: 1rem;
+    border-radius:25px;
+    background-color: #F1C40F; /* Changes the headline's background color */
+}
+
+#text-banner .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1em; /* Changes the padding (i.e., space) surrounding the text banner's text */
+    box-sizing:border-box;
+    color: #000;
+    text-align: center; /* Moves the text banner text to the left, center, or right -- your preference! */
+
+}
+
+
+
+
+
 @media all and (max-width: 720px) {
    header {
         flex-direction: column;

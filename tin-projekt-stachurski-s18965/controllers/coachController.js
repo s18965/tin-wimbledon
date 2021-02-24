@@ -1,6 +1,8 @@
 const CoachRepository = require('../repository/mysql2/CoachRepository');
 const PlayerRepository = require('../repository/mysql2/PlayerRepository');
 const i18n = require('i18n')
+const authUtils = require('../util/authUtils');
+
 
 exports.showCoachList = (req, res, next) => {
 
@@ -8,6 +10,7 @@ exports.showCoachList = (req, res, next) => {
         .then(coaches => {
             res.render('pages/coach/list', {
                 coaches: coaches,
+                banner: req.query.banner,
                 navLocation: 'coach'
             });
         });
@@ -62,16 +65,20 @@ exports.showEditCoachDetails = (req, res, next) => {
             return CoachRepository.getCoachById(coachId);
         })
         .then(coach => {
-            res.render('pages/coach/details-edit', {
-                coach: coach,
-                allPlayers: allPlayers,
-                formMode: 'edit',
-                pageTitle: i18n.__('coach.form.edit.pageTitle'),
-                btnLabel: i18n.__('coach.form.edit.btnLabel'),
-                formAction: '/coaches/edit',
-                validationErrors: [],
-                navLocation: 'coach'
-            });
+            if(authUtils.permitCorrectUser(req.session.loggedUser.id, coach.idPlayer) || req.session.loggedUser.level==2) {
+                res.render('pages/coach/details-edit', {
+                    coach: coach,
+                    allPlayers: allPlayers,
+                    formMode: 'edit',
+                    pageTitle: i18n.__('coach.form.edit.pageTitle'),
+                    btnLabel: i18n.__('coach.form.edit.btnLabel'),
+                    formAction: '/coaches/edit',
+                    validationErrors: [],
+                    navLocation: 'coach'
+                });
+            }else{
+                res.redirect('/unauthorised');
+            }
         })
 }
 
@@ -82,7 +89,7 @@ exports.addCoach = (req, res, next) => {
 
     CoachRepository.createCoach(coachData)
         .then( result => {
-            res.redirect('/coaches');
+            res.redirect('/coaches?banner=add');
         }).catch(err => {
 
         let allPlayers;
@@ -112,7 +119,7 @@ exports.updateCoach = (req, res, next) => {
     const coachData = { ...req.body };
     CoachRepository.updateCoach(coachId, coachData)
         .then( result => {
-            res.redirect('/coaches');
+            res.redirect('/coaches?banner=update');
         }).catch(err => {
 
         let allPlayers;
@@ -136,10 +143,18 @@ exports.updateCoach = (req, res, next) => {
 exports.deleteCoach = (req, res, next) => {
 
     const coachId = req.params.coachId;
-    CoachRepository.deleteCoach(coachId)
-        .then( () => {
-            res.redirect('/coaches');
-        })
+    CoachRepository.getCoachById(coachId)
+        .then(coach => {
+            if(authUtils.permitCorrectUser(req.session.loggedUser.id, coach.idPlayer) || req.session.loggedUser.level==2) {
+
+                CoachRepository.deleteCoach(coachId)
+                    .then(() => {
+                        res.redirect('/coaches?banner=delete');
+                    })
+            }else{
+                res.redirect('/unauthorised');
+            }
+        });
 
 };
 

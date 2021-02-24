@@ -44,7 +44,6 @@
 			"password": "Password",
 			"name": "Name",
 			"repeatPassword": "Repeat password"
-
 		},
 		"list": {
 			"title": "Players",
@@ -71,7 +70,10 @@
 					"text": "The player has been successfully updated"
 				}
 			}
-		}
+		},
+		"new": "Player added",
+		"delete": "Player deleted",
+		"update": "Player updated"
 	},
 	"coach": {
 		"fields": {
@@ -105,7 +107,10 @@
 					"text": "The coach has been successfully updated"
 				}
 			}
-		}
+		},
+		"new": "Coach added",
+		"delete": "Coach deleted",
+		"update": "Coach updated"
 	},
 	"match": {
 		"fields": {
@@ -143,7 +148,10 @@
 					"text": "The match has been successfully updated"
 				}
 			}
-		}
+		},
+		"new": "Match added",
+		"delete": "Match deleted",
+		"update": "Match updated"
 	},
 	"validationMessage": {
 		"fieldRequired": "Field is required",
@@ -169,7 +177,13 @@
 		"wrongScoreFormat": "Score should be put as e.g. 1,1,2",
 		"repeatPassword": "Passwords should be the same",
 		"wrongFormat": "Wrong format"
-
-
+	},
+	"unauthorised": {
+		"title": "Unauthorised access",
+		"details": "You don't have access to this page"
+	},
+	"error": {
+		"title": "Error",
+		"details": "An error has occurred"
 	}
 }

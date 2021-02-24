@@ -1,12 +1,15 @@
 const MatchRepository = require('../repository/mysql2/MatchRepository');
 const PlayerRepository = require('../repository/mysql2/PlayerRepository');
-const i18n = require('i18n')
+const i18n = require('i18n');
+const authUtils = require('../util/authUtils');
+
 
 exports.showMatchList = (req, res, next) => {
         MatchRepository.getMatches()
             .then(matches => {
                 res.render('pages/match/list', {
                     matches: matches,
+                    banner: req.query.banner,
                     navLocation: 'match'
                 });
             });
@@ -56,16 +59,25 @@ exports.showEditMatchDetails = (req, res, next) => {
                 })
 
         .then(match => {
-            res.render('pages/match/details-edit', {
-                match: match,
-                allPlayers: allPlayers,
-                formMode: 'edit',
-                pageTitle: i18n.__('match.form.edit.pageTitle'),
-                btnLabel: i18n.__('match.form.edit.btnLabel'),
-                formAction: '/matches/edit',
-                validationErrors: [],
-                navLocation: 'match'
-            });
+
+            let canChange = authUtils.permitCorrectUser(req.session.loggedUser.id, match.idPlayer1);
+            if(!canChange){
+                canChange = authUtils.permitCorrectUser(req.session.loggedUser.id, match.idPlayer2);
+            }
+            if(canChange || req.session.loggedUser.level==2) {
+                res.render('pages/match/details-edit', {
+                    match: match,
+                    allPlayers: allPlayers,
+                    formMode: 'edit',
+                    pageTitle: i18n.__('match.form.edit.pageTitle'),
+                    btnLabel: i18n.__('match.form.edit.btnLabel'),
+                    formAction: '/matches/edit',
+                    validationErrors: [],
+                    navLocation: 'match'
+                });
+            }else{
+                res.redirect('/unauthorised');
+            }
         });
 }
 
@@ -76,10 +88,8 @@ exports.addMatch = (req, res, next) => {
     const matchData = { ...req.body };
     MatchRepository.createMatch(matchData)
         .then( result => {
-            res.redirect('/matches');
+            res.redirect('/matches?banner=add');
         }).catch(err => {
-
-
 
         let allPlayers;
         PlayerRepository.getPlayers()
@@ -110,7 +120,7 @@ exports.updateMatch = (req, res, next) => {
 
     MatchRepository.updateMatch(matchId, matchData)
         .then( result => {
-            res.redirect('/matches');
+            res.redirect('/matches?banner=update');
         }).catch(err => {
 
 
@@ -137,10 +147,20 @@ exports.updateMatch = (req, res, next) => {
 exports.deleteMatch = (req, res, next) => {
 
     const matchId = req.params.matchId;
-    MatchRepository.deleteMatch(matchId)
-        .then( () => {
-            res.redirect('/matches');
-        });
+    MatchRepository.getMatchById(matchId)
+        .then(match => {
+            let canChange = authUtils.permitCorrectUser(req.session.loggedUser.id, match.idPlayer1);
+            if(!canChange ){
+                canChange = authUtils.permitCorrectUser(req.session.loggedUser.id, match.idPlayer2);
+            }
+            if(canChange || req.session.loggedUser.level==2) {
 
+        MatchRepository.deleteMatch(matchId)
+            .then(() => {
+                res.redirect('/matches?banner=delete');
+            });
+    }else{
+        res.redirect('/unauthorised');
+    }});
 };
 

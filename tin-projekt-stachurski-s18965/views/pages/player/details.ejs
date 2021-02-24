@@ -36,9 +36,12 @@
 </form>
 
         <% if (formMode == 'showDetails') { %>
+            <% if(loggedUser && loggedUser.id== player.id || loggedUser.level==2) { %>
+
             <div class="section-buttons">
                 <a href="/players/edit/<%= player.id %>" class="button-add"><%= __('form.actions.edit') %></a>
             </div>
+            <% } %>
         <% } %>
 
         <% if (formMode == 'showDetails' || formMode == 'edit') { %>
@@ -63,10 +66,10 @@
 
                             <ul class="list-actions" >
                                 <li><a href="/matches/details/<%=m.id%>" class="list-actions-button-details"><%= __('list.actions.details')%></a></li>
-                                <% if(loggedUser) { %>
+                                <% if(loggedUser && (loggedUser.id== m.idPlayer1 || loggedUser.id== m.idPlayer2 || loggedUser.level==2)) { %>
                                 <li><a href="/matches/edit/<%=m.id%>" class="list-actions-button-edit"><%= __('list.actions.edit')%></a></li>
                                 <% } %>
-                                <% if(loggedUser) { %>
+                                <% if(loggedUser && (loggedUser.id== m.idPlayer1 || loggedUser.id== m.idPlayer2 || loggedUser.level==2)) { %>
                                 <li><a href="/matches/delete/<%=m.id%>" class="list-actions-button-delete"><%= __('list.actions.delete')%></a></li>
                                 <% } %>
                             </ul>
@@ -98,10 +101,10 @@
                 <td>
                     <ul class="list-actions">
                         <li><a href="/coaches/details/<%=coach.id%>" class="list-actions-button-details"><%= __('list.actions.details')%></a></li>
-                        <% if(loggedUser) { %>
+                        <% if(loggedUser && (loggedUser.id== coach.idPlayer || loggedUser.level==2)) { %>
                         <li><a href="/coaches/edit/<%=coach.id%>" class="list-actions-button-edit"><%= __('list.actions.edit')%></a></li>
                         <% } %>
-                        <% if(loggedUser) { %>
+                        <% if(loggedUser && (loggedUser.id== coach.idPlayer || loggedUser.level==2)) { %>
                         <li><a href="/coaches/delete/<%=coach.id%>" class="list-actions-button-delete"><%= __('list.actions.delete')%></a></li>
                         <% } %>
                     </ul>

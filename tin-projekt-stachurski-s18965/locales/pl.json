@@ -70,7 +70,10 @@
 					"text": "Pomyślnie zaktualizowano zawodnika"
 				}
 			}
-		}
+		},
+		"new": "Dodano gracza",
+		"delete": "Usunięto gracza",
+		"update": "Dokonano aktualizacji gracza"
 	},
 	"coach": {
 		"fields": {
@@ -104,7 +107,10 @@
 					"text": "Pomyślnie zaktualizowano trenera"
 				}
 			}
-		}
+		},
+		"new": "Dodano trenera",
+		"delete": "Usunięto trenera",
+		"update": "Dokonano aktualizacji trenera"
 	},
 	"match": {
 		"fields": {
@@ -142,7 +148,10 @@
 					"text": "Pomyślnie zaktualizowano mecz"
 				}
 			}
-		}
+		},
+		"new": "Dodano mecz",
+		"delete": "Usunięto mecz",
+		"update": "Dokonano aktualizacji meczu"
 	},
 	"validationMessage": {
 		"fieldRequired": "Pole jest wymagane",
@@ -168,5 +177,13 @@
 		"wrongScoreFormat": "Wynik powinien być podany jako np. 1,1,2",
 		"repeatPassword": "Hasła powinny byc takie same",
 		"wrongFormat": "Zły format"
+	},
+	"unauthorised": {
+		"title": "Nieupoważniony dostęp",
+		"details": "Próbujesz uzyskać zasób, do którego nie masz upoważnienia"
+	},
+	"error": {
+		"title": "Błąd",
+		"details": "Coś poszło nie tak"
 	}
 }

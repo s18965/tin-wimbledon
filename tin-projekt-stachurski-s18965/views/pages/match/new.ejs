@@ -172,7 +172,9 @@
 					}else{
 						winner.options[i].disabled=true;
 					}
-					//
+					if(winner.value!= rival.value && winner.value!=player.value){
+						winner.value="";
+					}
 				}
 			}
 		</script>

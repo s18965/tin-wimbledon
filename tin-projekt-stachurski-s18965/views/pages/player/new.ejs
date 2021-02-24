@@ -81,7 +81,7 @@
             <label for="password"><%= __('player.fields.password') %>:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="password"
                    class="<%= validationErrors.find(e => e.path.includes('password')) ? 'error-input' : '' %>"
-                   name="password" id="password" placeholder="2-100 <%= __('validationMessage.signs') %>" value="<%= player.password %>"
+                   name="password" id="password" placeholder="2-100 <%= __('validationMessage.signs') %>"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 
             <span id="errorPassword" class="errors-text">
@@ -93,7 +93,7 @@
             <label for="repeatPassword"><%= __('player.fields.repeatPassword') %>:<abbr title="required" aria-label="required">*</abbr></label>
             <input type="password"
                    class="<%= validationErrors.find(e => e.path.includes('repeatPassword')) ? 'error-input' : '' %>"
-                   name="repeatPassword" placeholder="2-100 <%= __('validationMessage.signs') %>" value="<%= player.password %>"
+                   name="repeatPassword" placeholder="2-100 <%= __('validationMessage.signs') %>"
                    id="repeatPassword"
                     <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
 

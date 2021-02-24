@@ -1,5 +1,16 @@
 <%- include('../../fragments/header.ejs') %>
-    <main>
+<div id="text-banner">
+	<% if(banner=="add") { %>
+		<div class="container"><h2><%= __('match.new')%></h2></div>
+	<% } %>
+	<% if(banner=="delete") { %>
+		<div class="container"><h2><%= __('match.delete')%></h2></div>
+	<% } %>
+	<% if(banner=="update") { %>
+		<div class="container"><h2><%= __('match.update')%></h2></div>
+	<% } %>
+</div>
+<main>
 		<h2><%= __('match.list.pageTitle')%></h2>
 	<table id="mecze" class="table-list">
     		<thead>
@@ -28,14 +39,14 @@
 								<img border="0" alt="details" src="../images/details.png" width="20" height="20">
 							</a>
 						</li>
-						<% if(loggedUser) { %>
+						<% if(loggedUser && (loggedUser.id== match.idPlayer1 || loggedUser.id== match.idPlayer2 || loggedUser.level==2)) { %>
 						<li>
 							<a href="/matches/edit/<%=match.id%>">
 								<img border="0" alt="details" src="../images/edit.png" width="20" height="20">
 							</a>
 						</li>
 						<% } %>
-						<% if(loggedUser) { %>
+						<% if(loggedUser && (loggedUser.id== match.idPlayer1 || loggedUser.id== match.idPlayer2 || loggedUser.level==2)) { %>
 						<li>
 							<a href="/matches/delete/<%=match.id%>">
 								<img border="0" alt="details" src="../images/delete.png" width="20" height="20">
